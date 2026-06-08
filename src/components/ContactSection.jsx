@@ -24,15 +24,6 @@ export default function ContactSection() {
     if (!emailRegex.test(formData.email)) {
       return "Please enter a valid email address.";
     }
-    // Block common free email providers to enforce "corporate" email
-    const freeProviders = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'];
-    const domain = formData.email.split('@')[1];
-    if (freeProviders.includes(domain?.toLowerCase())) {
-      return "Please use your corporate email address.";
-    }
-    if (formData.scope.length < 20) {
-      return "Please provide more detail about your project scope (min 20 chars).";
-    }
     return null;
   };
 
@@ -58,23 +49,23 @@ export default function ContactSection() {
       }
 
       Swal.fire({
-        title: 'Application Received',
-        text: 'Our technical director will review your scope and follow up within 24 hours.',
+        title: 'INQUIRY RECEIVED',
+        text: 'We will follow up within 24 hours.',
         icon: 'success',
-        background: '#0A0D14',
-        color: '#fff',
-        confirmButtonColor: '#00D4FF',
+        background: '#0a0a0a',
+        color: '#f5f5f7',
+        confirmButtonColor: '#d4af37',
       });
       
       setFormData({ name: '', email: '', scope: '', budget: '$10k - $25k' });
     } catch (err) {
       Swal.fire({
-        title: 'System Error',
-        text: 'We could not process your request at this time. Please email us directly.',
+        title: 'SYSTEM ERROR',
+        text: 'Please contact us directly.',
         icon: 'error',
-        background: '#0A0D14',
-        color: '#fff',
-        confirmButtonColor: '#7C3AED',
+        background: '#0a0a0a',
+        color: '#f5f5f7',
+        confirmButtonColor: '#d4af37',
       });
     } finally {
       setIsSubmitting(false);
@@ -82,116 +73,87 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-canvas relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-accent-primary/5 to-transparent pointer-events-none"></div>
-      
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
-        
-        {/* Left Side: Copy */}
-        <div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Ready to Build Your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-secondary">Core Advantage?</span>
-          </h2>
-          <p className="text-gray-400 text-lg mb-8 max-w-md">
-            We operate as a fractional CTO and dedicated engineering team for high-growth companies. 
-            Tell us about your architectural bottlenecks.
-          </p>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                <span className="text-accent-primary">🛡️</span>
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-white">Signed NDA</div>
-                <div className="text-xs text-gray-500">Confidentiality guaranteed</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                <span className="text-accent-secondary">⚡</span>
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-white">Rapid Discovery</div>
-                <div className="text-xs text-gray-500">Architecture mapped in 48 hours</div>
-              </div>
+    <section id="contact" className="py-64 bg-canvas px-6 lg:px-20 overflow-hidden">
+      <div className="max-w-[1400px] w-full mx-auto">
+        <h2 className="text-massive font-sans font-bold mb-32 tracking-tighter">
+          CONTACT
+        </h2>
+
+        <div className="grid lg:grid-cols-2 gap-32">
+          <div>
+            <p className="text-4xl lg:text-6xl font-sans font-light text-content-secondary leading-tight mb-12">
+              Ready to build something <span className="text-content-primary italic">extraordinary</span>?
+            </p>
+            <div className="flex flex-col gap-6 text-xl text-content-secondary">
+              <span className="flex items-center gap-4">
+                <span className="w-2 h-2 bg-content-accent rounded-full" />
+                GLOBAL AVAILABILITY
+              </span>
+              <span className="flex items-center gap-4">
+                <span className="w-2 h-2 bg-content-accent rounded-full" />
+                ENTERPRISE GRADE
+              </span>
             </div>
           </div>
-        </div>
 
-        {/* Right Side: Form */}
-        <div className="bg-canvas-light/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Name</label>
-                <input 
-                  type="text" 
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full bg-canvas border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-primary transition-colors"
-                  placeholder="Jane Doe"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Corporate Email</label>
-                <input 
-                  type="email" 
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full bg-canvas border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-primary transition-colors"
-                  placeholder="jane@company.com"
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-12">
+            <div className="group relative">
+              <input 
+                type="text" 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="YOUR NAME"
+                className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+              />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Project Scope & Bottlenecks</label>
+            <div className="group relative">
+              <input 
+                type="email" 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="YOUR EMAIL"
+                className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+              />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+            </div>
+
+            <div className="group relative">
               <textarea 
                 name="scope"
                 value={formData.scope}
                 onChange={handleChange}
-                rows="4"
-                className="w-full bg-canvas border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-primary transition-colors resize-none"
-                placeholder="We need to migrate off our legacy monolithic CRM and build a scalable API layer..."
-              ></textarea>
+                placeholder="PROJECT DESCRIPTION"
+                rows="3"
+                className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
+              />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Estimated Budget Tier</label>
-              <select 
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                className="w-full bg-canvas border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-primary transition-colors appearance-none"
+            {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
+
+            <div className="mt-8">
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="group relative inline-flex items-center justify-center px-16 py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent"
               >
-                <option value="$10k - $25k">$10k - $25k (MVP / Tooling)</option>
-                <option value="$25k - $50k">$25k - $50k (Core Platform)</option>
-                <option value="$50k+">$50k+ (Enterprise Infrastructure)</option>
-              </select>
+                <span className={`relative z-10 text-2xl font-bold tracking-widest ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                  SEND INQUIRY
+                </span>
+                {isSubmitting && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 border-4 border-content-accent/30 border-t-content-accent rounded-full animate-spin" />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+              </button>
             </div>
-
-            {error && <div className="text-red-400 text-sm">{error}</div>}
-
-            <button 
-              type="submit" 
-              disabled={isSubmitting}
-              className="w-full py-4 rounded-xl text-canvas font-bold bg-accent-primary hover:bg-white transition-colors flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? (
-                <>
-                  <svg className="animate-spin h-5 w-5 text-canvas" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : "Submit Project Scope"}
-            </button>
           </form>
         </div>
-
       </div>
     </section>
   );
