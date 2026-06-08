@@ -1,4 +1,11 @@
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet-async';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import ValueSection from './components/ValueSection';
+import ServicesSection from './components/ServicesSection';
+import ProjectGrid from './components/ProjectGrid';
+import ContactSection from './components/ContactSection';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -8,16 +15,19 @@ function App() {
         <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business — without the SaaS tax." />
       </Helmet>
       
-      <main className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-accent-primary mb-4">
-          Agency Portfolio initialized
-        </h1>
-        <p className="text-gray-400">
-          Tailwind, Vite, React Helmet, and dependencies are ready.
-        </p>
+      <Header />
+      
+      <main>
+        <Hero />
+        <ValueSection />
+        <ServicesSection />
+        <ProjectGrid />
+        <ContactSection />
       </main>
+      
+      <Footer />
     </>
   )
 }
 
-export default App
+export default App;
