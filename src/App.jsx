@@ -4,6 +4,8 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import ErrorBoundary from './components/ErrorBoundary';
 import NotFound from './components/NotFound';
+import SmoothScroll from './components/SmoothScroll';
+import CustomCursor from './components/CustomCursor';
 
 // Lazy load below-the-fold components (Phase 8E.1)
 const ValueSection = React.lazy(() => import('./components/ValueSection'));
@@ -77,7 +79,8 @@ function App() {
   };
 
   return (
-    <>
+    <SmoothScroll>
+      <CustomCursor />
       <Helmet>
         {/* Phase 7E.2: Meta Tags */}
         <title>Custom Full-Stack Development Agency | USA, UK, AU</title>
@@ -137,7 +140,7 @@ function App() {
           <Footer />
         </Suspense>
       </ErrorBoundary>
-    </>
+    </SmoothScroll>
   );
 }
 
