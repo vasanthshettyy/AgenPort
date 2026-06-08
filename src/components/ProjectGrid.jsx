@@ -23,7 +23,7 @@ const ProjectGrid = () => {
           trigger: item,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true,
+          scrub: 1.5,
         }
       });
 

@@ -9,25 +9,25 @@ const Hero = () => {
   const ctaRef = useRef();
 
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
     // Split text effect could be done here, but for simplicity we'll animate lines
     tl.from('.hero-title-line', {
       y: 100,
       opacity: 0,
-      duration: 1.5,
-      stagger: 0.2,
+      duration: 2,
+      stagger: 0.3,
     })
     .from(subRef.current, {
       x: -50,
       opacity: 0,
-      duration: 1,
-    }, '-=1')
+      duration: 1.5,
+    }, '-=1.5')
     .from(ctaRef.current, {
       y: 50,
       opacity: 0,
-      duration: 1,
-    }, '-=0.8');
+      duration: 1.5,
+    }, '-=1.2');
 
     // Subtle parallax on mouse move for the container
     const onMouseMove = (e) => {

@@ -22,8 +22,8 @@ export default {
         sans: ['Inter', 'Outfit', 'Space Grotesk', 'sans-serif'],
       },
       fontSize: {
-        'massive': ['clamp(4rem, 15vw, 12rem)', { lineHeight: '0.9', letterSpacing: '-0.05em' }],
-        'giant': ['clamp(3rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em' }],
+        'massive': ['clamp(3rem, 8vw, 8rem)', { lineHeight: '0.9', letterSpacing: '-0.05em' }],
+        'giant': ['clamp(2rem, 5vw, 5rem)', { lineHeight: '1', letterSpacing: '-0.04em' }],
       },
       spacing: {
         '128': '32rem',

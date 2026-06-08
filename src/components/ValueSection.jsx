@@ -40,7 +40,7 @@ const ValueSection = () => {
         start: 'top top',
         pin: true,
         pinSpacing: false,
-        scrub: true,
+        scrub: 1.5,
       });
 
       const inner = section.querySelector('.value-inner');
@@ -52,7 +52,7 @@ const ValueSection = () => {
             trigger: section,
             start: 'top top',
             end: 'bottom top',
-            scrub: true,
+            scrub: 1.5,
           }
         });
       }
@@ -80,7 +80,7 @@ const ValueSection = () => {
             </div>
             
             <div className="flex flex-col items-end">
-              <span className="text-[12rem] lg:text-[20rem] font-sans font-bold leading-none tracking-tighter text-content-primary/5 select-none">
+              <span className="text-[8rem] lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-primary/5 select-none">
                 {v.stat}
               </span>
             </div>
