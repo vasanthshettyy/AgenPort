@@ -7,7 +7,7 @@ import './index.css'
 
 // Phase 8E.8: Respect prefers-reduced-motion
 if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  anime.speed = 0;
+  anime.speed = 100; // Instantly complete animations instead of freezing at opacity: 0
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
