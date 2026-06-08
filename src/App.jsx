@@ -1,33 +1,144 @@
+import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import ValueSection from './components/ValueSection';
-import ServicesSection from './components/ServicesSection';
-import ProjectGrid from './components/ProjectGrid';
-import ContactSection from './components/ContactSection';
-import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
+import NotFound from './components/NotFound';
+
+// Lazy load below-the-fold components (Phase 8E.1)
+const ValueSection = React.lazy(() => import('./components/ValueSection'));
+const ServicesSection = React.lazy(() => import('./components/ServicesSection'));
+const ProjectGrid = React.lazy(() => import('./components/ProjectGrid'));
+const ContactSection = React.lazy(() => import('./components/ContactSection'));
+const Footer = React.lazy(() => import('./components/Footer'));
+
+const SkeletonLoader = () => (
+  <div className="w-full h-96 bg-canvas flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-accent-primary/30 border-t-accent-primary rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const onLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', onLocationChange);
+    return () => window.removeEventListener('popstate', onLocationChange);
+  }, []);
+
+  // Simple Native Router
+  if (currentPath !== '/' && currentPath !== '/index.html') {
+    return <NotFound />;
+  }
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Custom Full-Stack Development Agency",
+        "url": "https://www.youragency.com",
+        "logo": "https://www.youragency.com/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "hello@youragency.com",
+          "contactType": "customer service"
+        },
+        "sameAs": [
+          "https://github.com/youragency",
+          "https://linkedin.com/company/youragency"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the typical timeline for a custom core application?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most MVPs are launched within 8-12 weeks, while full enterprise infrastructures typically require 4-6 months depending on integration complexity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do we own the intellectual property?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100%. Upon completion and final payment, the entire codebase and database schema are transferred directly to your control."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <>
       <Helmet>
+        {/* Phase 7E.2: Meta Tags */}
         <title>Custom Full-Stack Development Agency | USA, UK, AU</title>
         <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business — without the SaaS tax." />
+        <link rel="canonical" href="https://www.youragency.com/" />
+        
+        {/* Phase 7E.4: Open Graph */}
+        <meta property="og:title" content="Custom Full-Stack Development Agency | USA, UK, AU" />
+        <meta property="og:description" content="Premium custom software systems for high-ticket international B2B clients." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.youragency.com/" />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Phase 7E.5: Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Custom Full-Stack Development Agency" />
+        <meta name="twitter:description" content="Premium custom software systems for high-ticket international B2B clients." />
+
+        {/* Phase 7E.3: JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
       
       <Header />
       
       <main>
         <Hero />
-        <ValueSection />
-        <ServicesSection />
-        <ProjectGrid />
-        <ContactSection />
+        
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <ValueSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <ServicesSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <ProjectGrid />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <ContactSection />
+          </Suspense>
+        </ErrorBoundary>
       </main>
       
-      <Footer />
+      <ErrorBoundary>
+        <Suspense fallback={<SkeletonLoader />}>
+          <Footer />
+        </Suspense>
+      </ErrorBoundary>
     </>
-  )
+  );
 }
 
 export default App;
