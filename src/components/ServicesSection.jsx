@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import anime from 'animejs';
+import anime from 'animejs/lib/anime.es.js';
 import { createPopper } from '@popperjs/core';
 import { services } from '../data/services';
 import { techStack } from '../data/techStack';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPopper } from '@popperjs/core';
-import anime from 'animejs';
+import anime from 'animejs/lib/anime.es.js';
 import { navigation, servicesDropdown } from '../data/navigation';
 
 export default function Header() {
