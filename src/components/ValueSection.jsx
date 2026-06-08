@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -43,16 +43,19 @@ const ValueSection = () => {
         scrub: true,
       });
 
-      gsap.to(section, {
-        opacity: 0.5,
-        scale: 0.9,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        }
-      });
+      const inner = section.querySelector('.value-inner');
+      if (inner) {
+        gsap.to(inner, {
+          opacity: 0.5,
+          scale: 0.9,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          }
+        });
+      }
     });
   }, { scope: container });
 
@@ -63,7 +66,7 @@ const ValueSection = () => {
           key={i} 
           className="value-item h-screen flex flex-col justify-center px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border"
         >
-          <div className="max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-20 items-end">
+          <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-20 items-end">
             <div className="flex flex-col gap-8">
               <span className="text-content-accent font-sans text-2xl font-bold tracking-tighter">
                 {v.number} /

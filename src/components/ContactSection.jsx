@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 export default function ContactSection() {
@@ -58,7 +58,7 @@ export default function ContactSection() {
       });
       
       setFormData({ name: '', email: '', scope: '', budget: '$10k - $25k' });
-    } catch (err) {
+    } catch (_err) {
       Swal.fire({
         title: 'SYSTEM ERROR',
         text: 'Please contact us directly.',
@@ -141,7 +141,7 @@ export default function ContactSection() {
                 disabled={isSubmitting}
                 className="group relative inline-flex items-center justify-center px-16 py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent"
               >
-                <span className={`relative z-10 text-2xl font-bold tracking-widest ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`relative z-10 text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-500 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                   SEND INQUIRY
                 </span>
                 {isSubmitting && (

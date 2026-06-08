@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -60,9 +60,15 @@ const Hero = () => {
           ref={titleRef}
           className="text-massive font-sans font-bold flex flex-col"
         >
-          <span className="hero-title-line overflow-hidden">WE BUILD THE</span>
-          <span className="hero-title-line overflow-hidden italic text-content-accent">SYSTEMS</span>
-          <span className="hero-title-line overflow-hidden">THAT SCALE.</span>
+          <div className="overflow-hidden">
+            <span className="hero-title-line block">WE BUILD THE</span>
+          </div>
+          <div className="overflow-hidden">
+            <span className="hero-title-line block italic text-content-accent">SYSTEMS</span>
+          </div>
+          <div className="overflow-hidden">
+            <span className="hero-title-line block">THAT SCALE.</span>
+          </div>
         </h1>
 
         <div className="mt-12 lg:mt-24 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12">

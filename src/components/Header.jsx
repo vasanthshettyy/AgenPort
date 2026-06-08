@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { navigation } from '../data/navigation';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';

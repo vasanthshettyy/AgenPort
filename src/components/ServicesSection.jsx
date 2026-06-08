@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { services } from '../data/services';
-import gsap from 'gsap';
 
 const ServicesSection = () => {
   const [active, setActive] = useState(0);

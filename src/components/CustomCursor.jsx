@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 const CustomCursor = () => {
@@ -8,6 +8,8 @@ const CustomCursor = () => {
   useEffect(() => {
     const cursor = cursorRef.current;
     const follower = followerRef.current;
+
+    gsap.set([cursor, follower], { xPercent: -50, yPercent: -50 });
 
     const onMouseMove = (e) => {
       const { clientX, clientY } = e;
@@ -61,12 +63,10 @@ const CustomCursor = () => {
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 w-2 h-2 bg-content-accent rounded-full pointer-events-none z-[9999] opacity-0 mix-blend-difference"
-        style={{ transform: 'translate(-50%, -50%)' }}
       />
       <div
         ref={followerRef}
         className="fixed top-0 left-0 w-10 h-10 border border-content-accent rounded-full pointer-events-none z-[9998] opacity-0 mix-blend-difference"
-        style={{ transform: 'translate(-50%, -50%)' }}
       />
     </>
   );
