@@ -104,7 +104,7 @@ const Hero = () => {
 
           <div className="reveal-sub mt-16 max-w-xl">
             <p className="text-2xl lg:text-3xl text-content-secondary font-sans font-light leading-tight">
-              Stop losing customers to an outdated website. I build premium, fast-loading sites for real estate agents and clinics that turn visitors into paying customers.
+              Stop losing customers to an outdated website. I build premium, fast-loading sites for service-based businesses that turn visitors into paying clients.
             </p>
             
             <div className="mt-12 flex gap-8">

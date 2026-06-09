@@ -6,7 +6,7 @@ export const services = [
   },
   {
     title: "Custom Booking Systems",
-    description: "Get patients and clients to book appointments online automatically, saving your front desk hours of phone calls.",
+    description: "Get clients to book appointments online automatically, saving you hours of phone calls.",
     features: ["Automated Scheduling", "Calendar Syncing", "SMS Reminders"]
   },
   {
