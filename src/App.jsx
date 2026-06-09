@@ -6,6 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import NotFound from './components/NotFound';
 import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
+import ScrollProgress from './components/ScrollProgress';
 
 // Lazy load below-the-fold components (Phase 8E.1)
 const ValueSection = React.lazy(() => import('./components/ValueSection'));
@@ -81,6 +82,7 @@ function App() {
   return (
     <SmoothScroll>
       <CustomCursor />
+      <ScrollProgress />
       <Helmet>
         {/* Phase 7E.2: Meta Tags */}
         <title>Custom Full-Stack Development Agency | USA, UK, AU</title>
