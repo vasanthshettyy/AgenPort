@@ -9,7 +9,7 @@ const ServicesSection = () => {
   };
 
   return (
-    <section className="py-64 px-6 lg:px-20 bg-canvas overflow-hidden">
+    <section id="services" className="py-64 px-6 lg:px-20 bg-canvas overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         <h2 className="text-massive font-sans font-bold mb-32 tracking-tighter">
           SERVICES

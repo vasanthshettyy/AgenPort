@@ -41,7 +41,7 @@ const ProjectGrid = () => {
   }, { scope: container });
 
   return (
-    <section ref={container} className="py-64 bg-canvas px-6 lg:px-20 overflow-hidden">
+    <section id="work" ref={container} className="py-64 bg-canvas px-6 lg:px-20 overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         <h2 className="text-massive font-sans font-bold mb-64 tracking-tighter">
           PROJECTS

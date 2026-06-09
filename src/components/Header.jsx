@@ -47,6 +47,11 @@ export default function Header() {
             <a 
               key={item.name} 
               href={item.href} 
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.querySelector(item.href);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="text-xs font-bold uppercase tracking-widest text-content-secondary hover:text-content-accent transition-colors duration-300"
             >
               {item.name}
@@ -56,10 +61,18 @@ export default function Header() {
 
         {/* CTA */}
         <div className="group relative">
-          <button className="text-xs font-bold uppercase tracking-widest px-8 py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative">
-            <span className="relative z-10 group-hover:text-canvas transition-colors duration-500">BOOK CALL</span>
+          <a 
+            href="#contact" 
+            onClick={(e) => {
+              e.preventDefault();
+              const target = document.querySelector('#contact');
+              if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="inline-block text-xs font-bold uppercase tracking-widest px-8 py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
+          >
+            <span className="relative z-10 group-hover:text-canvas transition-colors duration-500">CONTACT</span>
             <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </a>
         </div>
       </div>
     </header>

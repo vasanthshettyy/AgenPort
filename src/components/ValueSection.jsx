@@ -60,7 +60,7 @@ const ValueSection = () => {
   }, { scope: container });
 
   return (
-    <section ref={container} className="bg-canvas">
+    <section id="process" ref={container} className="bg-canvas">
       {values.map((v, i) => (
         <div 
           key={i} 
