@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import me from '../assets/hero.png';
+import me from '../assets/vasanth.png';
 
 const Hero = () => {
   const container = useRef();
@@ -63,14 +63,14 @@ const Hero = () => {
       ref={container} 
       className="relative min-h-screen flex flex-col justify-center px-4 lg:px-10 py-32 lg:py-48 overflow-hidden bg-canvas"
     >
-      {/* Right Side: Black Void + Light Bloom + Image */}
-      <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full -z-10 bg-canvas overflow-hidden flex items-center justify-center">
+      {/* Right Side: Light Bloom + Image */}
+      <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 flex items-center justify-center pointer-events-none">
         <div className="hero-bloom absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-content-neon/10 rounded-full blur-[120px]" />
 
-        <div className="hero-image-wrap relative w-[80%] aspect-[3/4] max-h-[70vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group border border-white/5">
+        <div className="hero-image-wrap relative w-[80%] aspect-[3/4] max-h-[70vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group border border-white/5 pointer-events-auto">
           <img 
             src={me} 
-            alt="Profile" 
+            alt="Vasanth Shetty" 
             className="hero-image w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-expo"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-transparent opacity-60" />

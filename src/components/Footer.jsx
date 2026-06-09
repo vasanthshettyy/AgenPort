@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid lg:grid-cols-2 gap-20 items-end mb-32">
           <div>
             <h2 className="text-massive font-sans font-bold tracking-tighter mb-12">
-              AGENCY
+              VASANTH SHETTY
             </h2>
             <p className="text-2xl lg:text-3xl text-content-secondary font-light max-w-xl">
               Engineering the systems that power the next generation of enterprise.
@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col lg:flex-row justify-between items-center gap-8 pt-12 border-t border-canvas-border text-[10px] font-bold tracking-[0.2em] text-content-secondary/30 uppercase">
-          <span>&copy; {currentYear} AGENCY ENGINEERING LTD.</span>
+          <span>&copy; {currentYear} VASANTH SHETTY.</span>
           <div className="flex gap-12">
             <a href="#" className="hover:text-content-primary transition-colors">PRIVACY POLICY</a>
             <a href="#" className="hover:text-content-primary transition-colors">TERMS OF SERVICE</a>
