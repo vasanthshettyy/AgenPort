@@ -4,7 +4,9 @@ import Swal from 'sweetalert2';
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
-    email: ''
+    email: '',
+    businessName: '',
+    goal: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -16,8 +18,8 @@ export default function ContactSection() {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.name || !formData.email) {
-      return "Both Name and Email are required.";
+    if (!formData.name || !formData.email || !formData.businessName || !formData.goal) {
+      return "All fields are required.";
     }
     if (!emailRegex.test(formData.email)) {
       return "Please enter a valid email address.";
@@ -40,7 +42,12 @@ export default function ContactSection() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: formData.name, email: formData.email })
+        body: JSON.stringify({ 
+          name: formData.name, 
+          email: formData.email,
+          businessName: formData.businessName,
+          goal: formData.goal 
+        })
       });
 
       if (!response.ok) {
@@ -56,7 +63,7 @@ export default function ContactSection() {
         confirmButtonColor: '#d4af37',
       });
       
-      setFormData({ name: '', email: '' });
+      setFormData({ name: '', email: '', businessName: '', goal: '' });
     } catch (_err) {
       Swal.fire({
         title: 'SYSTEM ERROR',
@@ -74,14 +81,14 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-64 bg-canvas px-6 lg:px-20 overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
-        <h2 className="text-massive font-sans font-bold mb-32 tracking-tighter">
-          CONTACT
+        <h2 className="text-massive font-sans font-bold mb-32 tracking-tighter uppercase">
+          Let's Grow Your Business.
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-32">
           <div>
             <p className="text-4xl lg:text-6xl font-sans font-light text-content-secondary leading-tight mb-12">
-              Ready to build something <span className="text-content-primary italic">extraordinary</span>?
+              Ready to get more <span className="text-content-primary italic">clients</span>?
             </p>
             <div className="flex flex-col gap-6 text-xl text-content-secondary">
               <span className="flex items-center gap-4">
@@ -120,6 +127,33 @@ export default function ContactSection() {
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
+            <div className="group relative">
+              <input 
+                type="text" 
+                name="businessName"
+                value={formData.businessName}
+                onChange={handleChange}
+                placeholder="BUSINESS NAME"
+                className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+              />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+            </div>
+
+            <div className="group relative">
+              <select 
+                name="goal"
+                value={formData.goal}
+                onChange={handleChange}
+                className={`w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none transition-all focus:border-content-accent appearance-none cursor-pointer ${formData.goal === '' ? 'text-content-secondary/20' : 'text-content-primary'}`}
+              >
+                <option value="" disabled className="text-content-primary bg-canvas">WHAT IS YOUR MAIN GOAL?</option>
+                <option value="Get more leads" className="text-content-primary bg-canvas">Get more leads</option>
+                <option value="Sell products" className="text-content-primary bg-canvas">Sell products</option>
+                <option value="Look more professional" className="text-content-primary bg-canvas">Look more professional</option>
+              </select>
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+            </div>
+
 
 
             {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
@@ -131,7 +165,7 @@ export default function ContactSection() {
                 className="group relative inline-flex items-center justify-center px-16 py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent"
               >
                 <span className={`relative z-10 text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-500 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                  SEND INQUIRY
+                  REQUEST A FREE WEBSITE REVIEW
                 </span>
                 {isSubmitting && (
                   <div className="absolute inset-0 flex items-center justify-center">

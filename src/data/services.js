@@ -1,17 +1,17 @@
 export const services = [
   {
-    title: "Custom Core Applications",
-    description: "Full-stack web applications, SaaS MVPs, and robust client-facing portals engineered for high traffic and complex business logic.",
-    features: ["React / Next.js Frontends", "Scalable Microservices", "Custom Authentication"]
+    title: "Lead Generation Websites",
+    description: "Websites designed specifically to capture emails and phone numbers so you can turn visitors into paying clients.",
+    features: ["Email Capture Forms", "Click-To-Call Buttons", "Mobile Friendly"]
   },
   {
-    title: "Internal Enterprise Tools",
-    description: "Admin dashboards, internal operations platforms, and data management systems that eliminate manual workflows and save hundreds of hours.",
-    features: ["Role-Based Access Control", "Complex Data Grids", "Automated Reporting"]
+    title: "Custom Booking Systems",
+    description: "Get patients and clients to book appointments online automatically, saving your front desk hours of phone calls.",
+    features: ["Automated Scheduling", "Calendar Syncing", "SMS Reminders"]
   },
   {
-    title: "Automated Integration Infrastructures",
-    description: "API orchestration, webhook pipelines, and secure third-party integration architectures connecting your disparate software tools.",
-    features: ["Stripe / Twilio / SendGrid", "Legacy System Bridges", "Error Retry Logic"]
+    title: "Website Redesigns",
+    description: "Take an old, ugly site and make it look like a premium brand. Stand out from your competitors and look like the obvious choice.",
+    features: ["Modern Design", "Fast Loading Speeds", "SEO Optimized"]
   }
 ];

@@ -22,9 +22,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email } = req.body;
+    const { name, email, businessName, goal } = req.body;
 
-    if (!name || !email) {
+    if (!name || !email || !businessName || !goal) {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
@@ -38,6 +38,8 @@ export default async function handler(req, res) {
     const formDataObj = new URLSearchParams();
     formDataObj.append('Name', name);
     formDataObj.append('Email', email);
+    formDataObj.append('Business Name', businessName);
+    formDataObj.append('Goal', goal);
 
     const sheetResponse = await fetch(GOOGLE_SHEETS_URL, {
       method: 'POST',

@@ -92,27 +92,27 @@ const Hero = () => {
 
           <h1 className="text-[clamp(2.5rem,5.2vw,6rem)] leading-[0.9] tracking-[-0.04em] font-display font-extrabold flex flex-col w-full">
             <div className="overflow-y-hidden">
-              <span className="reveal-line block whitespace-nowrap">I ENGINEER</span>
+              <span className="reveal-line block whitespace-nowrap">I BUILD</span>
             </div>
             <div className="overflow-y-hidden">
-              <span className="reveal-line block italic text-content-secondary whitespace-nowrap">DIGITAL</span>
+              <span className="reveal-line block italic text-content-secondary whitespace-nowrap">WEBSITES THAT GET YOU</span>
             </div>
             <div className="overflow-y-hidden">
-              <span className="reveal-line block whitespace-nowrap">STRUCTURES.</span>
+              <span className="reveal-line block whitespace-nowrap">MORE CLIENTS.</span>
             </div>
           </h1>
 
           <div className="reveal-sub mt-16 max-w-xl">
             <p className="text-2xl lg:text-3xl text-content-secondary font-sans font-light leading-tight">
-              High-performance full-stack architecture for founders who demand technical excellence and complete data ownership.
+              Stop losing customers to an outdated website. I build premium, fast-loading sites for real estate agents and clinics that turn visitors into paying customers.
             </p>
             
             <div className="mt-12 flex gap-8">
               <button className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500">
-                VIEW ARCHITECTURE
+                MY WORK
               </button>
               <button className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500">
-                MY THESIS
+                WHY ME
               </button>
             </div>
           </div>
