@@ -28,7 +28,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
-    const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL || 'https://script.google.com/macros/s/AKfycbzDhookgGYOJlQfHb-nYNErzoo5dm3ZG3J7Mjg4BuHgLKythUvu0TxEGQH3D-vHV7Q/exec';
+    const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
+
+    if (!GOOGLE_SHEETS_URL) {
+      console.error("Missing GOOGLE_SHEETS_URL environment variable");
+      return res.status(500).json({ error: "Server configuration error" });
+    }
 
     const formDataObj = new URLSearchParams();
     formDataObj.append('Name', name);
