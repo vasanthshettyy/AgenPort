@@ -22,18 +22,26 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, scope, budget } = req.body;
+    const { name, email } = req.body;
 
-    if (!name || !email || !scope || !budget) {
+    if (!name || !email) {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
-    // In a real implementation, we would route this to SendGrid or Notion
-    // based on process.env.LEAD_STORAGE_MODE
-    console.log("Lead received:", { name, email, scope, budget });
-    
-    // Simulate async processing
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL || 'https://script.google.com/macros/s/AKfycbzDhookgGYOJlQfHb-nYNErzoo5dm3ZG3J7Mjg4BuHgLKythUvu0TxEGQH3D-vHV7Q/exec';
+
+    const formDataObj = new URLSearchParams();
+    formDataObj.append('Name', name);
+    formDataObj.append('Email', email);
+
+    const sheetResponse = await fetch(GOOGLE_SHEETS_URL, {
+      method: 'POST',
+      body: formDataObj
+    });
+
+    if (!sheetResponse.ok) {
+      throw new Error('Failed to forward to Google Sheets');
+    }
 
     return res.status(200).json({ success: true, message: "Lead captured successfully." });
   } catch (error) {

@@ -36,25 +36,15 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Paste your Google Web App URL here later!
-      const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzDhookgGYOJlQfHb-nYNErzoo5dm3ZG3J7Mjg4BuHgLKythUvu0TxEGQH3D-vHV7Q/exec'; 
+      // Send data to our secure Vercel Serverless backend
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formData.name, email: formData.email })
+      });
 
-      if (!GOOGLE_SHEETS_URL) {
-        // Simulate a successful delay if URL is not yet added
-        await new Promise(r => setTimeout(r, 1500));
-      } else {
-        const formDataObj = new URLSearchParams();
-        formDataObj.append('Name', formData.name);
-        formDataObj.append('Email', formData.email);
-
-        const response = await fetch(GOOGLE_SHEETS_URL, {
-          method: 'POST',
-          body: formDataObj
-        });
-
-        if (!response.ok) {
-          throw new Error('Server returned an error');
-        }
+      if (!response.ok) {
+        throw new Error('Server returned an error');
       }
 
       Swal.fire({
