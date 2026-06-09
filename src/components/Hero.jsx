@@ -1,44 +1,55 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import me from '../assets/hero.png';
 
 const Hero = () => {
   const container = useRef();
-  const titleRef = useRef();
-  const subRef = useRef();
-  const ctaRef = useRef();
-
+  
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 2 } });
 
-    // Split text effect could be done here, but for simplicity we'll animate lines
-    tl.from('.hero-title-line', {
-      y: 100,
+    // Skew-up kinetic reveal
+    tl.from('.reveal-line', {
+      y: '150%',
+      skewY: 10,
+      stagger: 0.15,
       opacity: 0,
-      duration: 2,
-      stagger: 0.3,
     })
-    .from(subRef.current, {
-      x: -50,
+    .from('.reveal-sub', {
       opacity: 0,
+      y: 20,
       duration: 1.5,
     }, '-=1.5')
-    .from(ctaRef.current, {
-      y: 50,
+    .from('.reveal-badge', {
+      scale: 0,
       opacity: 0,
-      duration: 1.5,
-    }, '-=1.2');
+      duration: 1,
+      ease: 'back.out(1.7)',
+    }, '-=1')
+    .from('.hero-image-wrap', {
+      opacity: 0,
+      x: 50,
+      duration: 2,
+    }, '-=1.8');
 
-    // Subtle parallax on mouse move for the container
+    // Light bloom mouse parallax
     const onMouseMove = (e) => {
       const { clientX, clientY } = e;
-      const xPos = (clientX / window.innerWidth - 0.5) * 20;
-      const yPos = (clientY / window.innerHeight - 0.5) * 20;
+      const xPos = (clientX / window.innerWidth - 0.5) * 40;
+      const yPos = (clientY / window.innerHeight - 0.5) * 40;
       
-      gsap.to('.hero-parallax', {
+      gsap.to('.hero-bloom', {
         x: xPos,
         y: yPos,
-        duration: 1,
+        duration: 2,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.hero-image', {
+        x: xPos / 2,
+        y: yPos / 2,
+        duration: 2,
         ease: 'power2.out',
       });
     };
@@ -50,51 +61,68 @@ const Hero = () => {
   return (
     <section 
       ref={container} 
-      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-20 pt-32 pb-40 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-4 lg:px-10 py-32 lg:py-48 overflow-hidden bg-canvas"
     >
-      {/* Background Decorative Element */}
-      <div className="absolute top-1/4 right-0 w-128 h-128 bg-content-accent/5 rounded-full blur-3xl -z-10 hero-parallax" />
+      {/* Right Side: Black Void + Light Bloom + Image */}
+      <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full -z-10 bg-canvas overflow-hidden flex items-center justify-center">
+        <div className="hero-bloom absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-content-neon/10 rounded-full blur-[120px]" />
 
-      <div className="max-w-[1400px] w-full mx-auto">
-        <h1 
-          ref={titleRef}
-          className="text-massive font-sans font-bold flex flex-col"
-        >
-          <div className="overflow-hidden">
-            <span className="hero-title-line block">WE BUILD THE</span>
-          </div>
-          <div className="overflow-hidden">
-            <span className="hero-title-line block italic text-content-accent">SYSTEMS</span>
-          </div>
-          <div className="overflow-hidden">
-            <span className="hero-title-line block">THAT SCALE.</span>
-          </div>
-        </h1>
-
-        <div className="mt-12 lg:mt-24 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12">
-          <p 
-            ref={subRef}
-            className="text-giant max-w-2xl text-content-secondary font-sans font-light leading-tight"
-          >
-            Award-winning infrastructure for high-ticket B2B enterprise.
-          </p>
-
-          <div ref={ctaRef} className="relative group">
-            <button className="text-2xl lg:text-3xl font-sans font-medium px-12 py-6 border border-content-border rounded-full hover:bg-content-primary hover:text-canvas transition-colors duration-500 overflow-hidden relative">
-              <span className="relative z-10">WORK WITH US</span>
-              <div className="absolute inset-0 bg-content-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-            </button>
-          </div>
+        <div className="hero-image-wrap relative w-[80%] aspect-[3/4] max-h-[70vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group border border-white/5">
+          <img 
+            src={me} 
+            alt="Profile" 
+            className="hero-image w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-expo"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-transparent opacity-60" />
         </div>
       </div>
 
-      {/* Asymmetrical footer-like element within hero */}
-      <div className="absolute bottom-20 left-6 lg:left-20 flex gap-8 text-content-secondary opacity-50 font-sans tracking-widest text-xs uppercase">
-        <span>STRATEGY</span>
-        <span>/</span>
-        <span>DESIGN</span>
-        <span>/</span>
-        <span>ENGINEERING</span>
+      <div className="w-full flex flex-col justify-center relative z-10 h-full">
+        <div className="flex flex-col items-start min-w-0 w-full">
+          {/* Animated Badge */}
+          <div className="reveal-badge flex items-center gap-3 px-4 py-2 bg-content-neon/5 border border-content-neon/20 rounded-full mb-12">
+            <div className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-content-neon opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-content-neon"></span>
+            </div>
+            <span className="text-[10px] font-bold tracking-[0.2em] text-content-neon uppercase">
+              Available for International Projects
+            </span>
+          </div>
+
+          <h1 className="text-[clamp(2.5rem,5.2vw,6rem)] leading-[0.9] tracking-[-0.04em] font-display font-extrabold flex flex-col w-full">
+            <div className="overflow-y-hidden">
+              <span className="reveal-line block whitespace-nowrap">I ENGINEER</span>
+            </div>
+            <div className="overflow-y-hidden">
+              <span className="reveal-line block italic text-content-secondary whitespace-nowrap">DIGITAL</span>
+            </div>
+            <div className="overflow-y-hidden">
+              <span className="reveal-line block whitespace-nowrap">STRUCTURES.</span>
+            </div>
+          </h1>
+
+          <div className="reveal-sub mt-16 max-w-xl">
+            <p className="text-2xl lg:text-3xl text-content-secondary font-sans font-light leading-tight">
+              High-performance full-stack architecture for founders who demand technical excellence and complete data ownership.
+            </p>
+            
+            <div className="mt-12 flex gap-8">
+              <button className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500">
+                VIEW ARCHITECTURE
+              </button>
+              <button className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500">
+                MY THESIS
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Asymmetrical status info - Grid Aligned */}
+        <div className="absolute bottom-0 right-0 flex flex-col items-end gap-1 text-[10px] font-bold tracking-[0.3em] text-content-secondary/40 uppercase">
+          <span>LONDON / SYDNEY / SINGAPORE</span>
+          <span>CORE ENGINE V1.0</span>
+        </div>
       </div>
     </section>
   );
