@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import me from '../assets/vasanth.png';
+import me from '../assets/vasanth-hero.png';
 
 const Hero = () => {
   const container = useRef();
