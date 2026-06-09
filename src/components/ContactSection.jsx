@@ -4,9 +4,7 @@ import Swal from 'sweetalert2';
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    scope: '',
-    budget: '$10k - $25k'
+    email: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -18,8 +16,8 @@ export default function ContactSection() {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.name || !formData.email || !formData.scope) {
-      return "All fields are required.";
+    if (!formData.name || !formData.email) {
+      return "Both Name and Email are required.";
     }
     if (!emailRegex.test(formData.email)) {
       return "Please enter a valid email address.";
@@ -38,26 +36,37 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+      // Paste your Google Web App URL here later!
+      const GOOGLE_SHEETS_URL = ''; 
 
-      if (!response.ok) {
-        throw new Error('Server returned an error');
+      if (!GOOGLE_SHEETS_URL) {
+        // Simulate a successful delay if URL is not yet added
+        await new Promise(r => setTimeout(r, 1500));
+      } else {
+        const formDataObj = new FormData();
+        formDataObj.append('Name', formData.name);
+        formDataObj.append('Email', formData.email);
+
+        const response = await fetch(GOOGLE_SHEETS_URL, {
+          method: 'POST',
+          body: formDataObj
+        });
+
+        if (!response.ok) {
+          throw new Error('Server returned an error');
+        }
       }
 
       Swal.fire({
-        title: 'INQUIRY RECEIVED',
-        text: 'We will follow up within 24 hours.',
+        title: 'ENQUIRY RECEIVED',
+        text: 'I will reach out to you shortly.',
         icon: 'success',
         background: '#0a0a0a',
         color: '#f5f5f7',
         confirmButtonColor: '#d4af37',
       });
       
-      setFormData({ name: '', email: '', scope: '', budget: '$10k - $25k' });
+      setFormData({ name: '', email: '' });
     } catch (_err) {
       Swal.fire({
         title: 'SYSTEM ERROR',
@@ -121,17 +130,7 @@ export default function ContactSection() {
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
-            <div className="group relative">
-              <textarea 
-                name="scope"
-                value={formData.scope}
-                onChange={handleChange}
-                placeholder="PROJECT DESCRIPTION"
-                rows="3"
-                className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
-              />
-              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
-            </div>
+
 
             {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
 
