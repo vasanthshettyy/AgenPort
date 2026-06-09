@@ -37,13 +37,13 @@ export default function ContactSection() {
 
     try {
       // Paste your Google Web App URL here later!
-      const GOOGLE_SHEETS_URL = ''; 
+      const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzDhookgGYOJlQfHb-nYNErzoo5dm3ZG3J7Mjg4BuHgLKythUvu0TxEGQH3D-vHV7Q/exec'; 
 
       if (!GOOGLE_SHEETS_URL) {
         // Simulate a successful delay if URL is not yet added
         await new Promise(r => setTimeout(r, 1500));
       } else {
-        const formDataObj = new FormData();
+        const formDataObj = new URLSearchParams();
         formDataObj.append('Name', formData.name);
         formDataObj.append('Email', formData.email);
 
