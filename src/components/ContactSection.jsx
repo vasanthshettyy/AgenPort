@@ -56,7 +56,7 @@ export default function ContactSection() {
         icon: 'success',
         background: '#0a0a0a',
         color: '#f5f5f7',
-        confirmButtonColor: '#3b82f6',
+        confirmButtonColor: '#00e5ff',
       });
       
       setFormData({ name: '', email: '' });
@@ -67,7 +67,7 @@ export default function ContactSection() {
         icon: 'error',
         background: '#0a0a0a',
         color: '#f5f5f7',
-        confirmButtonColor: '#3b82f6',
+        confirmButtonColor: '#00e5ff',
       });
     } finally {
       setIsSubmitting(false);
