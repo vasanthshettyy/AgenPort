@@ -108,10 +108,22 @@ const Hero = () => {
             </p>
             
             <div className="mt-12 flex gap-8">
-              <button className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500">
+              <button 
+                onClick={() => {
+                  const target = document.querySelector('#work');
+                  if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
+              >
                 MY WORK
               </button>
-              <button className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500">
+              <button 
+                onClick={() => {
+                  const target = document.querySelector('#process');
+                  if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
+              >
                 WHY ME
               </button>
             </div>
