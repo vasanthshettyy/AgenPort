@@ -111,37 +111,25 @@ const Hero = () => {
               Stop losing customers to outdated templates. I engineer fast, premium websites for service-based businesses that turn your visitors into paying clients.
             </p>
             
-            <div className="mt-12 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+            <div className="mt-12 flex gap-8">
               <button 
                 onClick={() => {
-                  const target = document.querySelector('#contact');
+                  const target = document.querySelector('#work');
                   if (target) target.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
               >
-                Request a Free Website Review
+                MY WORK
               </button>
-              
-              <div className="flex gap-8">
-                <button 
-                  onClick={() => {
-                    const target = document.querySelector('#work');
-                    if (target) target.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
-                >
-                  MY WORK
-                </button>
-                <button 
-                  onClick={() => {
-                    const target = document.querySelector('#process');
-                    if (target) target.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
-                >
-                  WHY ME
-                </button>
-              </div>
+              <button 
+                onClick={() => {
+                  const target = document.querySelector('#process');
+                  if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
+              >
+                WHY ME
+              </button>
             </div>
           </div>
         </div>
