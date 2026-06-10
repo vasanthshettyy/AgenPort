@@ -86,15 +86,19 @@ export default function ContactSection() {
             <p className="text-4xl lg:text-6xl font-sans font-light text-content-secondary leading-tight mb-12">
               Ready to get more <span className="text-content-primary italic">clients</span>?
             </p>
-            <div className="flex flex-col gap-6 text-xl text-content-secondary">
-              <span className="flex items-center gap-4">
+            <div className="flex flex-col gap-6 text-xl text-content-secondary font-mono text-sm tracking-tight">
+              <a href="mailto:vasanthvshetty55@gmail.com" className="flex items-center gap-4 hover:text-content-primary transition-colors">
                 <span className="w-2 h-2 bg-content-accent rounded-full" />
-                GLOBAL AVAILABILITY
-              </span>
-              <span className="flex items-center gap-4">
+                vasanthvshetty55@gmail.com
+              </a>
+              <a href="https://www.linkedin.com/in/shetty-55-vasanth" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-content-primary transition-colors">
                 <span className="w-2 h-2 bg-content-accent rounded-full" />
-                ENTERPRISE GRADE
-              </span>
+                LinkedIn
+              </a>
+              <a href="https://github.com/vasanthshettyy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-content-primary transition-colors">
+                <span className="w-2 h-2 bg-content-accent rounded-full" />
+                GitHub
+              </a>
             </div>
           </div>
 
@@ -132,7 +136,7 @@ export default function ContactSection() {
                 className="group relative inline-flex items-center justify-center px-16 py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent"
               >
                 <span className={`relative z-10 text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-500 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                  REQUEST A FREE WEBSITE REVIEW
+                  SEND ENQUIRY
                 </span>
                 {isSubmitting && (
                   <div className="absolute inset-0 flex items-center justify-center">
