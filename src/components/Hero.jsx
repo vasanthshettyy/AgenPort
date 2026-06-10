@@ -90,46 +90,58 @@ const Hero = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-content-neon"></span>
             </div>
             <span className="text-[10px] font-bold tracking-[0.2em] text-content-neon uppercase">
-              Available for International Projects
+              Accepting limited project bookings for Q2/Q3.
             </span>
           </div>
 
           <h1 className="text-[clamp(2.5rem,5.2vw,6rem)] leading-[0.9] tracking-[-0.04em] font-display font-extrabold flex flex-col w-full">
             <div className="overflow-y-hidden">
-              <span className="reveal-line block whitespace-nowrap">I BUILD</span>
+              <span className="reveal-line block whitespace-nowrap">PREMIUM WEB</span>
             </div>
             <div className="overflow-y-hidden">
-              <span className="reveal-line block italic text-content-secondary whitespace-nowrap">WEBSITES THAT GET YOU</span>
+              <span className="reveal-line block italic text-content-secondary whitespace-nowrap">DEVELOPMENT FOR</span>
             </div>
             <div className="overflow-y-hidden">
-              <span className="reveal-line block whitespace-nowrap">MORE CLIENTS.</span>
+              <span className="reveal-line block whitespace-nowrap">SERVICE BUSINESSES.</span>
             </div>
           </h1>
 
           <div className="reveal-sub mt-16 max-w-xl">
             <p className="text-xl lg:text-2xl text-content-secondary font-sans font-light leading-tight">
-              Stop losing customers to outdated templates. I engineer fast, premium websites for service-based businesses that turn your visitors into paying clients.
+              I build fast, custom-coded websites that elevate your digital presence and turn visitors into clients. No templates. No platform limitations.
             </p>
             
-            <div className="mt-12 flex gap-8">
+            <div className="mt-12 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
               <button 
                 onClick={() => {
-                  const target = document.querySelector('#work');
+                  const target = document.querySelector('#contact');
                   if (target) target.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
+                className="px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
               >
-                MY WORK
+                Start a Project
               </button>
-              <button 
-                onClick={() => {
-                  const target = document.querySelector('#process');
-                  if (target) target.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
-              >
-                WHY ME
-              </button>
+              
+              <div className="flex gap-8">
+                <button 
+                  onClick={() => {
+                    const target = document.querySelector('#work');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
+                >
+                  MY WORK
+                </button>
+                <button 
+                  onClick={() => {
+                    const target = document.querySelector('#process');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
+                >
+                  WHY ME
+                </button>
+              </div>
             </div>
           </div>
         </div>

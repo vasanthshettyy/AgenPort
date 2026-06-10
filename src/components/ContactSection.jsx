@@ -78,13 +78,13 @@ export default function ContactSection() {
     <section id="contact" className="py-64 bg-canvas px-6 lg:px-20 overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         <h2 className="text-massive font-sans font-bold mb-32 tracking-tighter uppercase">
-          Let's Grow Your Business.
+          Work Together.
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-32">
           <div>
             <p className="text-4xl lg:text-6xl font-sans font-light text-content-secondary leading-tight mb-12">
-              Ready to get more <span className="text-content-primary italic">clients</span>?
+              Let's build your new <span className="text-content-primary italic">digital standard</span>.
             </p>
             <div className="flex flex-col gap-6 text-xl text-content-secondary font-mono text-sm tracking-tight">
               <a href="mailto:vasanthvshetty55@gmail.com" className="flex items-center gap-4 hover:text-content-primary transition-colors">
@@ -136,7 +136,7 @@ export default function ContactSection() {
                 className="group relative inline-flex items-center justify-center px-16 py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent"
               >
                 <span className={`relative z-10 text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-500 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                  SEND ENQUIRY
+                  SUBMIT INQUIRY
                 </span>
                 {isSubmitting && (
                   <div className="absolute inset-0 flex items-center justify-center">
