@@ -10,8 +10,13 @@ export const services = [
     features: ["Automated Scheduling", "Calendar Syncing", "SMS Reminders"]
   },
   {
-    title: "Website Redesigns",
-    description: "Take an old, ugly site and make it look like a premium brand. Stand out from your competitors and look like the obvious choice.",
-    features: ["Modern Design", "Fast Loading Speeds", "SEO Optimized"]
+    title: "High-Converting Landing Pages",
+    description: "Single-page sites engineered to sell a specific service or product, perfect for maximizing ROI on your paid ad campaigns.",
+    features: ["Persuasive Copywriting", "A/B Testing Ready", "Fast Loading Speeds"]
+  },
+  {
+    title: "Website & Landing Page Redesigns",
+    description: "Take an old, outdated site or landing page and make it look like a premium brand. Stand out and look like the obvious choice.",
+    features: ["Modern Design", "Conversion Rate Optimization", "SEO Optimized"]
   }
 ];
