@@ -4,9 +4,7 @@ import Swal from 'sweetalert2';
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    businessName: '',
-    goal: ''
+    email: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -18,8 +16,8 @@ export default function ContactSection() {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.name || !formData.email || !formData.businessName || !formData.goal) {
-      return "All fields are required.";
+    if (!formData.name || !formData.email) {
+      return "Both Name and Email are required.";
     }
     if (!emailRegex.test(formData.email)) {
       return "Please enter a valid email address.";
@@ -44,9 +42,7 @@ export default function ContactSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           name: formData.name, 
-          email: formData.email,
-          businessName: formData.businessName,
-          goal: formData.goal 
+          email: formData.email
         })
       });
 
@@ -63,7 +59,7 @@ export default function ContactSection() {
         confirmButtonColor: '#d4af37',
       });
       
-      setFormData({ name: '', email: '', businessName: '', goal: '' });
+      setFormData({ name: '', email: '' });
     } catch (_err) {
       Swal.fire({
         title: 'SYSTEM ERROR',
@@ -126,35 +122,6 @@ export default function ContactSection() {
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
-
-            <div className="group relative">
-              <input 
-                type="text" 
-                name="businessName"
-                value={formData.businessName}
-                onChange={handleChange}
-                placeholder="BUSINESS NAME"
-                className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
-              />
-              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
-            </div>
-
-            <div className="group relative">
-              <select 
-                name="goal"
-                value={formData.goal}
-                onChange={handleChange}
-                className={`w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none transition-all focus:border-content-accent appearance-none cursor-pointer ${formData.goal === '' ? 'text-content-secondary/20' : 'text-content-primary'}`}
-              >
-                <option value="" disabled className="text-content-primary bg-canvas">WHAT IS YOUR MAIN GOAL?</option>
-                <option value="Get more leads" className="text-content-primary bg-canvas">Get more leads</option>
-                <option value="Sell products" className="text-content-primary bg-canvas">Sell products</option>
-                <option value="Look more professional" className="text-content-primary bg-canvas">Look more professional</option>
-              </select>
-              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
-            </div>
-
-
 
             {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
 
