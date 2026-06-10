@@ -67,13 +67,14 @@ const Hero = () => {
       <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 flex items-center justify-center pointer-events-none">
         <div className="hero-bloom absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-content-neon/10 rounded-full blur-[120px]" />
 
-        <div className="hero-image-wrap relative w-[80%] aspect-[3/4] max-h-[70vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group border border-white/5 pointer-events-auto">
+        <div className="hero-image-wrap relative w-[80%] aspect-[3/4] max-h-[70vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group pointer-events-auto">
           <img 
             src={me} 
             alt="Vasanth Shetty" 
             className="hero-image w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-expo"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/20 to-transparent opacity-90 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/20 to-transparent opacity-90 pointer-events-none" />
         </div>
       </div>
 
@@ -106,29 +107,41 @@ const Hero = () => {
           </h1>
 
           <div className="reveal-sub mt-16 max-w-xl">
-            <p className="text-2xl lg:text-3xl text-content-secondary font-sans font-light leading-tight">
-              Stop losing customers to an outdated website. I build premium, fast-loading sites for service-based businesses that turn visitors into paying clients.
+            <p className="text-xl lg:text-2xl text-content-secondary font-sans font-light leading-tight">
+              Stop losing customers to outdated templates. I engineer fast, premium websites for service-based businesses that turn your visitors into paying clients.
             </p>
             
-            <div className="mt-12 flex gap-8">
+            <div className="mt-12 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
               <button 
                 onClick={() => {
-                  const target = document.querySelector('#work');
+                  const target = document.querySelector('#contact');
                   if (target) target.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
+                className="px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
               >
-                MY WORK
+                Request a Free Website Review
               </button>
-              <button 
-                onClick={() => {
-                  const target = document.querySelector('#process');
-                  if (target) target.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
-              >
-                WHY ME
-              </button>
+              
+              <div className="flex gap-8">
+                <button 
+                  onClick={() => {
+                    const target = document.querySelector('#work');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-2 hover:text-content-neon hover:border-content-neon transition-all duration-500"
+                >
+                  MY WORK
+                </button>
+                <button 
+                  onClick={() => {
+                    const target = document.querySelector('#process');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-500"
+                >
+                  WHY ME
+                </button>
+              </div>
             </div>
           </div>
         </div>
