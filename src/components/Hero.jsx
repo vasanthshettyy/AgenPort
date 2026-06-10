@@ -84,12 +84,12 @@ const Hero = () => {
       <div className="w-full flex flex-col justify-center relative z-10 h-full">
         <div className="flex flex-col items-start min-w-0 w-full">
           {/* Animated Badge */}
-          <div className="reveal-badge flex items-center gap-3 px-4 py-2 bg-green-500/5 border border-green-500/20 rounded-full mb-12">
+          <div className="reveal-badge flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/20 rounded-full mb-12">
             <div className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </div>
-            <span className="text-[10px] font-bold tracking-[0.2em] text-green-500/90 uppercase">
+            <span className="text-[10px] font-bold tracking-[0.2em] text-content-primary uppercase">
               Accepting limited project bookings
             </span>
           </div>
