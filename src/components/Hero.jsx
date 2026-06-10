@@ -118,11 +118,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Asymmetrical status info - Grid Aligned */}
-        <div className="absolute bottom-0 right-0 flex flex-col items-end gap-1 text-[10px] font-bold tracking-[0.3em] text-content-secondary/40 uppercase">
-          <span>LONDON / SYDNEY / SINGAPORE</span>
-          <span>CORE ENGINE V1.0</span>
-        </div>
       </div>
     </section>
   );
