@@ -15,14 +15,14 @@ export default function ScrollProgress() {
       scrollTrigger: {
         trigger: document.documentElement,
         start: 'top top',
-        end: 'bottom bottom',
+        end: 'max',
         scrub: 0.1,
       }
     });
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 z-[9999] pointer-events-none">
+    <div className="fixed top-0 left-0 w-full h-[2px] z-[9999] pointer-events-none">
       <div 
         ref={progressBar}
         className="w-full h-full bg-content-accent origin-left scale-x-0"
