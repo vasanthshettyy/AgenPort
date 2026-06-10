@@ -15,7 +15,7 @@ export default {
         content: {
           primary: '#f5f5f7', // Subtle off-white
           secondary: '#a1a1a6', // Muted gray
-          accent: '#d4af37', // Muted bronze
+          accent: '#3b82f6', // Vibrant blue
         }
       },
       fontFamily: {
