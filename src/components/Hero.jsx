@@ -77,6 +77,9 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Blue Tint Overlay (Above photo, below text) */}
+      <div className="absolute inset-0 bg-content-accent/5 mix-blend-screen pointer-events-none z-[1]" />
+
       <div className="w-full flex flex-col justify-center relative z-10 h-full">
         <div className="flex flex-col items-start min-w-0 w-full">
           {/* Animated Badge */}
