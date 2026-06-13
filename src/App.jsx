@@ -47,12 +47,12 @@ function App() {
         "logo": "https://www.youragency.com/logo.png",
         "contactPoint": {
           "@type": "ContactPoint",
-          "email": "hello@youragency.com",
+          "email": "vasanthshetty.dev@gmail.com",
           "contactType": "customer service"
         },
         "sameAs": [
-          "https://github.com/youragency",
-          "https://linkedin.com/company/youragency"
+          "https://github.com/vasanthshettyy",
+          "https://www.linkedin.com/in/vasanth-shetty-dev"
         ]
       },
       {

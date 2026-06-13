@@ -21,7 +21,9 @@ export default function Footer() {
               {['SERVICES', 'PROJECTS', 'CONTACT', 'LINKEDIN'].map((link) => (
                 <a 
                   key={link} 
-                  href={`#${link.toLowerCase()}`}
+                  href={link === 'LINKEDIN' ? 'https://www.linkedin.com/in/vasanth-shetty-dev' : `#${link.toLowerCase()}`}
+                  target={link === 'LINKEDIN' ? '_blank' : undefined}
+                  rel={link === 'LINKEDIN' ? 'noopener noreferrer' : undefined}
                   className="text-xs font-bold tracking-widest text-content-secondary hover:text-content-accent transition-colors"
                 >
                   {link}

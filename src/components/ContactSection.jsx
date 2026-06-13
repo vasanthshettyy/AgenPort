@@ -87,11 +87,11 @@ export default function ContactSection() {
               Let's build your new <span className="text-content-primary italic">digital standard</span>.
             </p>
             <div className="flex flex-col gap-6 text-xl text-content-secondary font-mono text-sm tracking-tight">
-              <a href="mailto:vasanthvshetty55@gmail.com" className="flex items-center gap-4 hover:text-content-primary transition-colors">
+              <a href="mailto:vasanthshetty.dev@gmail.com" className="flex items-center gap-4 hover:text-content-primary transition-colors">
                 <span className="w-2 h-2 bg-content-accent rounded-full" />
-                vasanthvshetty55@gmail.com
+                vasanthshetty.dev@gmail.com
               </a>
-              <a href="https://www.linkedin.com/in/shetty-55-vasanth" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-content-primary transition-colors">
+              <a href="https://www.linkedin.com/in/vasanth-shetty-dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-content-primary transition-colors">
                 <span className="w-2 h-2 bg-content-accent rounded-full" />
                 LinkedIn
               </a>
