@@ -69,8 +69,8 @@ const ProjectGrid = () => {
                 </div>
                 {/* Overlay for interaction */}
                 <div className="absolute inset-0 bg-canvas/60 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
-                  <div className="group/btn relative overflow-hidden px-8 py-4 border border-content-secondary/30 rounded-full transition-all hover:border-content-accent">
-                    <span className="relative z-10 text-xl font-bold tracking-widest text-content-primary group-hover/btn:text-canvas transition-colors duration-500">
+                  <div className="group/btn relative overflow-hidden px-12 py-6 border border-content-secondary/30 rounded-full transition-all hover:border-content-accent">
+                    <span className="relative z-10 text-2xl font-bold tracking-widest text-content-primary group-hover/btn:text-canvas transition-colors duration-500">
                       VIEW PROJECT
                     </span>
                     <div className="absolute inset-0 bg-content-accent translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
