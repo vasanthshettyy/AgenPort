@@ -49,22 +49,32 @@ const ProjectGrid = () => {
 
         <div className="flex flex-col gap-64">
           {projects.map((project, index) => (
-            <div 
+            <a 
               key={project.id} 
-              className={`project-item flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-24`}
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`project-item block flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-24 group/card no-underline`}
             >
-              {/* Image Container */}
-              <div className="relative w-full lg:w-2/3 aspect-[16/10] overflow-hidden rounded-sm bg-canvas-surface group">
-                <div className="project-img absolute inset-0 w-full h-[120%] -top-[10%] bg-gradient-to-br from-content-accent/20 to-canvas-surface flex items-center justify-center">
-                  <span className="text-giant font-bold opacity-10 select-none">
-                    {project.niche || 'CASE STUDY'}
-                  </span>
+              {/* iframe Parallax Live Preview Container */}
+              <div className="relative w-full lg:w-2/3 aspect-[16/10] overflow-hidden rounded-md border border-canvas-border bg-canvas-surface group">
+                <div className="project-img absolute inset-0 w-full h-[120%] -top-[10%]">
+                  {project.liveUrl && (
+                    <iframe 
+                      src={project.liveUrl} 
+                      title={`${project.title} Live Preview`}
+                      className="w-full h-full border-none pointer-events-none"
+                    />
+                  )}
                 </div>
                 {/* Overlay for interaction */}
-                <div className="absolute inset-0 bg-canvas/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-                  <button className="text-xl font-bold tracking-widest px-8 py-4 border border-content-primary rounded-full hover:bg-content-primary hover:text-canvas transition-all">
-                    VIEW PROJECT
-                  </button>
+                <div className="absolute inset-0 bg-canvas/60 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
+                  <div className="group/btn relative overflow-hidden px-8 py-4 border border-content-secondary/30 rounded-full transition-all hover:border-content-accent">
+                    <span className="relative z-10 text-xl font-bold tracking-widest text-content-primary group-hover/btn:text-canvas transition-colors duration-500">
+                      VIEW PROJECT
+                    </span>
+                    <div className="absolute inset-0 bg-content-accent translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+                  </div>
                 </div>
               </div>
 
@@ -73,8 +83,11 @@ const ProjectGrid = () => {
                 <span className="text-content-accent font-sans text-xl font-bold">
                   0{index + 1}
                 </span>
-                <h3 className="text-6xl lg:text-8xl font-sans font-bold leading-none tracking-tighter">
-                  {project.title}
+                <h3 className="text-6xl lg:text-8xl font-sans font-bold leading-none tracking-tighter flex flex-wrap items-baseline gap-4 group-hover/card:text-content-accent transition-colors duration-300">
+                  <span>{project.title}</span>
+                  <span className="text-sm font-mono font-bold tracking-widest uppercase text-content-accent opacity-0 group-hover/card:opacity-100 transition-all duration-300 transform translate-x-2 group-hover/card:translate-x-0">
+                    Visit Site →
+                  </span>
                 </h3>
                 <p className="text-2xl text-content-secondary font-light">
                   {project.problem_statement}
@@ -87,7 +100,7 @@ const ProjectGrid = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
