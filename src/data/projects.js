@@ -37,5 +37,18 @@ export const projects = [
     live_url: "https://axiom-neon-one.vercel.app",
     liveUrl: "https://axiom-neon-one.vercel.app",
     image_url: ""
+  },
+  {
+    id: "sys-04",
+    isSkeleton: false,
+    title: "Vasanth Shetty Portfolio",
+    niche: "Engineering Portfolio",
+    problem_statement: "A sleek developer portfolio showcasing full-stack engineering capabilities, agency OS products, interactive UI design systems, and production web applications.",
+    technical_approach: ["Full-Stack Architecture", "Interactive System", "Performance UX"],
+    conversion_metrics: [{ label: "Performance & UX Score", value: "100%" }],
+    tech_stack: ["React", "Next.js", "Full-Stack", "Portfolio"],
+    live_url: "https://vasanth-shetty-portfolio.vercel.app",
+    liveUrl: "https://vasanth-shetty-portfolio.vercel.app",
+    image_url: ""
   }
 ];
