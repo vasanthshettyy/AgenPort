@@ -1,15 +1,61 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { services } from '../data/services';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ServicesSection = () => {
   const [active, setActive] = useState(0);
+  const sectionRef = useRef(null);
+  const serviceItemsRef = useRef([]);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth < 1024;
+    if (!isMobile) return; // Desktop remains 100% untouched
+
+    const ctx = gsap.context(() => {
+      serviceItemsRef.current.forEach((item, index) => {
+        if (!item) return;
+
+        // Automatically activate service item as it scrolls into the middle of the mobile viewport
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top 60%',
+          end: 'bottom 40%',
+          onEnter: () => setActive(index),
+          onEnterBack: () => setActive(index),
+        });
+
+        // Entrance stagger animation for mobile text elements
+        gsap.fromTo(
+          item,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 85%',
+            }
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const onMouseEnter = (index) => {
-    setActive(index);
+    if (window.innerWidth >= 1024) {
+      setActive(index);
+    }
   };
 
   return (
-    <section id="services" className="py-20 lg:py-64 px-6 lg:px-20 bg-canvas overflow-hidden">
+    <section id="services" ref={sectionRef} className="py-20 lg:py-64 px-6 lg:px-20 bg-canvas overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         <h2 className="text-4xl sm:text-6xl lg:text-massive font-sans font-bold mb-12 lg:mb-32 tracking-tighter">
           SERVICES
@@ -19,6 +65,7 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div
               key={index}
+              ref={(el) => (serviceItemsRef.current[index] = el)}
               onClick={() => setActive(index)}
               onTouchStart={() => setActive(index)}
               onMouseEnter={() => onMouseEnter(index)}
@@ -44,7 +91,7 @@ const ServicesSection = () => {
                 </div>
               </div>
 
-              {/* Hover line animation */}
+              {/* Hover/Scroll line animation */}
               <div className={`absolute bottom-0 left-0 h-1 bg-content-accent transition-all duration-700 ${active === index ? 'w-full' : 'w-0'}`} />
             </div>
           ))}
