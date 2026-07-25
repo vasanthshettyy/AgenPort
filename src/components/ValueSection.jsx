@@ -42,10 +42,33 @@ const ValueSection = () => {
   const container = useRef();
 
   useGSAP(() => {
-    if (window.innerWidth < 1024) return; // Disable pinning on mobile for smooth scrolling
-
+    const isMobile = window.innerWidth < 1024;
     const sections = gsap.utils.toArray('.value-item');
-    
+
+    if (isMobile) {
+      // Mobile-only kinetic entrance & scroll-reactive glow animations
+      sections.forEach((section) => {
+        const title = section.querySelector('.value-title');
+        const desc = section.querySelector('.value-desc');
+        const stat = section.querySelector('.value-stat');
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'top 30%',
+            toggleActions: 'play none none reverse',
+          }
+        });
+
+        tl.fromTo(title, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' })
+          .fromTo(desc, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+          .fromTo(stat, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 0.25, duration: 0.8, ease: 'back.out(1.5)' }, '-=0.5');
+      });
+      return;
+    }
+
+    // Desktop: Full-screen pin & stacking animation
     sections.forEach((section, i) => {
       if (i === sections.length - 1) return;
 
@@ -85,16 +108,16 @@ const ValueSection = () => {
               <span className="text-content-accent font-sans text-xl lg:text-2xl font-bold tracking-tighter">
                 {v.number} /
               </span>
-              <h2 className="text-4xl sm:text-6xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
+              <h2 className="value-title text-4xl sm:text-6xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
                 {v.title}
               </h2>
-              <p className="text-xl sm:text-2xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
+              <p className="value-desc text-xl sm:text-2xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
                 {v.desc}
               </p>
             </div>
             
             <div className="flex flex-col items-start lg:items-end">
-              <span className="text-5xl sm:text-7xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-primary/10 lg:text-content-primary/5 select-none">
+              <span className="value-stat text-5xl sm:text-7xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-accent/20 lg:text-content-primary/5 select-none">
                 {v.stat}
               </span>
             </div>
