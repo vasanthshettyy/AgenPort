@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
+const DEFAULT_MESSAGE = "Hi Vasanth, I'm interested in building a custom web project for my business. Could we discuss our scope and project requirements?";
+
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    details: ''
+    details: DEFAULT_MESSAGE
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -83,7 +85,7 @@ export default function ContactSection() {
         confirmButtonColor: '#00e5ff',
       });
       
-      setFormData({ name: '', email: '', details: '' });
+      setFormData({ name: '', email: '', details: DEFAULT_MESSAGE });
     } catch (_err) {
       Swal.fire({
         title: 'SYSTEM ERROR',
