@@ -42,54 +42,29 @@ const ValueSection = () => {
   const container = useRef();
 
   useGSAP(() => {
-    const isMobile = window.innerWidth < 1024;
     const sections = gsap.utils.toArray('.value-item');
-
-    if (isMobile) {
-      // Mobile-only kinetic entrance & scroll-reactive glow animations
-      sections.forEach((section) => {
-        const title = section.querySelector('.value-title');
-        const desc = section.querySelector('.value-desc');
-        const stat = section.querySelector('.value-stat');
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            end: 'top 30%',
-            toggleActions: 'play none none reverse',
-          }
-        });
-
-        tl.fromTo(title, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' })
-          .fromTo(desc, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-          .fromTo(stat, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 0.25, duration: 0.8, ease: 'back.out(1.5)' }, '-=0.5');
-      });
-      return;
-    }
-
-    // Desktop: Full-screen pin & stacking animation
+    
     sections.forEach((section, i) => {
-      if (i === sections.length - 1) return;
+      if (i === sections.length - 1) return; // Last section doesn't need to be pinned
 
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
         pin: true,
         pinSpacing: false,
-        scrub: 1.5,
+        scrub: 1,
       });
 
       const inner = section.querySelector('.value-inner');
       if (inner) {
         gsap.to(inner, {
-          opacity: 0.5,
-          scale: 0.9,
+          opacity: 0.3,
+          scale: 0.92,
           scrollTrigger: {
             trigger: section,
             start: 'top top',
             end: 'bottom top',
-            scrub: 1.5,
+            scrub: 1,
           }
         });
       }
@@ -101,23 +76,23 @@ const ValueSection = () => {
       {values.map((v, i) => (
         <div 
           key={i} 
-          className="value-item min-h-screen lg:h-screen flex flex-col justify-center px-6 lg:px-20 py-20 lg:py-0 bg-canvas-surface border-b border-canvas-border overflow-hidden"
+          className="value-item h-[100dvh] min-h-[500px] flex flex-col justify-center px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border overflow-hidden"
         >
-          <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center lg:items-end">
-            <div className="flex flex-col gap-6 lg:gap-8">
-              <span className="text-content-accent font-sans text-xl lg:text-2xl font-bold tracking-tighter">
+          <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-6 lg:gap-20 items-center lg:items-end">
+            <div className="flex flex-col gap-4 lg:gap-8">
+              <span className="text-content-accent font-sans text-lg lg:text-2xl font-bold tracking-tighter">
                 {v.number} /
               </span>
-              <h2 className="value-title text-4xl sm:text-6xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
+              <h2 className="text-3xl sm:text-6xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
                 {v.title}
               </h2>
-              <p className="value-desc text-xl sm:text-2xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
+              <p className="text-lg sm:text-2xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
                 {v.desc}
               </p>
             </div>
             
             <div className="flex flex-col items-start lg:items-end">
-              <span className="value-stat text-5xl sm:text-7xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-accent/20 lg:text-content-primary/5 select-none">
+              <span className="text-5xl sm:text-7xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-accent/15 lg:text-content-primary/5 select-none">
                 {v.stat}
               </span>
             </div>
