@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function PricingSection({ onSelectPlan }) {
-  const [includeRetainer, setIncludeRetainer] = useState(false);
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
 
@@ -37,8 +36,7 @@ export default function PricingSection({ onSelectPlan }) {
 
   const handleCtaClick = (plan) => {
     const planData = {
-      planName: plan.name,
-      retainerSelected: includeRetainer
+      planName: plan.name
     };
 
     if (onSelectPlan) {
@@ -59,41 +57,16 @@ export default function PricingSection({ onSelectPlan }) {
     <section id="pricing" ref={sectionRef} className="py-32 px-6 lg:px-20 bg-canvas border-t border-canvas-border overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-          <div>
-            <span className="text-xs font-mono font-bold tracking-[0.25em] text-content-accent uppercase mb-4 block">
-              // Tailored Solutions & Scopes
-            </span>
-            <h2 className="text-4xl lg:text-6xl font-sans font-bold tracking-tighter text-content-primary uppercase">
-              Service Packages.
-            </h2>
-            <p className="text-content-secondary mt-4 max-w-xl text-lg font-light">
-              Bespoke full-stack engineering tailored to your business. Scoped custom with transparent milestones — no SaaS lock-in.
-            </p>
-          </div>
-
-          {/* Retainer Combo Toggle Switch */}
-          <div className="flex items-center gap-3 p-3 bg-canvas-card border border-canvas-border rounded-full shadow-sm">
-            <span className={`text-xs font-bold uppercase tracking-wider px-2 ${!includeRetainer ? 'text-content-primary' : 'text-content-secondary'}`}>
-              One-Time Build
-            </span>
-            <button
-              onClick={() => setIncludeRetainer(!includeRetainer)}
-              className={`w-12 h-7 flex items-center rounded-full p-1 transition-colors duration-300 ${
-                includeRetainer ? 'bg-content-accent' : 'bg-canvas-border'
-              }`}
-              aria-label="Toggle Retainer Add-on"
-            >
-              <div
-                className={`w-5 h-5 rounded-full bg-canvas shadow-md transform transition-transform duration-300 ${
-                  includeRetainer ? 'translate-x-5' : 'translate-x-0'
-                }`}
-              />
-            </button>
-            <span className={`text-xs font-bold uppercase tracking-wider px-2 flex items-center gap-1.5 ${includeRetainer ? 'text-content-primary' : 'text-content-secondary'}`}>
-              Build + Care Retainer
-            </span>
-          </div>
+        <div className="mb-16">
+          <span className="text-xs font-mono font-bold tracking-[0.25em] text-content-accent uppercase mb-4 block">
+            // Tailored Solutions & Scopes
+          </span>
+          <h2 className="text-4xl lg:text-6xl font-sans font-bold tracking-tighter text-content-primary uppercase">
+            Service Packages.
+          </h2>
+          <p className="text-content-secondary mt-4 max-w-xl text-lg font-light">
+            Bespoke full-stack engineering tailored to your business. Scoped custom with transparent milestones — no SaaS lock-in.
+          </p>
         </div>
 
         {/* 3-Card Responsive Grid */}
@@ -153,7 +126,7 @@ export default function PricingSection({ onSelectPlan }) {
                       🛡️ {plan.retainer.name}
                     </span>
                     <span className="font-mono text-[10px] text-content-secondary uppercase">
-                      {includeRetainer ? 'Selected' : 'Optional'}
+                      Optional Care Add-On
                     </span>
                   </div>
                   <p className="text-[11px] text-content-secondary leading-snug">
