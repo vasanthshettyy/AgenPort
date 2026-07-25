@@ -54,7 +54,7 @@ export default function PricingSection({ onSelectPlan }) {
   };
 
   return (
-    <section id="pricing" ref={sectionRef} className="py-32 px-6 lg:px-20 bg-canvas border-t border-canvas-border overflow-hidden">
+    <section id="plans" ref={sectionRef} className="py-32 px-6 lg:px-20 bg-canvas border-t border-canvas-border overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         {/* Section Header */}
         <div className="mb-16">
@@ -62,7 +62,7 @@ export default function PricingSection({ onSelectPlan }) {
             // Tailored Solutions & Scopes
           </span>
           <h2 className="text-4xl lg:text-6xl font-sans font-bold tracking-tighter text-content-primary uppercase">
-            Service Packages.
+            Service Plans.
           </h2>
           <p className="text-content-secondary mt-4 max-w-xl text-lg font-light">
             Bespoke full-stack engineering tailored to your business. Scoped custom with transparent milestones — no SaaS lock-in.
