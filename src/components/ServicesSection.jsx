@@ -20,8 +20,9 @@ const ServicesSection = () => {
             <div
               key={index}
               onClick={() => setActive(index)}
+              onTouchStart={() => setActive(index)}
               onMouseEnter={() => onMouseEnter(index)}
-              className="group relative py-8 lg:py-20 border-b border-canvas-border transition-all duration-700 cursor-pointer overflow-hidden"
+              className="group relative py-8 lg:py-20 border-b border-canvas-border transition-all duration-700 cursor-pointer overflow-hidden active:bg-content-accent/10"
             >
               {/* Background fill animation */}
               <div className={`absolute inset-0 bg-content-accent/5 origin-bottom transition-transform duration-700 ease-out ${active === index ? 'scale-y-100' : 'scale-y-0'}`} />

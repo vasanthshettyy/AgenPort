@@ -76,10 +76,10 @@ export default function PricingSection({ onSelectPlan }) {
             <div
               key={plan.id}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`relative flex flex-col justify-between p-8 lg:p-10 rounded-3xl border transition-all duration-300 hover:-translate-y-1 ${
+              className={`relative flex flex-col justify-between p-8 lg:p-10 rounded-3xl border transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] ${
                 plan.popular
                   ? 'bg-canvas-card border-content-accent/50 shadow-lg shadow-content-accent/5 scale-102 z-10'
-                  : 'bg-canvas-card border-canvas-border hover:border-content-secondary/40'
+                  : 'bg-canvas-card border-canvas-border hover:border-content-secondary/40 active:border-content-accent'
               }`}
             >
               {/* Popular Badge (Cyan accent reserved for recommended tier) */}
