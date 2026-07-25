@@ -42,10 +42,12 @@ const ValueSection = () => {
   const container = useRef();
 
   useGSAP(() => {
+    if (window.innerWidth < 1024) return; // Disable pinning on mobile for smooth scrolling
+
     const sections = gsap.utils.toArray('.value-item');
     
     sections.forEach((section, i) => {
-      if (i === sections.length - 1) return; // Last section doesn't need to be pinned
+      if (i === sections.length - 1) return;
 
       ScrollTrigger.create({
         trigger: section,
@@ -76,23 +78,23 @@ const ValueSection = () => {
       {values.map((v, i) => (
         <div 
           key={i} 
-          className="value-item h-screen flex flex-col justify-center px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border"
+          className="value-item min-h-screen lg:h-screen flex flex-col justify-center px-6 lg:px-20 py-20 lg:py-0 bg-canvas-surface border-b border-canvas-border overflow-hidden"
         >
-          <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-20 items-end">
-            <div className="flex flex-col gap-8">
-              <span className="text-content-accent font-sans text-2xl font-bold tracking-tighter">
+          <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center lg:items-end">
+            <div className="flex flex-col gap-6 lg:gap-8">
+              <span className="text-content-accent font-sans text-xl lg:text-2xl font-bold tracking-tighter">
                 {v.number} /
               </span>
-              <h2 className="text-giant font-sans font-bold leading-none tracking-tighter">
+              <h2 className="text-4xl sm:text-6xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
                 {v.title}
               </h2>
-              <p className="text-3xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
+              <p className="text-xl sm:text-2xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
                 {v.desc}
               </p>
             </div>
             
-            <div className="flex flex-col items-end">
-              <span className="text-[8rem] lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-primary/5 select-none">
+            <div className="flex flex-col items-start lg:items-end">
+              <span className="text-5xl sm:text-7xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-primary/10 lg:text-content-primary/5 select-none">
                 {v.stat}
               </span>
             </div>

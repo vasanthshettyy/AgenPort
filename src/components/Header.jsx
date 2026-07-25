@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const container = useRef();
 
   useEffect(() => {
@@ -16,6 +17,14 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [mobileMenuOpen]);
+
   useGSAP(() => {
     gsap.from(container.current, {
       y: -100,
@@ -25,56 +34,111 @@ export default function Header() {
     });
   }, { scope: container });
 
-  return (
-    <header 
-      ref={container}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 lg:px-20 ${
-        isScrolled ? 'py-6 bg-canvas/80 backdrop-blur-md border-b border-canvas-border' : 'py-12 bg-transparent'
-      }`}
-    >
-      <div className="max-w-[1400px] w-full mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <div className="text-2xl font-bold tracking-tighter text-content-primary cursor-pointer flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full overflow-hidden border border-content-accent/30 p-0.5">
-            <img src={me} alt="Vasanth Shetty" className="w-full h-full object-cover rounded-full" />
-          </div>
-          <span className="uppercase tracking-[0.2em]">VASANTH SHETTY</span>
-        </div>
+  const handleNavClick = (href) => {
+    setMobileMenuOpen(false);
+    const target = document.querySelector(href);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  };
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-12">
-          {navigation.map((item) => (
-            <a 
-              key={item.name} 
-              href={item.href} 
+  return (
+    <>
+      <header 
+        ref={container}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 lg:px-20 ${
+          isScrolled ? 'py-4 lg:py-6 bg-canvas/85 backdrop-blur-md border-b border-canvas-border' : 'py-6 lg:py-12 bg-transparent'
+        }`}
+      >
+        <div className="max-w-[1400px] w-full mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <div 
+            onClick={() => handleNavClick('#hero')} 
+            className="text-lg lg:text-2xl font-bold tracking-tighter text-content-primary cursor-pointer flex items-center gap-3"
+          >
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-content-accent/30 p-0.5">
+              <img src={me} alt="Vasanth Shetty" className="w-full h-full object-cover rounded-full" />
+            </div>
+            <span className="uppercase tracking-[0.2em]">VASANTH SHETTY</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-12">
+            {navigation.map((item) => (
+              <a 
+                key={item.name} 
+                href={item.href} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.href);
+                }}
+                className="text-xs font-bold uppercase tracking-widest text-content-secondary hover:text-content-accent transition-colors duration-300"
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Desktop CTA & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:block group relative">
+              <a 
+                href="#contact" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('#contact');
+                }}
+                className="inline-block text-xs font-bold uppercase tracking-widest px-6 lg:px-8 py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
+              >
+                <span className="relative z-10 group-hover:text-canvas transition-colors duration-500">CONTACT</span>
+                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+              </a>
+            </div>
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+              className="md:hidden p-2 text-content-primary hover:text-content-accent focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                <span className={`w-full h-0.5 bg-current transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+                <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-canvas/95 backdrop-blur-xl md:hidden flex flex-col justify-center px-8 transition-opacity duration-300">
+          <nav className="flex flex-col gap-8 text-center">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.href);
+                }}
+                className="text-2xl font-bold uppercase tracking-widest text-content-primary hover:text-content-accent transition-colors min-h-[44px] flex items-center justify-center"
+              >
+                {item.name}
+              </a>
+            ))}
+            <a
+              href="#contact"
               onClick={(e) => {
                 e.preventDefault();
-                const target = document.querySelector(item.href);
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                handleNavClick('#contact');
               }}
-              className="text-xs font-bold uppercase tracking-widest text-content-secondary hover:text-content-accent transition-colors duration-300"
+              className="mt-6 inline-block py-4 px-8 bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px]"
             >
-              {item.name}
+              Get in Touch
             </a>
-          ))}
-        </nav>
-
-        {/* CTA */}
-        <div className="group relative">
-          <a 
-            href="#contact" 
-            onClick={(e) => {
-              e.preventDefault();
-              const target = document.querySelector('#contact');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="inline-block text-xs font-bold uppercase tracking-widest px-8 py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
-          >
-            <span className="relative z-10 group-hover:text-canvas transition-colors duration-500">CONTACT</span>
-            <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </a>
+          </nav>
         </div>
-      </div>
-    </header>
+      )}
+    </>
   );
 }

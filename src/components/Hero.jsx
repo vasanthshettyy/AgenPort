@@ -94,30 +94,30 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="text-[clamp(2.5rem,5.2vw,6rem)] leading-[0.9] tracking-[-0.04em] font-display font-extrabold flex flex-col w-full">
+          <h1 className="text-[clamp(2.2rem,5.2vw,6rem)] leading-[0.95] sm:leading-[0.9] tracking-[-0.04em] font-display font-extrabold flex flex-col w-full">
             <div className="overflow-y-hidden">
-              <span className="reveal-line block whitespace-nowrap">PREMIUM WEB</span>
+              <span className="reveal-line block sm:whitespace-nowrap">PREMIUM WEB</span>
             </div>
             <div className="overflow-y-hidden">
-              <span className="reveal-line block italic text-content-secondary whitespace-nowrap">DEVELOPMENT FOR</span>
+              <span className="reveal-line block italic text-content-secondary sm:whitespace-nowrap">DEVELOPMENT FOR</span>
             </div>
             <div className="overflow-y-hidden">
-              <span className="reveal-line block whitespace-nowrap">SERVICE BUSINESSES.</span>
+              <span className="reveal-line block sm:whitespace-nowrap">SERVICE BUSINESSES.</span>
             </div>
           </h1>
 
-          <div className="reveal-sub mt-16 max-w-xl">
-            <p className="text-xl lg:text-2xl text-content-secondary font-sans font-light leading-tight">
+          <div className="reveal-sub mt-10 lg:mt-16 max-w-xl">
+            <p className="text-lg lg:text-2xl text-content-secondary font-sans font-light leading-snug lg:leading-tight">
               I build fast, custom-coded websites that elevate your digital presence and turn visitors into clients. No templates. No platform limitations.
             </p>
             
-            <div className="mt-12 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+            <div className="mt-8 lg:mt-12 flex flex-col sm:flex-row gap-6 sm:gap-8 items-stretch sm:items-center w-full">
               <button 
                 onClick={() => {
                   const target = document.querySelector('#contact');
                   if (target) target.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="w-full sm:w-auto px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] text-center min-h-[44px]"
               >
                 Start a Project
               </button>
