@@ -47,37 +47,6 @@ export default function PricingSection({ onSelectPlan }) {
     return () => ctx.revert();
   }, []);
 
-  // 3D Parallax Tilt Effect on Mouse Move
-  const handleMouseMove = (e, idx) => {
-    const card = cardsRef.current[idx];
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    
-    const rotateX = (-y / rect.height) * 12;
-    const rotateY = (x / rect.width) * 12;
-
-    gsap.to(card, {
-      rotateX,
-      rotateY,
-      transformPerspective: 1000,
-      ease: 'power1.out',
-      duration: 0.3
-    });
-  };
-
-  const handleMouseLeave = (idx) => {
-    const card = cardsRef.current[idx];
-    if (!card) return;
-    gsap.to(card, {
-      rotateX: 0,
-      rotateY: 0,
-      ease: 'power2.out',
-      duration: 0.5
-    });
-  };
-
   const toggleAddon = (id) => {
     setSelectedAddons(prev => 
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
@@ -215,8 +184,8 @@ export default function PricingSection({ onSelectPlan }) {
           </div>
         </div>
 
-        {/* 3-Card Responsive Grid with 3D Tilt */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch perspective-1000">
+        {/* 3-Card Responsive Grid */}
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
           {pricingPlans.map((plan, idx) => {
             const isExpanded = expandedPlanIndex === idx;
 
@@ -224,9 +193,7 @@ export default function PricingSection({ onSelectPlan }) {
               <div
                 key={plan.id}
                 ref={(el) => (cardsRef.current[idx] = el)}
-                onMouseMove={(e) => handleMouseMove(e, idx)}
-                onMouseLeave={() => handleMouseLeave(idx)}
-                className={`relative flex flex-col justify-between p-8 lg:p-10 rounded-3xl border transition-all duration-500 hover:shadow-2xl group cursor-pointer ${
+                className={`relative flex flex-col justify-between p-8 lg:p-10 rounded-3xl border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer ${
                   plan.popular
                     ? 'bg-gradient-to-b from-canvas-card via-canvas-card to-canvas-hover border-content-accent/50 shadow-content-accent/10 scale-102 z-10'
                     : 'bg-canvas-card border-canvas-border hover:border-content-accent/40'
