@@ -11,6 +11,7 @@ import ScrollProgress from './components/ScrollProgress';
 // Lazy load below-the-fold components (Phase 8E.1)
 const ValueSection = React.lazy(() => import('./components/ValueSection'));
 const ServicesSection = React.lazy(() => import('./components/ServicesSection'));
+const PricingSection = React.lazy(() => import('./components/PricingSection'));
 const ProjectGrid = React.lazy(() => import('./components/ProjectGrid'));
 const ContactSection = React.lazy(() => import('./components/ContactSection'));
 const Footer = React.lazy(() => import('./components/Footer'));
@@ -121,6 +122,12 @@ function App() {
         <ErrorBoundary>
           <Suspense fallback={<SkeletonLoader />}>
             <ServicesSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <PricingSection />
           </Suspense>
         </ErrorBoundary>
 

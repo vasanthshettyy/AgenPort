@@ -1,13 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
-    email: ''
+    email: '',
+    details: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const handlePrefill = (e) => {
+      const data = e.detail;
+      if (data) {
+        const msg = data.startingPrice 
+          ? `Hi, I'm interested in the ${data.planName} package for ${data.country} (starting baseline: ${data.startingPrice})${data.retainerSelected ? ' including the retainer add-on' : ''}. Could you send me a custom quote?`
+          : `Hi, I'm interested in getting a custom scope & quote for the ${data.planName} tier${data.retainerSelected ? ' (including the Care Retainer add-on)' : ''}. Could we discuss my project requirements?`;
+        setFormData(prev => ({ ...prev, details: msg }));
+      }
+    };
+    window.addEventListener('prefillContactQuote', handlePrefill);
+    window.addEventListener('prefillContactQuoteNoPrice', handlePrefill);
+    return () => {
+      window.removeEventListener('prefillContactQuote', handlePrefill);
+      window.removeEventListener('prefillContactQuoteNoPrice', handlePrefill);
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,7 +61,8 @@ export default function ContactSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           name: formData.name, 
-          email: formData.email
+          email: formData.email,
+          details: formData.details
         })
       });
 
@@ -59,7 +79,7 @@ export default function ContactSection() {
         confirmButtonColor: '#00e5ff',
       });
       
-      setFormData({ name: '', email: '' });
+      setFormData({ name: '', email: '', details: '' });
     } catch (_err) {
       Swal.fire({
         title: 'SYSTEM ERROR',
@@ -123,6 +143,18 @@ export default function ContactSection() {
                 onChange={handleChange}
                 placeholder="YOUR EMAIL"
                 className="w-full bg-transparent border-b border-canvas-border py-6 text-3xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+              />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+            </div>
+
+            <div className="group relative">
+              <textarea 
+                name="details"
+                value={formData.details}
+                onChange={handleChange}
+                rows="3"
+                placeholder="PROJECT DETAILS / PACKAGE INTEREST"
+                className="w-full bg-transparent border-b border-canvas-border py-4 text-xl lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
