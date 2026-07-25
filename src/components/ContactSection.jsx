@@ -14,9 +14,13 @@ export default function ContactSection() {
     const handlePrefill = (e) => {
       const data = e.detail;
       if (data) {
-        const msg = data.startingPrice 
-          ? `Hi, I'm interested in the ${data.planName} package for ${data.country} (starting baseline: ${data.startingPrice})${data.retainerSelected ? ' including the retainer add-on' : ''}. Could you send me a custom quote?`
-          : `Hi, I'm interested in getting a custom scope & quote for the ${data.planName} tier${data.retainerSelected ? ' (including the Care Retainer add-on)' : ''}. Could we discuss my project requirements?`;
+        let msg = `Hi, I'm interested in getting a custom scope & quote for the ${data.planName} tier.`;
+        if (data.customAddons) {
+          msg += ` Additional selected features: [ ${data.customAddons} ].`;
+        } else if (data.retainerSelected) {
+          msg += ` Including the Care Retainer add-on.`;
+        }
+        msg += ` Could we discuss my project requirements?`;
         setFormData(prev => ({ ...prev, details: msg }));
       }
     };
