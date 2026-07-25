@@ -39,10 +39,15 @@ export default async function handler(req, res) {
 
     const formDataObj = new URLSearchParams();
     formDataObj.append('Name', name);
+    formDataObj.append('name', name);
     formDataObj.append('Email', email);
+    formDataObj.append('email', email);
     formDataObj.append('Details', projectDetails);
+    formDataObj.append('details', projectDetails);
     formDataObj.append('Description', projectDetails);
+    formDataObj.append('description', projectDetails);
     formDataObj.append('Message', projectDetails);
+    formDataObj.append('message', projectDetails);
 
     const sheetResponse = await fetch(GOOGLE_SHEETS_URL, {
       method: 'POST',
