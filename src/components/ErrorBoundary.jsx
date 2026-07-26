@@ -19,7 +19,7 @@ class ErrorBoundary extends Component {
       return (
         <div className="p-8 bg-canvas border border-red-500/20 rounded-2xl flex flex-col items-center justify-center text-center">
           <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center mb-4 text-red-400">
-            ⚠️
+            !
           </div>
           <h3 className="text-xl font-bold text-white mb-2">Module Failed to Load</h3>
           <p className="text-gray-400 text-sm">A temporary error occurred while rendering this section.</p>

@@ -87,7 +87,7 @@ function App() {
       <Helmet>
         {/* Phase 7E.2: Meta Tags */}
         <title>Custom Full-Stack Development Agency | USA, UK, AU</title>
-        <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business — without the SaaS tax." />
+        <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business - without the SaaS tax." />
         <link rel="canonical" href="https://www.youragency.com/" />
         
         {/* Phase 7E.4: Open Graph */}

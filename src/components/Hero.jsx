@@ -60,6 +60,7 @@ const Hero = () => {
 
   return (
     <section 
+      id="hero"
       ref={container} 
       className="relative min-h-screen flex flex-col justify-center px-4 lg:px-10 py-32 lg:py-48 overflow-hidden bg-canvas"
     >

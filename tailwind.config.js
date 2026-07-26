@@ -7,15 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
+        accent: {
+          primary: '#00e5ff',
+          secondary: '#f5f5f7',
+        },
         canvas: {
           DEFAULT: '#0a0a0a', // Muted charcoal
           surface: '#121212',
           border: '#1f1f1f',
+          card: '#121212',
+          hover: '#1f1f1f',
         },
         content: {
           primary: '#f5f5f7', // Subtle off-white
           secondary: '#a1a1a6', // Muted gray
           accent: '#00e5ff', // Neon sky blue
+          neon: '#00e5ff',
+          border: '#1f1f1f',
         }
       },
       fontFamily: {
@@ -28,7 +36,10 @@ export default {
       spacing: {
         '128': '32rem',
         '160': '40rem',
-      }
+      },
+      scale: {
+        '102': '1.02',
+      },
     },
   },
   plugins: [],

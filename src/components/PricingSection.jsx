@@ -66,7 +66,7 @@ export default function PricingSection({ onSelectPlan }) {
             Service Plans.
           </h2>
           <p className="text-content-secondary mt-4 max-w-xl text-lg font-light leading-relaxed">
-            Three plans covering most small business needs — pick one, or tell me what you're after and I'll scope it.
+            Three plans covering most small business needs - pick one, or tell me what you're after and I'll scope it.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export default function PricingSection({ onSelectPlan }) {
                   </div>
                   {plan.deliverables.map((item, i) => (
                     <div key={i} className="flex items-start gap-3 text-xs text-content-secondary">
-                      <span className="text-content-secondary/60 text-[11px] font-mono mt-0.5">•</span>
+                      <span className="text-content-secondary/60 text-[11px] font-mono mt-0.5">-</span>
                       <span className="leading-snug">{item}</span>
                     </div>
                   ))}
@@ -134,7 +134,7 @@ export default function PricingSection({ onSelectPlan }) {
                 </div>
               </div>
 
-              {/* CTA Button — Cyan reserved for Recommended Tier */}
+              {/* CTA Button - Cyan reserved for Recommended Tier */}
               <button
                 onClick={() => handleCtaClick(plan)}
                 className={`w-full py-4 px-6 rounded-full font-sans font-medium text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group ${
@@ -144,7 +144,7 @@ export default function PricingSection({ onSelectPlan }) {
                 }`}
               >
                 <span>Request Custom Quote</span>
-                <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <span className="transform group-hover:translate-x-1 transition-transform">-&gt;</span>
               </button>
             </div>
           ))}

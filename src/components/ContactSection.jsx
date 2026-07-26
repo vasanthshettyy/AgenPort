@@ -7,10 +7,12 @@ export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    details: DEFAULT_MESSAGE
+    details: DEFAULT_MESSAGE,
+    website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [submittedAt, setSubmittedAt] = useState(() => Date.now());
 
   useEffect(() => {
     const handlePrefill = (e) => {
@@ -22,12 +24,14 @@ export default function ContactSection() {
         } else if (data.retainerSelected) {
           msg += ` Including the Care Retainer add-on.`;
         }
-        msg += ` Could we discuss my project requirements?`;
-        setFormData(prev => ({ ...prev, details: msg }));
+        msg += ' Could we discuss my project requirements?';
+        setFormData((prev) => ({ ...prev, details: msg }));
       }
     };
+
     window.addEventListener('prefillContactQuote', handlePrefill);
     window.addEventListener('prefillContactQuoteNoPrice', handlePrefill);
+
     return () => {
       window.removeEventListener('prefillContactQuote', handlePrefill);
       window.removeEventListener('prefillContactQuoteNoPrice', handlePrefill);
@@ -41,13 +45,34 @@ export default function ContactSection() {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!formData.name || !formData.email) {
-      return "Both Name and Email are required.";
+      return 'Both name and email are required.';
     }
+
+    if (formData.name.trim().length < 2) {
+      return 'Please enter your full name.';
+    }
+
     if (!emailRegex.test(formData.email)) {
-      return "Please enter a valid email address.";
+      return 'Please enter a valid email address.';
     }
+
+    if (formData.details.trim().length < 20) {
+      return 'Please share a few more project details.';
+    }
+
     return null;
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      details: DEFAULT_MESSAGE,
+      website: '',
+    });
+    setSubmittedAt(Date.now());
   };
 
   const handleSubmit = async (e) => {
@@ -61,19 +86,22 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Send data to our secure Vercel Serverless backend
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          name: formData.name, 
+          name: formData.name,
           email: formData.email,
-          details: formData.details
+          details: formData.details,
+          website: formData.website,
+          submittedAt,
         })
       });
 
+      const responseData = await response.json().catch(() => ({}));
+
       if (!response.ok) {
-        throw new Error('Server returned an error');
+        throw new Error(responseData.error || 'Server returned an error');
       }
 
       Swal.fire({
@@ -85,11 +113,11 @@ export default function ContactSection() {
         confirmButtonColor: '#00e5ff',
       });
       
-      setFormData({ name: '', email: '', details: DEFAULT_MESSAGE });
-    } catch (_err) {
+      resetForm();
+    } catch (submitError) {
       Swal.fire({
         title: 'SYSTEM ERROR',
-        text: 'Please contact us directly.',
+        text: submitError.message || 'Please contact us directly.',
         icon: 'error',
         background: '#0a0a0a',
         color: '#f5f5f7',
@@ -129,6 +157,17 @@ export default function ContactSection() {
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-8 lg:gap-12">
+            <input
+              type="text"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="hidden"
+            />
+
             <div className="group relative">
               <input 
                 type="text" 
