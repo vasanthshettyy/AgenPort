@@ -42,30 +42,30 @@ export default function Header() {
 
   return (
     <>
-      <header 
+      <header
         ref={container}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 lg:px-20 ${
-          isScrolled ? 'py-4 lg:py-6 bg-canvas/85 backdrop-blur-md border-b border-canvas-border' : 'py-6 lg:py-12 bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-20 ${
+          isScrolled ? 'py-3 sm:py-4 lg:py-6 bg-canvas/85 backdrop-blur-md border-b border-canvas-border' : 'py-4 sm:py-6 lg:py-12 bg-transparent'
         }`}
       >
         <div className="max-w-[1400px] w-full mx-auto flex items-center justify-between">
           {/* Logo */}
-          <div 
-            onClick={() => handleNavClick('#hero')} 
-            className="text-lg lg:text-2xl font-bold tracking-tighter text-content-primary cursor-pointer flex items-center gap-3"
+          <div
+            onClick={() => handleNavClick('#hero')}
+            className="text-sm sm:text-lg lg:text-2xl font-bold tracking-tighter text-content-primary cursor-pointer flex items-center gap-2 sm:gap-3"
           >
-            <div className="w-8 h-8 rounded-full overflow-hidden border border-content-accent/30 p-0.5">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-content-accent/30 p-0.5">
               <img src={me} alt="Vasanth Shetty" className="w-full h-full object-cover rounded-full" />
             </div>
-            <span className="uppercase tracking-[0.2em]">VASANTH SHETTY</span>
+            <span className="uppercase tracking-[0.2em] text-xs sm:text-sm lg:text-base">VASANTH SHETTY</span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-12">
+          <nav className="hidden md:flex items-center gap-8 lg:gap-12">
             {navigation.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.href} 
+              <a
+                key={item.name}
+                href={item.href}
                 onClick={(e) => {
                   e.preventDefault();
                   handleNavClick(item.href);
@@ -78,15 +78,15 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA & Mobile Toggle */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="hidden sm:block group relative">
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
                   handleNavClick('#contact');
                 }}
-                className="inline-block text-xs font-bold uppercase tracking-widest px-6 lg:px-8 py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
+                className="inline-block text-xs font-bold uppercase tracking-widest px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
               >
                 <span className="relative z-10 group-hover:text-canvas transition-colors duration-500">CONTACT</span>
                 <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
@@ -97,9 +97,10 @@ export default function Header() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
+              aria-expanded={mobileMenuOpen}
               className="md:hidden p-2 text-content-primary hover:text-content-accent focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              <div className="w-6 h-5 flex flex-col justify-between">
+              <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
                 <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
                 <span className={`w-full h-0.5 bg-current transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
                 <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
@@ -111,8 +112,17 @@ export default function Header() {
 
       {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-canvas/95 backdrop-blur-xl md:hidden flex flex-col justify-center px-8 transition-opacity duration-300">
-          <nav className="flex flex-col gap-8 text-center">
+        <div
+          className="fixed inset-0 z-40 bg-canvas/95 backdrop-blur-xl md:hidden flex flex-col justify-center px-6"
+          style={{ animation: 'mobileMenuIn 0.35s cubic-bezier(0.4,0,0.2,1) both' }}
+        >
+          <style>{`
+            @keyframes mobileMenuIn {
+              from { opacity: 0; transform: translateY(-16px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
+          `}</style>
+          <nav className="flex flex-col gap-6 sm:gap-8 text-center">
             {navigation.map((item) => (
               <a
                 key={item.name}
@@ -121,7 +131,7 @@ export default function Header() {
                   e.preventDefault();
                   handleNavClick(item.href);
                 }}
-                className="text-2xl font-bold uppercase tracking-widest text-content-primary hover:text-content-accent transition-colors min-h-[44px] flex items-center justify-center"
+                className="text-xl sm:text-2xl font-bold uppercase tracking-widest text-content-primary hover:text-content-accent transition-colors min-h-[44px] flex items-center justify-center"
               >
                 {item.name}
               </a>
@@ -132,7 +142,7 @@ export default function Header() {
                 e.preventDefault();
                 handleNavClick('#contact');
               }}
-              className="mt-6 inline-block py-4 px-8 bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px]"
+              className="mt-4 sm:mt-6 inline-block py-3.5 sm:py-4 px-6 sm:px-8 bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px]"
             >
               Get in Touch
             </a>

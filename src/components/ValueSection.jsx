@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -40,12 +40,22 @@ const values = [
 
 const ValueSection = () => {
   const container = useRef();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useGSAP(() => {
+    if (isMobile) return;
+
     const sections = gsap.utils.toArray('.value-item');
-    
+
     sections.forEach((section, i) => {
-      if (i === sections.length - 1) return; // Last section doesn't need to be pinned
+      if (i === sections.length - 1) return;
 
       ScrollTrigger.create({
         trigger: section,
@@ -69,30 +79,57 @@ const ValueSection = () => {
         });
       }
     });
-  }, { scope: container });
+  }, { scope: container, dependencies: [isMobile] });
+
+  // Mobile-only scroll entrance animations
+  useGSAP(() => {
+    if (!isMobile) return;
+
+    const cards = gsap.utils.toArray('.value-item');
+    cards.forEach((card) => {
+      const inner = card.querySelector('.value-inner');
+      if (!inner) return;
+
+      gsap.fromTo(
+        inner,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, { scope: container, dependencies: [isMobile] });
 
   return (
     <section id="process" ref={container} className="bg-canvas">
       {values.map((v, i) => (
-        <div 
-          key={i} 
-          className="value-item h-[100dvh] min-h-[500px] flex flex-col justify-center px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border overflow-hidden"
+        <div
+          key={i}
+          className={`value-item ${isMobile ? 'min-h-[600px]' : 'min-h-[100dvh] min-h-[500px]'} flex flex-col justify-center px-4 sm:px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border overflow-hidden`}
         >
           <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-6 lg:gap-20 items-center lg:items-end">
             <div className="flex flex-col gap-4 lg:gap-8">
               <span className="text-content-accent font-sans text-lg lg:text-2xl font-bold tracking-tighter">
                 {v.number} /
               </span>
-              <h2 className="text-3xl sm:text-6xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
+              <h2 className="text-2xl sm:text-4xl lg:text-giant font-sans font-bold leading-none tracking-tighter">
                 {v.title}
               </h2>
               <p className="text-lg sm:text-2xl lg:text-4xl text-content-secondary font-light max-w-xl leading-snug">
                 {v.desc}
               </p>
             </div>
-            
-            <div className="flex flex-col items-start lg:items-end">
-              <span className="text-5xl sm:text-7xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-accent/15 lg:text-content-primary/5 select-none">
+
+            <div className="flex flex-col items-start lg:items-end mt-6 lg:mt-0">
+              <span className="text-4xl sm:text-6xl lg:text-[14rem] font-sans font-bold leading-none tracking-tighter text-content-accent/15 lg:text-content-primary/5 select-none">
                 {v.stat}
               </span>
             </div>

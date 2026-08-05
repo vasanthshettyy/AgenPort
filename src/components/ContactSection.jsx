@@ -89,7 +89,7 @@ export default function ContactSection() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           details: formData.details,
@@ -112,7 +112,7 @@ export default function ContactSection() {
         color: '#f5f5f7',
         confirmButtonColor: '#00e5ff',
       });
-      
+
       resetForm();
     } catch (submitError) {
       Swal.fire({
@@ -129,34 +129,34 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-64 bg-canvas px-6 lg:px-20 overflow-hidden">
+    <section id="contact" className="py-12 sm:py-16 lg:py-64 bg-canvas px-4 sm:px-6 lg:px-20 overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
-        <h2 className="text-4xl sm:text-6xl lg:text-massive font-sans font-bold mb-12 lg:mb-32 tracking-tighter uppercase">
+        <h2 className="text-3xl sm:text-5xl lg:text-massive font-sans font-bold mb-6 sm:mb-8 lg:mb-32 tracking-tighter uppercase">
           Work Together.
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-32">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-32">
           <div>
-            <p className="text-2xl sm:text-4xl lg:text-6xl font-sans font-light text-content-secondary leading-tight mb-8 lg:mb-12">
+            <p className="text-xl sm:text-2xl lg:text-4xl xl:text-6xl font-sans font-light text-content-secondary leading-tight mb-6 sm:mb-8 lg:mb-12">
               Let's build your new <span className="text-content-primary italic">digital standard</span>.
             </p>
-            <div className="flex flex-col gap-4 lg:gap-6 font-mono text-sm tracking-tight text-content-secondary">
-              <a href="mailto:vasanthshetty.dev@gmail.com" className="flex items-center gap-4 hover:text-content-primary transition-colors min-h-[44px]">
+            <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 font-mono text-sm tracking-tight text-content-secondary">
+              <a href="mailto:vasanthshetty.dev@gmail.com" className="flex items-center gap-3 sm:gap-4 hover:text-content-primary transition-colors min-h-[44px]">
                 <span className="w-2 h-2 bg-content-accent rounded-full flex-shrink-0" />
-                <span className="break-all">vasanthshetty.dev@gmail.com</span>
+                <span className="break-all text-sm sm:text-base">vasanthshetty.dev@gmail.com</span>
               </a>
-              <a href="https://www.linkedin.com/in/vasanth-shetty-dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-content-primary transition-colors min-h-[44px]">
+              <a href="https://www.linkedin.com/in/vasanth-shetty-dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:gap-4 hover:text-content-primary transition-colors min-h-[44px]">
                 <span className="w-2 h-2 bg-content-accent rounded-full flex-shrink-0" />
-                LinkedIn
+                <span className="text-sm sm:text-base">LinkedIn</span>
               </a>
-              <a href="https://github.com/vasanthshettyy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-content-primary transition-colors min-h-[44px]">
+              <a href="https://github.com/vasanthshettyy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:gap-4 hover:text-content-primary transition-colors min-h-[44px]">
                 <span className="w-2 h-2 bg-content-accent rounded-full flex-shrink-0" />
-                GitHub
+                <span className="text-sm sm:text-base">GitHub</span>
               </a>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-8 lg:gap-12">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
             <input
               type="text"
               name="website"
@@ -169,55 +169,55 @@ export default function ContactSection() {
             />
 
             <div className="group relative">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="YOUR NAME"
-                className="w-full bg-transparent border-b border-canvas-border py-4 lg:py-6 text-lg sm:text-2xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
             <div className="group relative">
-              <input 
-                type="email" 
+              <input
+                type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="YOUR EMAIL"
-                className="w-full bg-transparent border-b border-canvas-border py-4 lg:py-6 text-lg sm:text-2xl lg:text-4xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
             <div className="group relative">
-              <textarea 
+              <textarea
                 name="details"
                 value={formData.details}
                 onChange={handleChange}
                 rows="3"
                 placeholder="PROJECT DETAILS / PACKAGE INTEREST"
-                className="w-full bg-transparent border-b border-canvas-border py-4 text-base sm:text-xl lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
+                className="w-full bg-transparent border-b border-canvas-border py-3 text-sm sm:text-base lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>
 
             {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
 
-            <div className="mt-4 lg:mt-8">
-              <button 
-                type="submit" 
+            <div className="mt-2 lg:mt-4">
+              <button
+                type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto group relative inline-flex items-center justify-center px-10 py-5 lg:px-16 lg:py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent min-h-[48px]"
+                className="w-full sm:w-auto group relative inline-flex items-center justify-center px-6 sm:px-8 lg:px-16 py-3 sm:py-4 lg:py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent min-h-[48px]"
               >
                 <span className={`relative z-10 text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-500 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                   SUBMIT INQUIRY
                 </span>
                 {isSubmitting && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-6 h-6 lg:w-8 lg:h-8 border-4 border-content-accent/30 border-t-content-accent rounded-full animate-spin" />
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-4 border-content-accent/30 border-t-content-accent rounded-full animate-spin" />
                   </div>
                 )}
                 <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />

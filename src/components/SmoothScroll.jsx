@@ -5,6 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const SmoothScroll = ({ children }) => {
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile) {
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -17,10 +23,8 @@ const SmoothScroll = ({ children }) => {
       infinite: false,
     });
 
-    // Update ScrollTrigger on scroll
     lenis.on('scroll', ScrollTrigger.update);
 
-    // Sync GSAP ticker with Lenis raf
     const updateLenis = (time) => {
       lenis.raf(time * 1000);
     };
