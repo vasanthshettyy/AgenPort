@@ -1,0 +1,34 @@
+# Vasanth Shetty - Premium Custom Web Development Agency
+
+> Custom Full-Stack Development for High-Ticket International B2B Clients & Service Businesses.
+> High-performance, custom-coded web applications without SaaS taxes or platform limits.
+
+## Overview
+Vasanth Shetty builds fast, custom-coded web software, MVPs, and business infrastructure tailored for international B2B companies across USA, UK, Australia, and Europe. 100% intellectual property ownership, zero recurring platform fees, and lightning-fast load times.
+
+## Core Offerings & Pricing
+
+### 1. High-Ticket Conversion Site ($2,500 - $4,500)
+- Timeline: 2 - 3 Weeks
+- Key Deliverables: Custom React/Vite architecture, responsive mobile-first UI, speed optimization (95+ Lighthouse), technical SEO setup, analytics integration, direct lead capture.
+
+### 2. Custom Core Application / MVP ($6,000 - $12,000)
+- Timeline: 6 - 8 Weeks
+- Key Deliverables: Full-stack architecture, custom backend/database design, authentication, payments/Stripe integration, API integrations, admin dashboard.
+
+### 3. Enterprise Digital Infrastructure ($15,000+)
+- Timeline: 12 - 16 Weeks
+- Key Deliverables: Distributed microservices, custom CRM/ERP integrations, automated workflows, 99.9% uptime SLA, security compliance & audits.
+
+## Core Value Proposition
+1. **High Conversion Rate**: Sites built to turn traffic into booked meetings and qualified leads.
+2. **Mobile-First**: Flawless touch target ergonomics and responsive UI across all devices.
+3. **SEO Focused**: Technical SEO best practices built directly into the codebase.
+4. **100% Code Ownership**: Full source code and database schemas transferred upon completion. No lock-in.
+
+## Contact Information
+- Lead Developer & Founder: Vasanth Shetty
+- Email: vasanthshetty.dev@gmail.com
+- GitHub: https://github.com/vasanthshettyy
+- LinkedIn: https://www.linkedin.com/in/vasanth-shetty-dev
+- Location: Available Worldwide (USA, UK, AU, EU)
