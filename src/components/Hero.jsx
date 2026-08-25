@@ -1,18 +1,26 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import me from '../assets/vasanth-hero.png';
 
 const Hero = () => {
   const container = useRef();
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: isMobile ? 1 : 2 } });
 
     tl.from('.reveal-line', {
-      y: isMobile ? '50%' : '150%',
-      skewY: isMobile ? 0 : 10,
+      y: isMobile ? '50%' : '100%',
+      skewY: isMobile ? 0 : 5,
       stagger: isMobile ? 0.08 : 0.15,
       opacity: 0,
     })
@@ -32,42 +40,33 @@ const Hero = () => {
       x: isMobile ? 0 : 50,
       duration: isMobile ? 1 : 2,
     }, '-=1.2');
-
-    if (!isMobile) {
-      const onMouseMove = (e) => {
-        const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5) * 40;
-        const yPos = (clientY / window.innerHeight - 0.5) * 40;
-
-        gsap.to('.hero-bloom', {
-          x: xPos,
-          y: yPos,
-          duration: 2,
-          ease: 'power2.out',
-        });
-
-        gsap.to('.hero-image', {
-          x: xPos / 2,
-          y: yPos / 2,
-          duration: 2,
-          ease: 'power2.out',
-        });
-      };
-
-      window.addEventListener('mousemove', onMouseMove);
-      return () => window.removeEventListener('mousemove', onMouseMove);
-    }
-  }, { scope: container });
+  }, { scope: container, dependencies: [isMobile] });
 
   useEffect(() => {
-    const handleResize = () => {
-      const nowMobile = window.innerWidth < 768;
-      if (isMobile !== nowMobile) {
-        window.location.reload();
-      }
+    if (isMobile) return;
+
+    const onMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const xPos = (clientX / window.innerWidth - 0.5) * 40;
+      const yPos = (clientY / window.innerHeight - 0.5) * 40;
+
+      gsap.to('.hero-bloom', {
+        x: xPos,
+        y: yPos,
+        duration: 2,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.hero-image', {
+        x: xPos / 2,
+        y: yPos / 2,
+        duration: 2,
+        ease: 'power2.out',
+      });
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    window.addEventListener('mousemove', onMouseMove);
+    return () => window.removeEventListener('mousemove', onMouseMove);
   }, [isMobile]);
 
   return (
@@ -77,12 +76,12 @@ const Hero = () => {
       className="relative min-h-[100dvh] flex flex-col justify-center px-4 sm:px-6 lg:px-10 py-20 sm:py-28 lg:py-48 overflow-hidden bg-canvas"
     >
       {/* Right Side: Light Bloom + Image */}
-      <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute top-0 right-0 w-full md:w-1/2 h-full z-0 flex items-center justify-center pointer-events-none">
         {!isMobile && (
           <div className="hero-bloom absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] lg:w-[600px] lg:h-[600px] bg-content-neon/10 rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px]" />
         )}
 
-        <div className={`hero-image-wrap relative ${isMobile ? 'w-full max-w-xs aspect-[3/4]' : 'w-[80%] aspect-[3/4] max-h-[70vh]'} overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group pointer-events-auto`}>
+        <div className={`hero-image-wrap relative ${isMobile ? 'w-full max-w-xs aspect-[3/4]' : 'w-[80%] lg:w-[70%] aspect-[3/4] max-h-[70vh]'} overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 ease-expo group pointer-events-auto`}>
           <img
             src={me}
             alt="Vasanth Shetty"
@@ -99,7 +98,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-content-accent/5 mix-blend-screen pointer-events-none z-[1]" />
 
       <div className="w-full flex flex-col justify-center relative z-10 h-full">
-        <div className="flex flex-col items-start min-w-0 w-full">
+        <div className="flex flex-col items-start min-w-0 w-full md:w-3/4 lg:w-2/3">
           {/* Animated Badge */}
           <div className="reveal-badge flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/20 rounded-full mb-6 sm:mb-8 sm:mb-12">
             <div className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
