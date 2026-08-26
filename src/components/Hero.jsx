@@ -1,7 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import me from '../assets/vasanth-hero.png';
+
+// Stable public path — allows index.html preload link to work without hashed filenames
+const me = '/vasanth-hero.png';
 
 const Hero = () => {
   const container = useRef();
@@ -15,13 +17,20 @@ const Hero = () => {
 
   // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly
   useGSAP(() => {
+    // Set initial state via GSAP (not hardcoded in JSX) so elements paint visible for LCP,
+    // then GSAP immediately hides them synchronously before the first frame, then animates in.
+    gsap.set(['.hero-badge', '.hero-line', '.hero-sub', '.hero-cta', '.hero-image-wrap'], { opacity: 0 });
+    gsap.set('.hero-line', { y: 40 });
+    gsap.set(['.hero-badge', '.hero-sub', '.hero-cta'], { y: 20 });
+    gsap.set('.hero-image-wrap', { x: 60 });
+
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-    tl.fromTo('.hero-badge', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 })
-      .fromTo('.hero-line', { opacity: 0, y: 40 }, { opacity: 1, y: 0, stagger: 0.12, duration: 1.2 }, '-=0.6')
-      .fromTo('.hero-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, '-=0.8')
-      .fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
-      .fromTo('.hero-image-wrap', { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.5 }, '-=1.4');
+    tl.to('.hero-badge', { opacity: 1, y: 0, duration: 1 })
+      .to('.hero-line', { opacity: 1, y: 0, stagger: 0.12, duration: 1.2 }, '-=0.6')
+      .to('.hero-sub', { opacity: 1, y: 0, duration: 1 }, '-=0.8')
+      .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+      .to('.hero-image-wrap', { opacity: 1, x: 0, duration: 1.5 }, '-=1.4');
   }, { scope: container, dependencies: [isMobile] });
 
   // Mouse parallax on desktop only
@@ -49,7 +58,7 @@ const Hero = () => {
         {/* LEFT — Text */}
         <div className="flex-1 flex flex-col items-start gap-6 lg:gap-8 z-10">
           {/* Badge */}
-          <div className="hero-badge flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/15 rounded-full opacity-0">
+          <div className="hero-badge flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/15 rounded-full">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
@@ -61,18 +70,18 @@ const Hero = () => {
 
           {/* Headline — no overflow-hidden clipping */}
           <h1 className="flex flex-col gap-1 text-[clamp(2rem,5.5vw,5.5rem)] leading-[0.92] tracking-[-0.04em] font-extrabold">
-            <span className="hero-line block opacity-0">PREMIUM WEB</span>
-            <span className="hero-line block italic text-content-secondary opacity-0">DEVELOPMENT FOR</span>
-            <span className="hero-line block opacity-0">SERVICE BUSINESSES.</span>
+            <span className="hero-line block">PREMIUM WEB</span>
+            <span className="hero-line block italic text-content-secondary">DEVELOPMENT FOR</span>
+            <span className="hero-line block">SERVICE BUSINESSES.</span>
           </h1>
 
           {/* Subtext */}
-          <p className="hero-sub max-w-md text-base sm:text-lg lg:text-xl text-content-secondary font-light leading-relaxed opacity-0">
+          <p className="hero-sub max-w-md text-base sm:text-lg lg:text-xl text-content-secondary font-light leading-relaxed">
             I build fast, custom-coded websites that elevate your digital presence and turn visitors into clients. No templates. No platform limitations.
           </p>
 
           {/* CTAs */}
-          <div className="hero-cta flex flex-col sm:flex-row gap-4 items-start opacity-0">
+          <div className="hero-cta flex flex-col sm:flex-row gap-4 items-start">
             <button
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.12)] min-h-[48px]"
@@ -102,12 +111,15 @@ const Hero = () => {
           <div className="hero-bloom absolute inset-0 w-full h-full bg-content-neon/10 rounded-full blur-[100px] pointer-events-none" />
 
           {/* Image wrapper */}
-          <div className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden opacity-0 group">
+          <div className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden group">
             <img
               src={me}
               alt="Vasanth Shetty — Web Developer"
               className="hero-image w-full h-full object-cover object-top grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000"
               loading="eager"
+              fetchpriority="high"
+              width="520"
+              height="693"
             />
             {/* Subtle edge fade — reduced opacity so photo is actually visible */}
             <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none" />

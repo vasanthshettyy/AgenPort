@@ -17,7 +17,7 @@ const ContactSection = React.lazy(() => import('./components/ContactSection'));
 const Footer = React.lazy(() => import('./components/Footer'));
 
 const SkeletonLoader = () => (
-  <div className="w-full h-96 bg-canvas flex items-center justify-center">
+  <div className="w-full min-h-screen bg-canvas flex items-center justify-center">
     <div className="w-8 h-8 border-4 border-accent-primary/30 border-t-accent-primary rounded-full animate-spin"></div>
   </div>
 );
@@ -44,8 +44,8 @@ function App() {
       {
         "@type": "Organization",
         "name": "Custom Full-Stack Development Agency",
-        "url": "https://www.youragency.com",
-        "logo": "https://www.youragency.com/logo.png",
+        "url": "https://dev-vasanth.vercel.app",
+        "logo": "https://dev-vasanth.vercel.app/favicon.svg",
         "contactPoint": {
           "@type": "ContactPoint",
           "email": "vasanthshetty.dev@gmail.com",
@@ -88,13 +88,13 @@ function App() {
         {/* Phase 7E.2: Meta Tags */}
         <title>Custom Full-Stack Development Agency | USA, UK, AU</title>
         <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business - without the SaaS tax." />
-        <link rel="canonical" href="https://www.youragency.com/" />
+        <link rel="canonical" href="https://dev-vasanth.vercel.app/" />
         
         {/* Phase 7E.4: Open Graph */}
         <meta property="og:title" content="Custom Full-Stack Development Agency | USA, UK, AU" />
         <meta property="og:description" content="Premium custom software systems for high-ticket international B2B clients." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.youragency.com/" />
+        <meta property="og:url" content="https://dev-vasanth.vercel.app/" />
         <meta property="og:locale" content="en_US" />
         
         {/* Phase 7E.5: Twitter Card */}
