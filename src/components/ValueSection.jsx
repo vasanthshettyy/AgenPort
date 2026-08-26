@@ -56,17 +56,16 @@ const ValueSection = () => {
     const lastIndex = sections.length - 1;
 
     sections.forEach((section, i) => {
-      // Pin every card — including the last one so it has scroll room
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        pin: true,
-        pinSpacing: false,
-        scrub: 1,
-      });
-
-      // Only apply the fade-out/scale effect on cards that are NOT the last
+      // Only pin cards 1–4 (not the last) — last card scrolls away naturally
       if (i < lastIndex) {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          pin: true,
+          pinSpacing: false,
+          scrub: 1,
+        });
+
         const inner = section.querySelector('.value-inner');
         if (inner) {
           gsap.to(inner, {
@@ -117,6 +116,7 @@ const ValueSection = () => {
         <div
           key={i}
           className={`value-item ${isMobile ? 'min-h-[600px]' : 'min-h-[100dvh] min-h-[500px]'} flex flex-col justify-center px-4 sm:px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border overflow-hidden`}
+          style={{ zIndex: i + 1 }}
         >
           <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-6 lg:gap-20 items-center lg:items-end">
             <div className="flex flex-col gap-4 lg:gap-8">
