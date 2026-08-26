@@ -17,7 +17,7 @@ const ContactSection = React.lazy(() => import('./components/ContactSection'));
 const Footer = React.lazy(() => import('./components/Footer'));
 
 const SkeletonLoader = () => (
-  <div className="w-full min-h-screen bg-canvas flex items-center justify-center">
+  <div className="w-full h-96 bg-canvas flex items-center justify-center">
     <div className="w-8 h-8 border-4 border-accent-primary/30 border-t-accent-primary rounded-full animate-spin"></div>
   </div>
 );
