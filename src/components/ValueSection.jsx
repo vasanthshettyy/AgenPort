@@ -53,10 +53,10 @@ const ValueSection = () => {
     if (isMobile) return;
 
     const sections = gsap.utils.toArray('.value-item');
+    const lastIndex = sections.length - 1;
 
     sections.forEach((section, i) => {
-      if (i === sections.length - 1) return;
-
+      // Pin every card — including the last one so it has scroll room
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
@@ -65,18 +65,21 @@ const ValueSection = () => {
         scrub: 1,
       });
 
-      const inner = section.querySelector('.value-inner');
-      if (inner) {
-        gsap.to(inner, {
-          opacity: 0.3,
-          scale: 0.92,
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1,
-          }
-        });
+      // Only apply the fade-out/scale effect on cards that are NOT the last
+      if (i < lastIndex) {
+        const inner = section.querySelector('.value-inner');
+        if (inner) {
+          gsap.to(inner, {
+            opacity: 0.3,
+            scale: 0.92,
+            scrollTrigger: {
+              trigger: section,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1,
+            },
+          });
+        }
       }
     });
   }, { scope: container, dependencies: [isMobile] });
