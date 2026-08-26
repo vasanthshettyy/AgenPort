@@ -78,7 +78,7 @@ const ServicesSection = () => {
                 isMobile ? 'min-h-[120px]' : ''
               }`}
             >
-              <div className={`absolute inset-0 bg-content-accent/5 origin-bottom transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${active === index ? 'scale-y-100' : 'scale-y-0'}`} />
+              <div className={`absolute inset-0 bg-content-accent/10 origin-left transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${active === index ? 'scale-x-100' : 'scale-x-0'}`} />
 
               <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-20">
                 <div className="flex items-center gap-3 lg:gap-20">
