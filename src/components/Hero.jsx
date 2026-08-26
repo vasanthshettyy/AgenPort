@@ -2,8 +2,9 @@ import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-// Stable public path — allows index.html preload link to work without hashed filenames
-const me = '/vasanth-hero.png';
+// Stable public path — compressed WebP (24KB vs 2MB original PNG)
+const me = '/vasanth-hero.webp';
+const meFallback = '/vasanth-hero.png';
 
 const Hero = () => {
   const container = useRef();
@@ -112,15 +113,18 @@ const Hero = () => {
 
           {/* Image wrapper */}
           <div className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden group">
-            <img
-              src={me}
-              alt="Vasanth Shetty — Web Developer"
-              className="hero-image w-full h-full object-cover object-top grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000"
-              loading="eager"
-              fetchpriority="high"
-              width="520"
-              height="693"
-            />
+            <picture>
+              <source srcSet={me} type="image/webp" />
+              <img
+                src={meFallback}
+                alt="Vasanth Shetty — Web Developer"
+                className="hero-image w-full h-full object-cover object-top grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000"
+                loading="eager"
+                fetchpriority="high"
+                width="520"
+                height="693"
+              />
+            </picture>
             {/* Subtle edge fade — reduced opacity so photo is actually visible */}
             <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-canvas/60 pointer-events-none" />
