@@ -64,7 +64,7 @@ const Hero = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
             </span>
             <span className="text-[10px] font-bold tracking-[0.2em] text-content-primary uppercase">
-              Accepting limited project bookings
+              NOW ACCEPTING FOUNDING CLIENTS • 5 SPOTS OPEN
             </span>
           </div>
 
