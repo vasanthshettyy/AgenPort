@@ -43,7 +43,7 @@ function App() {
     "@graph": [
       {
         "@type": "Organization",
-        "name": "Custom Full-Stack Development Agency",
+        "name": "Vasanth Shetty — Full-Stack Web Developer",
         "url": "https://dev-vasanth.vercel.app",
         "logo": "https://dev-vasanth.vercel.app/favicon.svg",
         "contactPoint": {
@@ -89,14 +89,14 @@ function App() {
         <title>Custom Full-Stack Development Agency | USA, UK, AU</title>
         <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business - without the SaaS tax." />
         <link rel="canonical" href="https://dev-vasanth.vercel.app/" />
-        
+
         {/* Phase 7E.4: Open Graph */}
         <meta property="og:title" content="Custom Full-Stack Development Agency | USA, UK, AU" />
         <meta property="og:description" content="Premium custom software systems for high-ticket international B2B clients." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dev-vasanth.vercel.app/" />
         <meta property="og:locale" content="en_US" />
-        
+
         {/* Phase 7E.5: Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Custom Full-Stack Development Agency" />
@@ -107,12 +107,12 @@ function App() {
           {JSON.stringify(structuredData)}
         </script>
       </Helmet>
-      
+
       <Header />
-      
+
       <main>
         <Hero />
-        
+
         <ErrorBoundary>
           <Suspense fallback={<SkeletonLoader />}>
             <ValueSection />
@@ -143,7 +143,7 @@ function App() {
           </Suspense>
         </ErrorBoundary>
       </main>
-      
+
       <ErrorBoundary>
         <Suspense fallback={<SkeletonLoader />}>
           <Footer />
