@@ -17,13 +17,11 @@ const Hero = () => {
 
   // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly
   useGSAP(() => {
-    // Text elements: GSAP owns opacity:0 so they paint visible for LCP measurement,
-    // then GSAP hides and animates them in. Hero image is NOT hidden so it paints
-    // immediately and registers as LCP candidate without waiting for JS hydration.
-    gsap.set(['.hero-badge', '.hero-line', '.hero-sub', '.hero-cta'], { opacity: 0 });
+    // Set initial state via GSAP (not hardcoded in JSX) so elements paint visible for LCP,
+    // then GSAP immediately hides them synchronously before the first frame, then animates in.
+    gsap.set(['.hero-badge', '.hero-line', '.hero-sub', '.hero-cta', '.hero-image-wrap'], { opacity: 0 });
     gsap.set('.hero-line', { y: 40 });
     gsap.set(['.hero-badge', '.hero-sub', '.hero-cta'], { y: 20 });
-    // Image: start translated but visible — browser paints it for LCP, GSAP slides it in
     gsap.set('.hero-image-wrap', { x: 60 });
 
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
@@ -32,7 +30,7 @@ const Hero = () => {
       .to('.hero-line', { opacity: 1, y: 0, stagger: 0.12, duration: 1.2 }, '-=0.6')
       .to('.hero-sub', { opacity: 1, y: 0, duration: 1 }, '-=0.8')
       .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
-      .to('.hero-image-wrap', { x: 0, duration: 1.5 }, '-=1.4');
+      .to('.hero-image-wrap', { opacity: 1, x: 0, duration: 1.5 }, '-=1.4');
   }, { scope: container, dependencies: [isMobile] });
 
   // Mouse parallax on desktop only
