@@ -115,7 +115,7 @@ const ValueSection = () => {
       {values.map((v, i) => (
         <div
           key={i}
-          className={`value-item ${isMobile ? 'min-h-[600px]' : 'min-h-[100dvh] min-h-[500px]'} flex flex-col justify-center px-4 sm:px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border overflow-hidden`}
+          className={`value-item relative ${isMobile ? 'min-h-[600px]' : 'min-h-[100dvh] min-h-[500px]'} flex flex-col justify-center px-4 sm:px-6 lg:px-20 bg-canvas-surface border-b border-canvas-border overflow-hidden`}
           style={{ zIndex: i + 1 }}
         >
           <div className="value-inner max-w-[1400px] w-full mx-auto grid lg:grid-cols-2 gap-6 lg:gap-20 items-center lg:items-end">
