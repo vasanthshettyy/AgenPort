@@ -5,17 +5,8 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const container = useRef();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -44,9 +35,7 @@ export default function Header() {
     <>
       <header
         ref={container}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-10 ${
-          isScrolled ? 'py-3 sm:py-4 lg:py-6 bg-canvas/85 backdrop-blur-md border-b border-canvas-border' : 'py-4 sm:py-6 lg:py-12 bg-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 lg:py-6 bg-canvas/85 backdrop-blur-md border-b border-canvas-border"
       >
         <div className="max-w-[1400px] w-full mx-auto flex items-center justify-between">
           {/* Logo */}
