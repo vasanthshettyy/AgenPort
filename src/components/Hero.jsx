@@ -50,7 +50,7 @@ const Hero = () => {
     <section
       id="hero"
       ref={container}
-      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-canvas"
+      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-canvas pt-16 sm:pt-20 lg:pt-24"
     >
       {/* ── Desktop: Two-column split layout ── */}
       <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-0 py-28 lg:py-0">
