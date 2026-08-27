@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import me from '../assets/vasanth.png';
+
 import { navigation } from '../data/navigation';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -55,7 +55,7 @@ export default function Header() {
             className="text-sm sm:text-lg lg:text-2xl font-bold tracking-tighter text-content-primary cursor-pointer flex items-center gap-2 sm:gap-3"
           >
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-content-accent/30 p-0.5">
-              <img src={me} alt="Vasanth Shetty" className="w-full h-full object-cover rounded-full" />
+              <img src="/vasanth-avatar.webp" alt="Vasanth Shetty" width="64" height="64" className="w-full h-full object-cover rounded-full" fetchPriority="low" loading="lazy" />
             </div>
             <span className="uppercase tracking-[0.2em] text-xs sm:text-sm lg:text-base">VASANTH SHETTY</span>
           </div>
