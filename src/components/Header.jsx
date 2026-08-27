@@ -44,7 +44,7 @@ export default function Header() {
     <>
       <header
         ref={container}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-20 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-10 ${
           isScrolled ? 'py-3 sm:py-4 lg:py-6 bg-canvas/85 backdrop-blur-md border-b border-canvas-border' : 'py-4 sm:py-6 lg:py-12 bg-transparent'
         }`}
       >
@@ -61,7 +61,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-12">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             {navigation.map((item) => (
               <a
                 key={item.name}
