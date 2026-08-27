@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { pricingPlans } from '../data/pricingData';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -66,13 +66,13 @@ export default function PricingSection({ onSelectPlan }) {
         {/* Section Header */}
         <div className="mb-8 sm:mb-12 lg:mb-16">
           <span className="text-[10px] sm:text-xs font-mono font-semibold tracking-[0.25em] text-content-secondary uppercase mb-3 block">
-            SERVICE PLANS & SCOPES
+            SERVICE PLANS &amp; SCOPES
           </span>
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-bold tracking-tighter text-content-primary uppercase">
             Service Plans.
           </h2>
           <p className="text-content-secondary mt-3 sm:mt-4 max-w-xl text-base sm:text-lg font-light leading-relaxed">
-            Three plans covering most small business needs - pick one, or tell me what you're after and I'll scope it.
+            Three plans covering most small business needs - pick one, or tell me what you are after and I will scope it.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function PricingSection({ onSelectPlan }) {
               )}
 
               <div>
-                {/* Tier Label, Title & Subtitle */}
+                {/* Tier Label, Title and Subtitle */}
                 <div className="mb-4 sm:mb-6">
                   <span className="text-[9px] sm:text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-content-secondary font-medium">
                     {plan.tag}
@@ -111,7 +111,7 @@ export default function PricingSection({ onSelectPlan }) {
                   {plan.description}
                 </p>
 
-                {/* Scope & Deliverables */}
+                {/* Scope and Deliverables */}
                 <div className="space-y-2.5 mb-4 sm:mb-8">
                   <div className="text-[10px] sm:text-xs font-mono font-medium uppercase tracking-wider text-content-secondary mb-3">
                     Included Deliverables
@@ -124,7 +124,7 @@ export default function PricingSection({ onSelectPlan }) {
                   ))}
                 </div>
 
-                {/* Optional Maintenance & Retainer Note */}
+                {/* Optional Maintenance and Retainer Note */}
                 <div className="p-3 sm:p-4 bg-canvas-hover/50 border border-canvas-border rounded-xl sm:rounded-2xl mb-4 sm:mb-8">
                   <div className="flex justify-between items-center text-xs font-medium text-content-primary mb-1">
                     <span className="font-mono text-[10px] text-content-primary">
@@ -140,17 +140,26 @@ export default function PricingSection({ onSelectPlan }) {
                 </div>
               </div>
 
-              {/* CTA Button */}
+              {/* CTA Button - bottom-to-top fill wipe */}
               <button
                 onClick={() => handleCtaClick(plan)}
-                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full font-sans font-medium text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group ${
+                className={`group relative w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full font-sans font-medium text-xs uppercase tracking-widest overflow-hidden flex items-center justify-center gap-2 ${
                   plan.popular
-                    ? 'bg-content-accent text-canvas hover:bg-content-accent/90 shadow-md font-bold'
-                    : 'bg-transparent border border-canvas-border text-content-primary hover:border-content-primary hover:bg-canvas-hover'
+                    ? 'bg-content-accent text-canvas shadow-md font-bold border border-content-accent'
+                    : 'bg-transparent border border-canvas-border text-content-primary'
                 }`}
               >
-                <span>Request Custom Quote</span>
-                <span className="transform group-hover:translate-x-1 transition-transform">-&gt;</span>
+                <span className={`relative z-10 transition-colors duration-[350ms] ${
+                  plan.popular ? 'group-hover:text-content-accent' : 'group-hover:text-canvas'
+                }`}>
+                  Request Custom Quote
+                </span>
+                <span className={`relative z-10 transform group-hover:translate-x-1 transition-transform duration-[350ms] ${
+                  plan.popular ? 'group-hover:text-content-accent' : 'group-hover:text-canvas'
+                }`}>-&gt;</span>
+                <div className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-out ${
+                  plan.popular ? 'bg-canvas' : 'bg-content-accent'
+                }`} />
               </button>
             </div>
           ))}

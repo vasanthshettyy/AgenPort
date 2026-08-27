@@ -212,7 +212,7 @@ export default function ContactSection() {
                 disabled={isSubmitting}
                 className="w-full sm:w-auto group relative inline-flex items-center justify-center px-6 sm:px-8 lg:px-16 py-3 sm:py-4 lg:py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent min-h-[48px]"
               >
-                <span className={`relative z-10 text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-500 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`relative z-10 text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-[350ms] ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                   SUBMIT INQUIRY
                 </span>
                 {isSubmitting && (
@@ -220,7 +220,7 @@ export default function ContactSection() {
                     <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-4 border-content-accent/30 border-t-content-accent rounded-full animate-spin" />
                   </div>
                 )}
-                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-out" />
               </button>
             </div>
           </form>

@@ -77,8 +77,8 @@ export default function Header() {
                 }}
                 className="inline-block text-xs font-bold uppercase tracking-widest px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
               >
-                <span className="relative z-10 group-hover:text-canvas transition-colors duration-500">CONTACT</span>
-                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <span className="relative z-10 group-hover:text-canvas transition-colors duration-[350ms]">CONTACT</span>
+                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-out" />
               </a>
             </div>
 
@@ -131,9 +131,10 @@ export default function Header() {
                 e.preventDefault();
                 handleNavClick('#contact');
               }}
-              className="mt-4 sm:mt-6 inline-block py-3.5 sm:py-4 px-6 sm:px-8 bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px]"
+              className="group relative mt-4 sm:mt-6 inline-flex items-center justify-center py-3.5 sm:py-4 px-6 sm:px-8 border border-content-accent bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px] overflow-hidden"
             >
-              Get in Touch
+              <span className="relative z-10 group-hover:text-content-accent transition-colors duration-[350ms]">Get in Touch</span>
+              <div className="absolute inset-0 bg-canvas translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-out" />
             </a>
           </nav>
         </div>

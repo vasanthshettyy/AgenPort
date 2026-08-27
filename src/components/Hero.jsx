@@ -84,9 +84,12 @@ const Hero = () => {
           <div className="hero-cta flex flex-col sm:flex-row gap-4 items-start">
             <button
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.12)] min-h-[48px]"
+              className="group relative px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.12)] min-h-[48px]"
             >
-              Start a Project
+              <span className="relative z-10 group-hover:text-canvas transition-colors duration-[350ms]">
+                Start a Project
+              </span>
+              <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-out" />
             </button>
           </div>
         </div>
