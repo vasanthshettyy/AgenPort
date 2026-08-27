@@ -26,8 +26,9 @@
     <!-- Preload LCP hero image — compressed WebP (24KB vs 2MB PNG) -->
     <link rel="preload" as="image" href="/vasanth-hero.webp" type="image/webp" fetchpriority="high" />
   </head>
-  <body>
-    <div id="root">
+  <body style="background-color: #0a0a0a; color: #f5f5f7;">
+    <div id="root"></div>
+    <noscript>
       <!-- Pre-rendered Static Fallback for AI Agents, Crawlers & Non-JS Fetch Tools -->
       <header>
         <a href="/">VASANTH SHETTY</a>
@@ -106,7 +107,7 @@
           <p>Email: vasanthshetty.dev@gmail.com</p>
         </section>
       </main>
-    </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
