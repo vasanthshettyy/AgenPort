@@ -69,7 +69,7 @@ const ValueSection = () => {
         const inner = section.querySelector('.value-inner');
         if (inner) {
           gsap.to(inner, {
-            opacity: 0.3,
+            opacity: 0,
             scale: 0.92,
             scrollTrigger: {
               trigger: section,
