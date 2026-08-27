@@ -88,20 +88,6 @@ const Hero = () => {
             >
               Start a Project
             </button>
-            <div className="flex gap-6 items-center">
-              <button
-                onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-sm font-bold tracking-widest uppercase border-b-2 border-content-primary pb-1.5 hover:text-content-neon hover:border-content-neon transition-all duration-300"
-              >
-                MY WORK
-              </button>
-              <button
-                onClick={() => document.querySelector('#process')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-sm font-bold tracking-widest uppercase text-content-secondary hover:text-content-primary transition-all duration-300"
-              >
-                WHY ME
-              </button>
-            </div>
           </div>
         </div>
 

@@ -2,7 +2,7 @@ export const navigation = [
   { name: "Services", href: "#services", hasDropdown: true },
   { name: "Work", href: "#work", hasDropdown: false },
   { name: "Plans", href: "#plans", hasDropdown: false },
-  { name: "Process", href: "#process", hasDropdown: false },
+  { name: "Why Me", href: "#process", hasDropdown: false },
 ];
 
 export const servicesDropdown = [
