@@ -152,17 +152,17 @@ export default function PricingSection({ onSelectPlan }) {
                     : 'bg-transparent border border-canvas-border text-content-primary'
                 }`}
               >
-                <span className={`relative z-10 transition-colors duration-150 ease-out group-hover/btn:duration-[300ms] group-hover/btn:ease-in ${
+                <span className={`relative z-10 transition-colors duration-300 ${
                   plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
                 }`}>
                   Request Custom Quote
                 </span>
-                <span className={`relative z-10 transform group-hover/btn:translate-x-1 transition-transform duration-150 ease-out group-hover/btn:duration-[300ms] group-hover/btn:ease-in ${
+                <span className={`relative z-10 transform group-hover/btn:translate-x-1 transition-transform duration-300 ${
                   plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
                 }`}>-&gt;</span>
                 
-                {/* Bottom-to-top wipe fill: 300ms ease-in on enter, 150ms fast reset exit */}
-                <div className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-[transform,opacity] duration-150 ease-out group-hover/btn:duration-[300ms] group-hover/btn:ease-in ${
+                {/* Bottom-to-top wipe fill */}
+                <div className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out ${
                   plan.popular ? 'bg-canvas' : 'bg-content-accent'
                 }`} />
 

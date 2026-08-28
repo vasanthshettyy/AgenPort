@@ -86,10 +86,10 @@ const Hero = () => {
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.12)] min-h-[48px]"
             >
-              <span className="relative z-10 group-hover:text-canvas transition-colors duration-150 ease-out group-hover:duration-[300ms] group-hover:ease-in">
+              <span className="relative z-10 group-hover:text-canvas transition-colors duration-300">
                 Start a Project
               </span>
-              <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-[transform,opacity] duration-150 ease-out group-hover:duration-[300ms] group-hover:ease-in" />
+              <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
             </button>
           </div>
         </div>
