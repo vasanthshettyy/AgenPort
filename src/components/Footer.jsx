@@ -18,7 +18,7 @@ export default function Footer() {
 
           <div className="flex flex-col lg:items-end gap-4 sm:gap-6 lg:gap-12">
             <nav className="flex flex-wrap gap-4 sm:gap-6 lg:gap-16">
-              {['SERVICES', 'PROJECTS', 'CONTACT', 'LINKEDIN'].map((link) => (
+              {['SERVICES', 'PROJECTS', 'FAQ', 'CONTACT', 'LINKEDIN'].map((link) => (
                 <a
                   key={link}
                   href={link === 'LINKEDIN' ? 'https://www.linkedin.com/in/vasanth-shetty-dev' : `#${link.toLowerCase()}`}

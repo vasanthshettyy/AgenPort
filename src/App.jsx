@@ -14,6 +14,7 @@ const ServicesSection = React.lazy(() => import('./components/ServicesSection'))
 const PricingSection = React.lazy(() => import('./components/PricingSection'));
 const ProjectGrid = React.lazy(() => import('./components/ProjectGrid'));
 const ContactSection = React.lazy(() => import('./components/ContactSection'));
+const FaqSection = React.lazy(() => import('./components/FaqSection'));
 const Footer = React.lazy(() => import('./components/Footer'));
 
 const SkeletonLoader = () => (
@@ -134,6 +135,12 @@ function App() {
         <ErrorBoundary>
           <Suspense fallback={<SkeletonLoader />}>
             <ProjectGrid />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <FaqSection />
           </Suspense>
         </ErrorBoundary>
 
