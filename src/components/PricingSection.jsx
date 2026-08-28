@@ -80,7 +80,7 @@ export default function PricingSection({ onSelectPlan }) {
             >
               {/* Popular Badge with Rotate + Scale micro-interaction */}
               {plan.popular && (
-                <div className="absolute -top-3.5 left-4 sm:left-8 bg-content-accent text-canvas text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1 rounded-full shadow-md transition-transform duration-300 ease-out origin-left group-hover:rotate-[3deg] group-hover:scale-105">
+                <div data-cursor-invert="true" className="absolute -top-3.5 left-4 sm:left-8 bg-content-accent text-canvas text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1 rounded-full shadow-md transition-transform duration-300 ease-out origin-left group-hover:rotate-[3deg] group-hover:scale-105">
                   Recommended
                 </div>
               )}
