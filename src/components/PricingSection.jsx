@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { pricingPlans } from '../data/pricingData';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -82,15 +82,15 @@ export default function PricingSection({ onSelectPlan }) {
             <div
               key={plan.id}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] ${
+              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transform-gpu transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.015] active:scale-[0.98] origin-center ${
                 plan.popular
-                  ? 'bg-canvas-card border-content-accent/50 shadow-lg shadow-content-accent/5 scale-102 z-10'
-                  : 'bg-canvas-card border-canvas-border hover:border-content-secondary/40 active:border-content-accent'
+                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_20px_50px_rgba(0,229,255,0.22)] scale-[1.02] z-10'
+                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_16px_40px_rgba(0,229,255,0.08)]'
               }`}
             >
-              {/* Popular Badge */}
+              {/* Popular Badge with Rotate + Scale micro-interaction */}
               {plan.popular && (
-                <div className="absolute -top-3.5 left-4 sm:left-8 bg-content-accent text-canvas text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1 rounded-full shadow-md">
+                <div className="absolute -top-3.5 left-4 sm:left-8 bg-content-accent text-canvas text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1 rounded-full shadow-md transition-transform duration-300 ease-out origin-left group-hover:rotate-[3deg] group-hover:scale-105">
                   Recommended
                 </div>
               )}
@@ -111,21 +111,24 @@ export default function PricingSection({ onSelectPlan }) {
                   {plan.description}
                 </p>
 
-                {/* Scope and Deliverables */}
+                {/* Scope and Deliverables with item right-shift interaction */}
                 <div className="space-y-2.5 mb-4 sm:mb-8">
                   <div className="text-[10px] sm:text-xs font-mono font-medium uppercase tracking-wider text-content-secondary mb-3">
                     Included Deliverables
                   </div>
                   {plan.deliverables.map((item, i) => (
-                    <div key={i} className="flex items-start gap-3 text-xs text-content-secondary">
-                      <span className="text-content-secondary/60 text-[10px] font-mono mt-0.5">-</span>
-                      <span className="leading-snug">{item}</span>
+                    <div
+                      key={i}
+                      className="group/item flex items-start gap-3 text-xs text-content-secondary transition-transform duration-200 ease-out hover:translate-x-1.5 cursor-default"
+                    >
+                      <span className="text-content-secondary/60 group-hover/item:text-content-accent text-[10px] font-mono mt-0.5 transition-colors duration-200">-</span>
+                      <span className="leading-snug group-hover/item:text-content-primary transition-colors duration-200">{item}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Optional Maintenance and Retainer Note */}
-                <div className="p-3 sm:p-4 bg-canvas-hover/50 border border-canvas-border rounded-xl sm:rounded-2xl mb-4 sm:mb-8">
+                <div className="p-3 sm:p-4 bg-canvas-hover/50 border border-canvas-border rounded-xl sm:rounded-2xl mb-4 sm:mb-8 transition-colors duration-300 group-hover:border-canvas-border/80">
                   <div className="flex justify-between items-center text-xs font-medium text-content-primary mb-1">
                     <span className="font-mono text-[10px] text-content-primary">
                       {plan.retainer.name}
@@ -140,26 +143,31 @@ export default function PricingSection({ onSelectPlan }) {
                 </div>
               </div>
 
-              {/* CTA Button - bottom-to-top fill wipe */}
+              {/* CTA Button with bottom-to-top wipe (ease-in hover-in, 150ms soft reset exit) + shine sweep effect */}
               <button
                 onClick={() => handleCtaClick(plan)}
-                className={`group relative w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full font-sans font-medium text-xs uppercase tracking-widest overflow-hidden flex items-center justify-center gap-2 ${
+                className={`group/btn relative w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full font-sans font-medium text-xs uppercase tracking-widest overflow-hidden flex items-center justify-center gap-2 ${
                   plan.popular
                     ? 'bg-content-accent text-canvas shadow-md font-bold border border-content-accent'
                     : 'bg-transparent border border-canvas-border text-content-primary'
                 }`}
               >
-                <span className={`relative z-10 transition-colors duration-[350ms] ${
-                  plan.popular ? 'group-hover:text-content-accent' : 'group-hover:text-canvas'
+                <span className={`relative z-10 transition-colors duration-150 ease-out group-hover/btn:duration-[300ms] group-hover/btn:ease-in ${
+                  plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
                 }`}>
                   Request Custom Quote
                 </span>
-                <span className={`relative z-10 transform group-hover:translate-x-1 transition-transform duration-[350ms] ${
-                  plan.popular ? 'group-hover:text-content-accent' : 'group-hover:text-canvas'
+                <span className={`relative z-10 transform group-hover/btn:translate-x-1 transition-transform duration-150 ease-out group-hover/btn:duration-[300ms] group-hover/btn:ease-in ${
+                  plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
                 }`}>-&gt;</span>
-                <div className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-out ${
+                
+                {/* Bottom-to-top wipe fill: 300ms ease-in on enter, 150ms fast reset exit */}
+                <div className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-[transform,opacity] duration-150 ease-out group-hover/btn:duration-[300ms] group-hover/btn:ease-in ${
                   plan.popular ? 'bg-canvas' : 'bg-content-accent'
                 }`} />
+
+                {/* Shine sweep effect across button */}
+                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none z-20" />
               </button>
             </div>
           ))}
