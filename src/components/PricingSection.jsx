@@ -72,10 +72,10 @@ export default function PricingSection({ onSelectPlan }) {
             <div
               key={plan.id}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
+              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 ease-out origin-center transform-gpu active:scale-[0.98] cursor-pointer ${
                 plan.popular
-                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_24px_60px_rgba(0,229,255,0.25)] hover:scale-[1.03] z-10'
-                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_20px_50px_rgba(0,229,255,0.1)]'
+                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_24px_60px_rgba(0,229,255,0.25)] hover:-translate-y-1.5 hover:scale-[1.03] z-10'
+                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_20px_50px_rgba(0,229,255,0.1)] hover:-translate-y-1.5 hover:scale-[1.025]'
               }`}
             >
               {/* Popular Badge with Rotate + Scale micro-interaction */}
@@ -142,17 +142,17 @@ export default function PricingSection({ onSelectPlan }) {
                     : 'bg-transparent border border-canvas-border text-content-primary'
                 }`}
               >
-                <span className={`relative z-10 transition-colors [transition-duration:100ms] group-hover/btn:[transition-duration:300ms] ${
-                  plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
+                <span className={`btn-fill-text-btn ${
+                  plan.popular ? 'text-canvas group-hover/btn:text-content-accent' : 'text-content-primary group-hover/btn:text-canvas'
                 }`}>
                   Request Custom Quote
                 </span>
-                <span className={`relative z-10 transform group-hover/btn:translate-x-1 transition-transform [transition-duration:100ms] group-hover/btn:[transition-duration:300ms] ${
-                  plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
+                <span className={`btn-fill-text-btn transform group-hover/btn:translate-x-1 ${
+                  plan.popular ? 'text-canvas group-hover/btn:text-content-accent' : 'text-content-primary group-hover/btn:text-canvas'
                 }`}>-&gt;</span>
                 
                 {/* Bottom-to-top wipe fill: 300ms ease-in on enter, 100ms fast reset exit */}
-                <div className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover/btn:[transition-duration:300ms] group-hover/btn:[transition-timing-function:cubic-bezier(0.4,0,1,1)] ${
+                <div className={`btn-fill-layer-btn ${
                   plan.popular ? 'bg-canvas' : 'bg-content-accent'
                 }`} />
 

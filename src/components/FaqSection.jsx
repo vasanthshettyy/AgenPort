@@ -127,7 +127,7 @@ export default function FaqSection() {
             }}
             className="group relative inline-flex items-center justify-center px-8 py-4 rounded-full border border-canvas-border font-sans font-bold text-xs uppercase tracking-widest overflow-hidden min-h-[48px]"
           >
-            <span className="relative z-10 group-hover:text-canvas transition-colors [transition-duration:100ms] group-hover:[transition-duration:300ms] flex items-center gap-2">
+            <span className="btn-fill-text group-hover:text-canvas flex items-center gap-2">
               {showAll ? 'Show Less' : `See All ${faqData.length} Questions`}
               <svg
                 className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
@@ -136,7 +136,7 @@ export default function FaqSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </span>
-            <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover:[transition-duration:300ms] group-hover:[transition-timing-function:cubic-bezier(0.4,0,1,1)]" />
+            <div className="btn-fill-layer bg-content-accent" />
           </button>
         </div>
 

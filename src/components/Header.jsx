@@ -77,8 +77,8 @@ export default function Header() {
                 }}
                 className="inline-block text-xs font-bold uppercase tracking-widest px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
               >
-                <span className="relative z-10 group-hover:text-canvas transition-colors [transition-duration:100ms] group-hover:[transition-duration:300ms]">CONTACT</span>
-                <div className="absolute inset-0 bg-content-accent translate-y-full group-hover:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover:[transition-duration:300ms] group-hover:[transition-timing-function:cubic-bezier(0.4,0,1,1)]" />
+                <span className="btn-fill-text group-hover:text-canvas">CONTACT</span>
+                <div className="btn-fill-layer bg-content-accent" />
               </a>
             </div>
 
@@ -133,8 +133,8 @@ export default function Header() {
               }}
               className="group relative mt-4 sm:mt-6 inline-flex items-center justify-center py-3.5 sm:py-4 px-6 sm:px-8 border border-content-accent bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px] overflow-hidden"
             >
-              <span className="relative z-10 group-hover:text-content-accent transition-colors [transition-duration:100ms] group-hover:[transition-duration:300ms]">Get in Touch</span>
-              <div className="absolute inset-0 bg-canvas translate-y-full group-hover:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover:[transition-duration:300ms] group-hover:[transition-timing-function:cubic-bezier(0.4,0,1,1)]" />
+              <span className="btn-fill-text group-hover:text-content-accent">Get in Touch</span>
+              <div className="btn-fill-layer bg-canvas" />
             </a>
           </nav>
         </div>
