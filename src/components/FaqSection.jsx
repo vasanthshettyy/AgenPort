@@ -95,8 +95,15 @@ export default function FaqSection() {
                 </button>
 
                 {/* Answer — CSS grid + translate-y slide down animation */}
-                <div className={`grid transition-all duration-500 ease-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-                  <div className="overflow-hidden">
+                <div
+                  className="grid"
+                  style={{
+                    gridTemplateRows: isOpen ? '1fr' : '0fr',
+                    opacity: isOpen ? 1 : 0,
+                    transition: 'grid-template-rows 500ms cubic-bezier(0.4, 0, 0.2, 1), opacity 500ms cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  <div className="overflow-hidden min-h-0">
                     <div className={`px-5 sm:px-8 pb-6 border-t border-canvas-border/40 transition-transform duration-500 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-2'}`}>
                       <div className="pt-4 pl-10 sm:pl-14">
                         {item.isEmpty ? (

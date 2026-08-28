@@ -72,10 +72,10 @@ export default function PricingSection({ onSelectPlan }) {
             <div
               key={plan.id}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 ease-out origin-center transform-gpu active:scale-[0.98] cursor-pointer ${
+              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 ease-out origin-center active:scale-[0.98] cursor-pointer ${
                 plan.popular
-                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_24px_60px_rgba(0,229,255,0.25)] card-hover-smooth-popular z-10'
-                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_20px_50px_rgba(0,229,255,0.1)] card-hover-smooth'
+                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_24px_60px_rgba(0,229,255,0.25)] hover:-translate-y-1.5 hover:scale-[1.03] z-10'
+                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_20px_50px_rgba(0,229,255,0.1)] hover:-translate-y-1.5 hover:scale-[1.025]'
               }`}
             >
               {/* Popular Badge with Rotate + Scale micro-interaction */}
