@@ -175,10 +175,10 @@ const ProjectGrid = () => {
                 <ProjectPreview project={project} />
                 <div className="absolute inset-0 bg-canvas/60 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
                   <div className="group/btn relative overflow-hidden px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 border border-content-secondary/30 rounded-full transition-all hover:border-content-accent">
-                    <span className="relative z-10 text-base sm:text-lg lg:text-2xl font-bold tracking-widest text-content-primary group-hover/btn:text-canvas transition-colors duration-300">
+                    <span className="relative z-10 text-base sm:text-lg lg:text-2xl font-bold tracking-widest text-content-primary group-hover/btn:text-canvas transition-colors [transition-duration:100ms] group-hover/btn:[transition-duration:300ms]">
                       VIEW PROJECT
                     </span>
-                    <div className="absolute inset-0 bg-content-accent translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
+                    <div className="absolute inset-0 bg-content-accent translate-y-full group-hover/btn:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover/btn:[transition-duration:300ms] group-hover/btn:[transition-timing-function:cubic-bezier(0.4,0,1,1)]" />
                   </div>
                 </div>
               </div>

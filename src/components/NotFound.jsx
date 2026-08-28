@@ -15,8 +15,8 @@ export default function NotFound() {
             The page you are looking for has been moved or does not exist in our current architecture.
           </p>
           <a href="/" className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl text-canvas font-bold bg-accent-primary overflow-hidden">
-            <span className="relative z-10 group-hover:text-accent-primary transition-colors duration-300">Return to Core Infrastructure</span>
-            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+            <span className="relative z-10 group-hover:text-accent-primary transition-colors [transition-duration:100ms] group-hover:[transition-duration:300ms]">Return to Core Infrastructure</span>
+            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover:[transition-duration:300ms] group-hover:[transition-timing-function:cubic-bezier(0.4,0,1,1)]" />
           </a>
         </div>
       </section>

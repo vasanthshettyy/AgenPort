@@ -31,6 +31,7 @@ export default function PricingSection({ onSelectPlan }) {
           duration: 0.7,
           stagger: 0.15,
           ease: 'power3.out',
+          clearProps: 'transform',
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
@@ -43,21 +44,10 @@ export default function PricingSection({ onSelectPlan }) {
   }, [isMobile]);
 
   const handleCtaClick = (plan) => {
-    const planData = {
-      planName: plan.name,
-      retainerSelected: false
-    };
-
-    if (onSelectPlan) {
-      onSelectPlan(planData);
-    }
-
+    const planData = { planName: plan.name, retainerSelected: false };
+    if (onSelectPlan) onSelectPlan(planData);
     window.dispatchEvent(new CustomEvent('prefillContactQuoteNoPrice', { detail: planData }));
-
-    const contactElem = document.querySelector('#contact');
-    if (contactElem) {
-      contactElem.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -82,10 +72,10 @@ export default function PricingSection({ onSelectPlan }) {
             <div
               key={plan.id}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transform-gpu transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.015] active:scale-[0.98] origin-center ${
+              className={`group relative flex flex-col justify-between p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
                 plan.popular
-                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_20px_50px_rgba(0,229,255,0.22)] scale-[1.02] z-10'
-                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_16px_40px_rgba(0,229,255,0.08)]'
+                  ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_24px_60px_rgba(0,229,255,0.25)] hover:scale-[1.03] z-10'
+                  : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_20px_50px_rgba(0,229,255,0.1)]'
               }`}
             >
               {/* Popular Badge with Rotate + Scale micro-interaction */}
@@ -143,7 +133,7 @@ export default function PricingSection({ onSelectPlan }) {
                 </div>
               </div>
 
-              {/* CTA Button with bottom-to-top wipe (ease-in hover-in, 150ms soft reset exit) + shine sweep effect */}
+              {/* CTA Button with bottom-to-top wipe (300ms ease-in hover-in, 100ms fast reset exit) + shine sweep effect */}
               <button
                 onClick={() => handleCtaClick(plan)}
                 className={`group/btn relative w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full font-sans font-medium text-xs uppercase tracking-widest overflow-hidden flex items-center justify-center gap-2 ${
@@ -152,17 +142,17 @@ export default function PricingSection({ onSelectPlan }) {
                     : 'bg-transparent border border-canvas-border text-content-primary'
                 }`}
               >
-                <span className={`relative z-10 transition-colors duration-300 ${
+                <span className={`relative z-10 transition-colors [transition-duration:100ms] group-hover/btn:[transition-duration:300ms] ${
                   plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
                 }`}>
                   Request Custom Quote
                 </span>
-                <span className={`relative z-10 transform group-hover/btn:translate-x-1 transition-transform duration-300 ${
+                <span className={`relative z-10 transform group-hover/btn:translate-x-1 transition-transform [transition-duration:100ms] group-hover/btn:[transition-duration:300ms] ${
                   plan.popular ? 'group-hover/btn:text-content-accent' : 'group-hover/btn:text-canvas'
                 }`}>-&gt;</span>
                 
-                {/* Bottom-to-top wipe fill */}
-                <div className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out ${
+                {/* Bottom-to-top wipe fill: 300ms ease-in on enter, 100ms fast reset exit */}
+                <div className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform [transition-duration:100ms] [transition-timing-function:ease-out] group-hover/btn:[transition-duration:300ms] group-hover/btn:[transition-timing-function:cubic-bezier(0.4,0,1,1)] ${
                   plan.popular ? 'bg-canvas' : 'bg-content-accent'
                 }`} />
 
