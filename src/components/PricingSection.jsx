@@ -17,31 +17,7 @@ export default function PricingSection({ onSelectPlan }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion || isMobile) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        cardsRef.current,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.15,
-          ease: 'power3.out',
-          clearProps: 'transform',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          }
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [isMobile]);
+  // Pure CSS layout with zero GSAP inline style interference
 
   const handleCtaClick = (plan) => {
     const planData = { planName: plan.name, retainerSelected: false };
@@ -75,10 +51,10 @@ export default function PricingSection({ onSelectPlan }) {
               className="h-full"
             >
               <div
-                className={`group relative flex flex-col justify-between h-full p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border transition-all duration-300 ease-out origin-center active:scale-[0.98] cursor-pointer ${
+                className={`group relative flex flex-col justify-between h-full p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border active:scale-[0.98] cursor-pointer ${
                   plan.popular
-                    ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] hover:shadow-[0_24px_60px_rgba(0,229,255,0.25)] hover:-translate-y-1.5 hover:scale-[1.03] z-10'
-                    : 'bg-canvas-card border-canvas-border hover:border-content-accent/50 hover:shadow-[0_20px_50px_rgba(0,229,255,0.1)] hover:-translate-y-1.5 hover:scale-[1.025]'
+                    ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] pricing-card-hover z-10'
+                    : 'bg-canvas-card border-canvas-border pricing-card-hover pricing-card-hover-std'
                 }`}
               >
                 {/* Popular Badge with Rotate + Scale micro-interaction */}

@@ -15,24 +15,7 @@ export default function FaqSection() {
 
   const toggleFaq = (id) => setOpenId(openId === id ? null : id);
 
-  useGSAP(() => {
-    gsap.fromTo(
-      '.faq-item',
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: 'power3.out',
-        clearProps: 'transform',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-      }
-    );
-  }, { scope: sectionRef });
+  // Pure CSS layout with zero GSAP inline style interference
 
   return (
     <section

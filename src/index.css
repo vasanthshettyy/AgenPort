@@ -111,6 +111,44 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 229, 255, 0.5);
   }
+
+  /* Pricing Card Hover Scale Utility */
+  .pricing-card-hover {
+    transition: transform 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out !important;
+    transform-origin: center center;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .pricing-card-hover:hover {
+    transform: translateY(-8px) scale(1.03) !important;
+    border-color: rgba(0, 229, 255, 0.6) !important;
+    box-shadow: 0 24px 60px rgba(0, 229, 255, 0.25) !important;
+  }
+
+  .pricing-card-hover-std:hover {
+    transform: translateY(-8px) scale(1.025) !important;
+    border-color: rgba(0, 229, 255, 0.5) !important;
+    box-shadow: 0 20px 50px rgba(0, 229, 255, 0.1) !important;
+  }
+
+  /* FAQ Grid Accordion transition utility */
+  .faq-grid-accordion {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 400ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .faq-grid-accordion.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .faq-grid-accordion > div {
+    overflow: hidden;
+    min-height: 0;
+  }
 }
 
 /* Mobile form input optimizations */
@@ -141,69 +179,39 @@
   .btn-mobile {
     @apply min-h-[44px] min-w-[44px] px-4 py-2 text-sm font-medium rounded-full;
   }
-}
+  /* Reusable button bottom-to-top ease-in fill effect */
+  .btn-fill-layer,
+  .btn-fill-layer-btn {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: translateY(100%) !important;
+    transition: transform 100ms ease-out !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    will-change: transform;
+  }
 
-/* Reusable smooth card hover scale utility */
-.card-hover-smooth {
-  transition: transform 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out;
-  transform-origin: center center;
-  will-change: transform;
-  backface-visibility: hidden;
-}
+  .group:hover .btn-fill-layer,
+  .group\/btn:hover .btn-fill-layer-btn {
+    transform: translateY(0) !important;
+    transition: transform 300ms cubic-bezier(0.4, 0, 1, 1) !important;
+  }
 
-.card-hover-smooth:hover {
-  transform: translateY(-6px) scale(1.025);
-}
+  .btn-fill-text,
+  .btn-fill-text-btn {
+    position: relative !important;
+    z-index: 10 !important;
+    transition: color 100ms ease-out !important;
+    pointer-events: none;
+  }
 
-.card-hover-smooth-popular:hover {
-  transform: translateY(-6px) scale(1.03);
-}
-
-/* Reusable button bottom-to-top ease-in fill effect: 300ms ease-in on enter, 100ms fast reset on exit */
-.btn-fill-layer,
-.btn-fill-layer-btn {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  transform: translateY(100%) !important;
-  transition: transform 100ms ease-out !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  will-change: transform;
-}
-
-.group:hover .btn-fill-layer,
-.group\/btn:hover .btn-fill-layer-btn {
-  transform: translateY(0) !important;
-  transition: transform 300ms cubic-bezier(0.4, 0, 1, 1) !important;
-}
-
-.btn-fill-text,
-.btn-fill-text-btn {
-  position: relative !important;
-  z-index: 10 !important;
-  transition: color 100ms ease-out !important;
-  pointer-events: none;
-}
-
-.group:hover .btn-fill-text,
-.group\/btn:hover .btn-fill-text-btn {
-  transition: color 300ms cubic-bezier(0.4, 0, 1, 1) !important;
-}
-
-/* FAQ Grid Accordion transition utility */
-.faq-grid-accordion {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows 500ms cubic-bezier(0.4, 0, 0.2, 1), opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faq-grid-accordion.is-open {
-  grid-template-rows: 1fr;
-  opacity: 1;
+  .group:hover .btn-fill-text,
+  .group\/btn:hover .btn-fill-text-btn {
+    transition: color 300ms cubic-bezier(0.4, 0, 1, 1) !important;
+  }
 }

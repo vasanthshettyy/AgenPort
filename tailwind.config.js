@@ -4,6 +4,12 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    'pricing-card-hover',
+    'pricing-card-hover-std',
+    'faq-grid-accordion',
+    'is-open',
+  ],
   theme: {
     extend: {
       colors: {
