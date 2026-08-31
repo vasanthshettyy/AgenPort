@@ -138,7 +138,7 @@ export default function ContactSection() {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-32">
           <div>
             <p className="text-xl sm:text-2xl lg:text-4xl xl:text-6xl font-sans font-light text-content-secondary leading-tight mb-6 sm:mb-8 lg:mb-12">
-              Let's build your new <span className="text-content-primary italic">digital standard</span>.
+              Let's build your new <span className="text-content-primary italic">website</span>.
             </p>
             <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 font-mono text-sm tracking-tight text-content-secondary">
               <a href="mailto:vasanthshetty.dev@gmail.com" className="flex items-center gap-3 sm:gap-4 hover:text-content-primary transition-colors min-h-[44px]">

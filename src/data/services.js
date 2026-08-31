@@ -11,7 +11,7 @@ export const services = [
   },
   {
     title: "High-Converting Landing Pages",
-    description: "Single-page sites engineered to sell a specific service or product, perfect for maximizing ROI on your paid ad campaigns.",
+    description: "A single page built to sell one specific service or product — ideal if you're running paid ads and need somewhere for that traffic to convert.",
     features: ["Persuasive Copywriting", "A/B Testing Ready", "Fast Loading Speeds"]
   },
   {

@@ -9,7 +9,7 @@ const values = [
   {
     number: '01',
     title: 'CONVERSION',
-    desc: 'Sites meticulously designed to turn your passive traffic into booked appointments and active calls.',
+    desc: 'Built to turn your website visitors into booked appointments and phone calls.',
     stat: 'Higher ROI',
   },
   {

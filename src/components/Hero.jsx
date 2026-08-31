@@ -66,7 +66,7 @@ const Hero = () => {
 
           {/* Subtext */}
           <p className="hero-sub max-w-md text-base sm:text-lg lg:text-xl text-content-secondary font-light leading-relaxed">
-            I build fast, custom-coded websites that elevate your digital presence and turn visitors into clients. No templates. No platform limitations.
+            I build fast, custom-coded websites that turn visitors into clients. No templates. No platform limitations.
           </p>
 
           {/* CTAs */}
