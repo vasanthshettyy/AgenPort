@@ -15,7 +15,7 @@ const values = [
   {
     number: '02',
     title: 'MOBILE-FIRST',
-    desc: 'The majority of your clients find you on their phones. We ensure a flawless mobile experience.',
+    desc: 'The majority of your clients find you on their phones. I ensure a flawless mobile experience.',
     stat: 'Mobile Ready',
   },
   {

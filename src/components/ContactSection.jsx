@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-const DEFAULT_MESSAGE = "Hi Vasanth, I'm interested in building a custom web project for my business. Could we discuss our scope and project requirements?";
+const DEFAULT_MESSAGE = "Hi Vasanth, I'm interested in building a custom web project for my business. Could we discuss the scope and project requirements?";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -117,7 +117,7 @@ export default function ContactSection() {
     } catch (submitError) {
       Swal.fire({
         title: 'SYSTEM ERROR',
-        text: submitError.message || 'Please contact us directly.',
+        text: submitError.message || 'Please contact me directly.',
         icon: 'error',
         background: '#0a0a0a',
         color: '#f5f5f7',

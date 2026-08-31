@@ -19,15 +19,14 @@ const Hero = () => {
   useGSAP(() => {
     // Set initial state via GSAP (not hardcoded in JSX) so elements paint visible for LCP,
     // then GSAP immediately hides them synchronously before the first frame, then animates in.
-    gsap.set(['.hero-badge', '.hero-line', '.hero-sub', '.hero-cta', '.hero-image-wrap'], { opacity: 0 });
+    gsap.set(['.hero-line', '.hero-sub', '.hero-cta', '.hero-image-wrap'], { opacity: 0 });
     gsap.set('.hero-line', { y: 40 });
-    gsap.set(['.hero-badge', '.hero-sub', '.hero-cta'], { y: 20 });
+    gsap.set(['.hero-sub', '.hero-cta'], { y: 20 });
     gsap.set('.hero-image-wrap', { x: 60 });
 
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-    tl.to('.hero-badge', { opacity: 1, y: 0, duration: 1 })
-      .to('.hero-line', { opacity: 1, y: 0, stagger: 0.12, duration: 1.2 }, '-=0.6')
+    tl.to('.hero-line', { opacity: 1, y: 0, stagger: 0.12, duration: 1.2 })
       .to('.hero-sub', { opacity: 1, y: 0, duration: 1 }, '-=0.8')
       .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
       .to('.hero-image-wrap', { opacity: 1, x: 0, duration: 1.5 }, '-=1.4');
@@ -57,16 +56,6 @@ const Hero = () => {
 
         {/* LEFT — Text */}
         <div className="flex-1 flex flex-col items-start gap-6 lg:gap-8 z-10">
-          {/* Badge */}
-          <div className="hero-badge flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/15 rounded-full">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-            </span>
-            <span className="text-[10px] font-bold tracking-[0.2em] text-content-primary uppercase">
-              NOW ACCEPTING FOUNDING CLIENTS • 5 SPOTS OPEN
-            </span>
-          </div>
 
           {/* Headline — no overflow-hidden clipping */}
           <h1 className="flex flex-col gap-1 text-[clamp(2rem,5.5vw,5.5rem)] leading-[0.92] tracking-[-0.04em] font-extrabold">

@@ -7,10 +7,12 @@ import NotFound from './components/NotFound';
 import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
+import FloatingBadge from './components/FloatingBadge';
 
 // Lazy load below-the-fold components (Phase 8E.1)
 const ValueSection = React.lazy(() => import('./components/ValueSection'));
 const ServicesSection = React.lazy(() => import('./components/ServicesSection'));
+const ProcessSection = React.lazy(() => import('./components/ProcessSection'));
 const PricingSection = React.lazy(() => import('./components/PricingSection'));
 const ProjectGrid = React.lazy(() => import('./components/ProjectGrid'));
 const ContactSection = React.lazy(() => import('./components/ContactSection'));
@@ -62,18 +64,18 @@ function App() {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is the typical timeline for a custom core application?",
+            "name": "How long does a project take?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Most MVPs are launched within 8-12 weeks, while full enterprise infrastructures typically require 4-6 months depending on integration complexity."
+              "text": "A single landing page or redesign usually takes 1 to 2 weeks, while a multi-page custom website or booking integration takes 2 to 4 weeks."
             }
           },
           {
             "@type": "Question",
-            "name": "Do we own the intellectual property?",
+            "name": "Do I own my website and code?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, 100%. Upon completion and final payment, the entire codebase and database schema are transferred directly to your control."
+              "text": "Yes, completely. Upon completion and final payment, full code ownership is transferred directly to you. No monthly software fees or lock-in."
             }
           }
         ]
@@ -88,12 +90,12 @@ function App() {
       <Helmet>
         {/* Phase 7E.2: Meta Tags */}
         <title>Vasanth Shetty — Full-Stack Web Developer</title>
-        <meta name="description" content="Premium custom software systems for high-ticket international B2B clients. We build the systems that scale your business - without the SaaS tax." />
+        <meta name="description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer to generate leads and scale your business." />
         <link rel="canonical" href="https://dev-vasanth.vercel.app/" />
 
         {/* Phase 7E.4: Open Graph */}
         <meta property="og:title" content="Vasanth Shetty — Full-Stack Web Developer" />
-        <meta property="og:description" content="Premium custom software systems for high-ticket international B2B clients." />
+        <meta property="og:description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dev-vasanth.vercel.app/" />
         <meta property="og:locale" content="en_US" />
@@ -101,7 +103,7 @@ function App() {
         {/* Phase 7E.5: Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Vasanth Shetty — Full-Stack Web Developer" />
-        <meta name="twitter:description" content="Premium custom software systems for high-ticket international B2B clients." />
+        <meta name="twitter:description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer." />
 
         {/* Phase 7E.3: JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -123,6 +125,12 @@ function App() {
         <ErrorBoundary>
           <Suspense fallback={<SkeletonLoader />}>
             <ServicesSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <ProcessSection />
           </Suspense>
         </ErrorBoundary>
 
@@ -156,6 +164,8 @@ function App() {
           <Footer />
         </Suspense>
       </ErrorBoundary>
+
+      <FloatingBadge />
     </SmoothScroll>
   );
 }

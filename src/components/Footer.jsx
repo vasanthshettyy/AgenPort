@@ -12,7 +12,7 @@ export default function Footer() {
               VASANTH SHETTY
             </h2>
             <p className="text-sm sm:text-base lg:text-2xl xl:text-3xl text-content-secondary font-light max-w-xl">
-              Engineering the systems that power the next generation of enterprise.
+              Building custom, high-converting websites and landing pages for service businesses.
             </p>
           </div>
 

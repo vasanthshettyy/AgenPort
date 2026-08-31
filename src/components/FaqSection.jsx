@@ -11,7 +11,8 @@ export default function FaqSection() {
   const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef(null);
 
-  const visibleFaqs = showAll ? faqData : faqData.slice(0, 5);
+  const activeFaqs = faqData.filter((item) => !item.isEmpty);
+  const visibleFaqs = showAll ? activeFaqs : activeFaqs.slice(0, 5);
 
   const toggleFaq = (id) => setOpenId(openId === id ? null : id);
 
@@ -111,7 +112,7 @@ export default function FaqSection() {
             className="group relative inline-flex items-center justify-center px-8 py-4 rounded-full border border-canvas-border font-sans font-bold text-xs uppercase tracking-widest overflow-hidden min-h-[48px]"
           >
             <span className="btn-fill-text group-hover:text-canvas flex items-center gap-2">
-              {showAll ? 'Show Less' : `See All ${faqData.length} Questions`}
+              {showAll ? 'Show Less' : `See All ${activeFaqs.length} Questions`}
               <svg
                 className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
