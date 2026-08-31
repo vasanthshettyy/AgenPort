@@ -2,7 +2,7 @@ export const techStack = [
   { name: "React.js", category: "Frontend", description: "Component-based UI architecture." },
   { name: "Next.js", category: "Frontend", description: "SSR and static site generation for SEO and speed." },
   { name: "Tailwind CSS", category: "Frontend", description: "Utility-first CSS for rapid UI development." },
-  { name: "TypeScript", category: "Frontend", description: "Strongly typed JS for enterprise-grade stability." },
+  { name: "TypeScript", category: "Frontend", description: "Strongly typed JS for reliable, maintainable code." },
   { name: "Node.js", category: "Backend", description: "High-performance JavaScript runtime." },
   { name: "Express.js", category: "Backend", description: "Minimalist web framework for Node.js APIs." },
   { name: "PostgreSQL", category: "Database", description: "Advanced open-source relational database." },

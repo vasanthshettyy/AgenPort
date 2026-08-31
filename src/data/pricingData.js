@@ -1,4 +1,5 @@
 export const countryMarkets = [
+  { code: 'NZ', label: 'New Zealand', currency: 'NZD', symbol: 'NZ$' },
   { code: 'AU', label: 'Australia', currency: 'AUD', symbol: 'A$' },
   { code: 'DK', label: 'Denmark', currency: 'DKK', symbol: 'kr ' },
   { code: 'SG', label: 'Singapore', currency: 'SGD', symbol: 'S$' },
@@ -21,6 +22,7 @@ export const pricingPlans = [
       'Basic On-Page SEO Setup'
     ],
     pricing: {
+      NZ: { amount: 1100, display: 'NZ$1,100' },
       AU: { amount: 1000, display: 'A$1,000' },
       DK: { amount: 7900, display: 'kr 7,900' },
       SG: { amount: 1000, display: 'S$1,000' },
@@ -31,6 +33,7 @@ export const pricingPlans = [
       name: 'Starter Care',
       description: 'Minimal upkeep - occasional text/image swap, uptime check.',
       pricing: {
+        NZ: { amount: 125, display: 'NZ$125/mo' },
         AU: { amount: 150, display: 'A$150/mo' },
         DK: { amount: 1200, display: 'kr 1,200/mo' },
         SG: { amount: 150, display: 'S$150/mo' },
@@ -53,6 +56,7 @@ export const pricingPlans = [
       'Lead Capture Form & Analytics Setup'
     ],
     pricing: {
+      NZ: { amount: 3350, display: 'NZ$3,350' },
       AU: { amount: 3100, display: 'A$3,100' },
       DK: { amount: 21250, display: 'kr 21,250' },
       SG: { amount: 2650, display: 'S$2,650' },
@@ -63,6 +67,7 @@ export const pricingPlans = [
       name: 'Standard Care',
       description: 'Regular content updates, plugin/security updates, monthly check-in.',
       pricing: {
+        NZ: { amount: 215, display: 'NZ$215/mo' },
         AU: { amount: 350, display: 'A$350/mo' },
         DK: { amount: 2500, display: 'kr 2,500/mo' },
         SG: { amount: 300, display: 'S$300/mo' },
@@ -75,7 +80,7 @@ export const pricingPlans = [
     id: 'growth-custom-site',
     name: 'Growth / Custom Site',
     subtitle: '8-15 Pages - Advanced Features',
-    tag: 'Enterprise Tier',
+    tag: 'Growth Tier',
     popular: false,
     description: 'Custom design (not just a themed template), blog or resources section, more integrations.',
     deliverables: [
@@ -85,6 +90,7 @@ export const pricingPlans = [
       'Advanced Technical SEO Foundation'
     ],
     pricing: {
+      NZ: { amount: 6400, display: 'NZ$6,400' },
       AU: { amount: 5800, display: 'A$5,800' },
       DK: { amount: 39500, display: 'kr 39,500' },
       SG: { amount: 4900, display: 'S$4,900' },
@@ -95,6 +101,7 @@ export const pricingPlans = [
       name: 'Growth Care',
       description: 'More moving parts - integrations, blog, frequent updates, priority response.',
       pricing: {
+        NZ: { amount: 350, display: 'NZ$350/mo' },
         AU: { amount: 750, display: 'A$750/mo' },
         DK: { amount: 5000, display: 'kr 5,000/mo' },
         SG: { amount: 650, display: 'S$650/mo' },
