@@ -1,33 +1,33 @@
-# Vasanth Shetty - Premium Custom Web Development Agency
+# Vasanth Shetty - Premium Custom Web Development
 
-> Custom Full-Stack Development for High-Ticket International B2B Clients & Service Businesses.
-> High-performance, custom-coded web applications without SaaS taxes or platform limits.
+> Custom Web Development for Small Service Businesses & Freelancers.
+> High-performance, custom-coded websites and landing pages built by a solo developer.
 
 ## Overview
-Vasanth Shetty builds fast, custom-coded web software, MVPs, and business infrastructure tailored for international B2B companies across USA, UK, Australia, and Europe. 100% intellectual property ownership, zero recurring platform fees, and lightning-fast load times.
+Vasanth Shetty builds fast, custom-coded websites, landing pages, custom booking systems, and small e-commerce sites tailored for service businesses. 100% code ownership, zero recurring platform fees, and lightning-fast load times.
 
 ## Core Offerings & Pricing
 
-### 1. High-Ticket Conversion Site ($2,500 - $4,500)
+### 1. Starter / Landing Page
+- Timeline: 1 - 2 Weeks
+- Key Deliverables: Single page conversion-focused landing page, responsive mobile-first UI, speed optimization, contact/lead form, technical SEO foundation.
+
+### 2. Core Business Site
 - Timeline: 2 - 3 Weeks
-- Key Deliverables: Custom React/Vite architecture, responsive mobile-first UI, speed optimization (95+ Lighthouse), technical SEO setup, analytics integration, direct lead capture.
+- Key Deliverables: Multi-page custom website (5-7 pages), custom booking/scheduling integration, speed & SEO optimization, lead generation forms.
 
-### 2. Custom Core Application / MVP ($6,000 - $12,000)
-- Timeline: 6 - 8 Weeks
-- Key Deliverables: Full-stack architecture, custom backend/database design, authentication, payments/Stripe integration, API integrations, admin dashboard.
-
-### 3. Enterprise Digital Infrastructure ($15,000+)
-- Timeline: 12 - 16 Weeks
-- Key Deliverables: Distributed microservices, custom CRM/ERP integrations, automated workflows, 99.9% uptime SLA, security compliance & audits.
+### 3. Growth / Custom Site
+- Timeline: 3 - 4 Weeks
+- Key Deliverables: 8-15 custom pages, blog/CMS section, advanced third-party integrations, custom features & booking workflows.
 
 ## Core Value Proposition
-1. **High Conversion Rate**: Sites built to turn traffic into booked meetings and qualified leads.
+1. **High Conversion Rate**: Sites built to turn traffic into booked appointments and qualified leads.
 2. **Mobile-First**: Flawless touch target ergonomics and responsive UI across all devices.
 3. **SEO Focused**: Technical SEO best practices built directly into the codebase.
-4. **100% Code Ownership**: Full source code and database schemas transferred upon completion. No lock-in.
+4. **100% Code Ownership**: Full source code transferred upon completion. No platform lock-in.
 
 ## Contact Information
-- Lead Developer & Founder: Vasanth Shetty
+- Solo Freelance Web Developer: Vasanth Shetty
 - Email: vasanthshetty.dev@gmail.com
 - GitHub: https://github.com/vasanthshettyy
 - LinkedIn: https://www.linkedin.com/in/vasanth-shetty-dev
