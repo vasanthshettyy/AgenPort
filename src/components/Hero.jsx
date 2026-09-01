@@ -1,12 +1,14 @@
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import HeroCursorReveal from './HeroCursorReveal';
 
 // Stable public path — compressed WebP (24KB vs 2MB original PNG)
 const me = '/vasanth-hero.webp';
 
 const Hero = () => {
   const container = useRef();
+  const imageWrapRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
   useEffect(() => {
@@ -89,19 +91,25 @@ const Hero = () => {
           <div className="hero-bloom absolute inset-0 w-full h-full bg-content-neon/10 rounded-full blur-[100px] pointer-events-none" />
 
           {/* Image wrapper */}
-          <div className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden group">
+          <div ref={imageWrapRef} className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden">
+            {/* Base layer — real photo, always visible */}
             <img
               src={me}
               alt="Vasanth Shetty — Web Developer"
-              className="hero-image w-full h-full object-cover object-top grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000"
+              className="hero-image absolute inset-0 w-full h-full object-cover object-top z-10"
               loading="eager"
               fetchPriority="high"
               width="520"
               height="693"
             />
-            {/* Subtle edge fade — reduced opacity so photo is actually visible */}
-            <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-canvas/60 pointer-events-none" />
+            {/* Cursor-reveal layer — illustrated version, desktop only */}
+            <HeroCursorReveal
+              illustratedSrc="/vasanth-hero-illustrated.png"
+              containerRef={imageWrapRef}
+            />
+            {/* Subtle edge fade */}
+            <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none z-30" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-canvas/60 pointer-events-none z-30" />
           </div>
         </div>
       </div>
