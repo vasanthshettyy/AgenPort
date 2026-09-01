@@ -9,6 +9,7 @@ const me = '/vasanth-hero.webp';
 const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
+  const photoRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [photoLoaded, setPhotoLoaded] = useState(false);
 
@@ -16,6 +17,13 @@ const Hero = () => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Guarantee photoLoaded is set even if photo is loaded from cache before mount
+  useEffect(() => {
+    if (photoRef.current?.complete && photoRef.current?.naturalWidth > 0) {
+      setPhotoLoaded(true);
+    }
   }, []);
 
   // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly
@@ -95,6 +103,7 @@ const Hero = () => {
           <div ref={imageWrapRef} className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden">
             {/* Base layer — real photo, always visible */}
             <img
+              ref={photoRef}
               src={me}
               alt="Vasanth Shetty — Web Developer"
               className="hero-image absolute inset-0 w-full h-full object-cover object-top z-10"
@@ -105,11 +114,12 @@ const Hero = () => {
               onLoad={() => setPhotoLoaded(true)}
             />
             {/* Cursor-reveal layer — illustrated version, desktop only */}
-            <HeroCursorReveal
-              illustratedSrc="/vasanth-hero-illustrated.webp"
-              containerRef={imageWrapRef}
-              photoLoaded={photoLoaded}
-            />
+            {photoLoaded && (
+              <HeroCursorReveal
+                illustratedSrc="/vasanth-hero-illustrated.webp"
+                containerRef={imageWrapRef}
+              />
+            )}
             {/* Subtle edge fade */}
             <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none z-30" />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-canvas/60 pointer-events-none z-30" />

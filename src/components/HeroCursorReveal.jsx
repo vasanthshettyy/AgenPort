@@ -18,7 +18,7 @@ const BLUR_PX = 30;           // px — Gaussian softness on the mask canvas
  *
  * Desktop (pointer:fine) + no prefers-reduced-motion required — otherwise null.
  */
-export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLoaded }) {
+export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
   const maskCanvasRef = useRef(null);
   const displayCanvasRef = useRef(null);
   const illustratedImg = useRef(null);
@@ -27,6 +27,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
   const isHovering = useRef(false);
   const lastPos = useRef(null);
   const imgLoaded = useRef(false);
+  const loadingStarted = useRef(false);
 
   // ── Detect eligibility once (SSR-safe) ───────────────────────────────────
   const eligible = useRef(
@@ -34,6 +35,17 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
     window.matchMedia('(pointer:fine)').matches &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
+
+  // ── Helper to start image load with low priority ─────────────────────────
+  const startLoadingImage = useCallback(() => {
+    if (loadingStarted.current || illustratedImg.current) return;
+    loadingStarted.current = true;
+    const img = new Image();
+    img.fetchpriority = 'low';
+    img.src = illustratedSrc;
+    img.onload = () => { imgLoaded.current = true; };
+    illustratedImg.current = img;
+  }, [illustratedSrc]);
 
   // ── Drawing loop ─────────────────────────────────────────────────────────
   const draw = useCallback(() => {
@@ -49,9 +61,6 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
     const dCtx = displayCanvas.getContext('2d');
 
     // 1. Decay existing trail by clearing and redrawing all live points
-    //    (exponential approach: multiply alpha by decay factor each frame vs.
-    //    storing absolute timestamps and re-rendering — we store timestamps
-    //    for accuracy across variable frame rates)
     mCtx.clearRect(0, 0, w, h);
 
     // Cull expired points
@@ -137,28 +146,20 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
     if (!container) return;
 
     // ── LCP-safe deferred load ────────────────────────────────────────────
-    // Only start loading the illustrated image after the real photo fires its
-    // onLoad event (`photoLoaded` prop). We then further defer via
-    // requestIdleCallback so the browser is fully done painting LCP before
-    // any secondary network request begins. fetchpriority='low' as a backstop.
-    if (photoLoaded && !illustratedImg.current) {
-      const load = () => {
-        const img = new Image();
-        img.fetchpriority = 'low';
-        img.src = illustratedSrc;
-        img.onload = () => { imgLoaded.current = true; };
-        illustratedImg.current = img;
-      };
-      if (typeof requestIdleCallback !== 'undefined') {
-        requestIdleCallback(load, { timeout: 3000 });
-      } else {
-        setTimeout(load, 200);
-      }
+    // Defer loading illustrated image until browser is idle post-paint
+    let idleId;
+    let timerId;
+
+    if (typeof requestIdleCallback !== 'undefined') {
+      idleId = requestIdleCallback(() => startLoadingImage(), { timeout: 3000 });
+    } else {
+      timerId = setTimeout(() => startLoadingImage(), 300);
     }
 
     syncSize();
 
     const onMouseMove = (e) => {
+      startLoadingImage();
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -171,6 +172,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
     };
 
     const onMouseEnter = () => {
+      startLoadingImage();
       isHovering.current = true;
       lastPos.current = null;
       if (!rafId.current) {
@@ -195,6 +197,8 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
     window.addEventListener('resize', onResize);
 
     return () => {
+      if (idleId && typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(idleId);
+      if (timerId) clearTimeout(timerId);
       container.removeEventListener('mousemove', onMouseMove);
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mouseleave', onMouseLeave);
@@ -204,7 +208,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLo
         rafId.current = null;
       }
     };
-  }, [containerRef, illustratedSrc, photoLoaded, draw, injectStrokePoints, syncSize]);
+  }, [containerRef, startLoadingImage, draw, injectStrokePoints, syncSize]);
 
   if (!eligible.current) return null;
 
