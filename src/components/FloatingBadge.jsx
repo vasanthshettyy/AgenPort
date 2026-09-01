@@ -16,11 +16,7 @@ export default function FloatingBadge() {
           handleClick();
         }
       }}
-      style={{
-        transition: 'transform 350ms cubic-bezier(0.4, 0, 0.2, 1), border-color 350ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1)',
-        willChange: 'transform',
-      }}
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 bg-canvas/90 backdrop-blur-md border border-white/15 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer hover:border-content-accent/50 hover:scale-[1.04] group transform-gpu"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 bg-canvas/90 backdrop-blur-md border border-white/15 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer floating-badge-interactive group"
       aria-label="Now accepting founding clients - Limited availability. Click to contact."
     >
       <span className="relative flex h-2 w-2 flex-shrink-0">
@@ -33,5 +29,6 @@ export default function FloatingBadge() {
     </div>
   );
 }
+
 
 
