@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { processSteps } from '../data/processSteps';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -30,12 +30,11 @@ const getStepIcon = (step) => {
 
 export default function ProcessSection() {
   const sectionRef = useRef(null);
-  const [activeStep, setActiveStep] = useState(0);
 
   useGSAP(() => {
     const cards = gsap.utils.toArray('.process-card');
     
-    // Entrance animation
+    // Entrance animation (fade & slide up on scroll focus)
     gsap.fromTo(
       cards,
       { opacity: 0, y: 30 },
@@ -52,37 +51,6 @@ export default function ProcessSection() {
         },
       }
     );
-
-    // Active step scroll highlighting logic
-    const mm = gsap.matchMedia();
-
-    // Desktop: Section scroll progress maps to active step 0 -> 1 -> 2 -> 3
-    mm.add('(min-width: 1024px)', () => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 60%',
-        end: 'bottom 40%',
-        onUpdate: (self) => {
-          const idx = Math.min(cards.length - 1, Math.floor(self.progress * cards.length));
-          setActiveStep(idx);
-        },
-        onLeaveBack: () => setActiveStep(0),
-      });
-    });
-
-    // Mobile / Tablet: Each card activates as it passes screen center
-    mm.add('(max-width: 1023px)', () => {
-      cards.forEach((card, index) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 65%',
-          end: 'bottom 35%',
-          onToggle: (self) => {
-            if (self.isActive) setActiveStep(index);
-          },
-        });
-      });
-    });
   }, { scope: sectionRef });
 
   return (
@@ -98,17 +66,6 @@ export default function ProcessSection() {
         @keyframes processGlowRotate {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
-        }
-        @keyframes activeBorderPulse {
-          0%, 100% {
-            box-shadow: 0 0 16px rgba(0, 229, 255, 0.3), inset 0 0 10px rgba(0, 229, 255, 0.15);
-          }
-          50% {
-            box-shadow: 0 0 32px rgba(0, 229, 255, 0.6), inset 0 0 18px rgba(0, 229, 255, 0.3);
-          }
-        }
-        .process-card.is-active-card {
-          animation: activeBorderPulse 2.5s ease-in-out infinite;
         }
         @keyframes dotPulse {
           0%, 100% { opacity: 1; transform: scale(1); }
@@ -129,8 +86,7 @@ export default function ProcessSection() {
           100% { opacity: 0.4; transform: scale(1.15) translate(-1px, 1px); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .process-glow,
-          .process-card.is-active-card {
+          .process-glow {
             animation: none !important;
           }
         }
@@ -156,62 +112,44 @@ export default function ProcessSection() {
           {/* Subtle horizontal connecting line on desktop */}
           <div className="hidden lg:block absolute top-[4.5rem] left-8 right-8 h-[2px] bg-gradient-to-r from-content-accent/20 via-content-accent/40 to-content-accent/20 z-0 pointer-events-none" />
 
-          {processSteps.map((item, index) => {
-            const isActive = activeStep === index;
-            return (
+          {processSteps.map((item) => (
+            <div
+              key={item.step}
+              className="process-card group relative rounded-2xl p-[1.5px] overflow-hidden bg-canvas-border transition-all duration-300"
+            >
+              {/* Rotating Cyan Gradient Glow Border (Masked to 1.5px border rim on hover) */}
               <div
-                key={item.step}
-                className={`process-card group relative rounded-2xl p-[1.5px] overflow-hidden transition-all duration-500 ${
-                  isActive
-                    ? 'is-active-card bg-gradient-to-br from-content-accent via-cyan-400 to-content-accent/50 scale-[1.02] z-10'
-                    : 'bg-canvas-border opacity-95 hover:opacity-100'
-                }`}
-              >
-                {/* Rotating Cyan Gradient Glow Border (Masked to 1.5px border rim on hover) */}
-                <div
-                  className="process-glow absolute -inset-[150%] m-auto w-[300%] h-[300%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-full"
-                  style={{
-                    background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, #00e5ff 60deg, #007799 150deg, transparent 240deg, #00e5ff 360deg)',
-                    animation: 'processGlowRotate 4s linear infinite',
-                    animationPlayState: 'paused',
-                  }}
-                />
+                className="process-glow absolute -inset-[150%] m-auto w-[300%] h-[300%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-full"
+                style={{
+                  background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, #00e5ff 60deg, #007799 150deg, transparent 240deg, #00e5ff 360deg)',
+                  animation: 'processGlowRotate 4s linear infinite',
+                  animationPlayState: 'paused',
+                }}
+              />
 
-                {/* Card Content Container (Solid mask) */}
-                <div className="relative z-10 rounded-[14.5px] bg-canvas-card p-6 sm:p-8 h-full flex flex-col justify-between transition-colors duration-300">
-                  <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <span
-                        className={`font-mono text-xs font-bold px-3 py-1 rounded-full transition-all duration-300 ${
-                          isActive
-                            ? 'text-canvas bg-content-accent shadow-[0_0_12px_rgba(0,229,255,0.5)] border border-content-accent'
-                            : 'text-content-accent bg-content-accent/10 border border-content-accent/20'
-                        }`}
-                      >
-                        STEP {item.step}
-                      </span>
-                      <div className={`transition-colors duration-300 ${isActive ? 'text-content-accent' : ''}`}>
-                        {getStepIcon(item.step)}
-                      </div>
-                    </div>
-                    <h3
-                      className={`text-xl sm:text-2xl font-sans font-bold tracking-tight mb-3 transition-colors duration-300 ${
-                        isActive ? 'text-content-accent' : 'text-content-primary group-hover:text-content-accent'
-                      }`}
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-content-secondary font-light leading-relaxed">
-                      {item.description}
-                    </p>
+              {/* Card Content Container (Solid mask) */}
+              <div className="relative z-10 rounded-[14.5px] bg-canvas-card p-6 sm:p-8 h-full flex flex-col justify-between transition-colors duration-300">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-xs font-bold text-content-accent bg-content-accent/10 border border-content-accent/20 px-3 py-1 rounded-full">
+                      STEP {item.step}
+                    </span>
+                    {getStepIcon(item.step)}
                   </div>
+                  <h3 className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-content-primary mb-3 group-hover:text-content-accent transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-content-secondary font-light leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
 
