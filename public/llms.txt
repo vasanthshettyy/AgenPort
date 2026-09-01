@@ -6,19 +6,22 @@
 ## Overview
 Vasanth Shetty builds fast, custom-coded websites, landing pages, custom booking systems, and small e-commerce sites tailored for service businesses. 100% code ownership, zero recurring platform fees, and lightning-fast load times.
 
-## Core Offerings & Pricing
+## Core Offerings, Timelines & Pricing
 
-### 1. Starter / Landing Page
+### 1. Starter Site (1-3 Pages)
 - Timeline: 1 - 2 Weeks
-- Key Deliverables: Single page conversion-focused landing page, responsive mobile-first UI, speed optimization, contact/lead form, technical SEO foundation.
+- Pricing / Investment: ~A$1,000 / NZ$1,100 / EUR 625 / S$1,000 / kr 7,900
+- Key Deliverables: Single page or 1-3 page responsive brochure site, 1 contact form integration, basic on-page SEO setup, mobile-first design.
 
-### 2. Core Business Site
+### 2. Small Business Standard (5-8 Pages)
 - Timeline: 2 - 3 Weeks
-- Key Deliverables: Multi-page custom website (5-7 pages), custom booking/scheduling integration, speed & SEO optimization, lead generation forms.
+- Pricing / Investment: ~A$3,100 / NZ$3,350 / EUR 1,950 / S$2,650 / kr 21,250
+- Key Deliverables: 5-8 bespoke pages (Home, About, Services, Contact, etc.), local SEO setup, Google Business linkage, lead capture & analytics.
 
-### 3. Growth / Custom Site
+### 3. Growth / Custom Site (8-15 Pages)
 - Timeline: 3 - 4 Weeks
-- Key Deliverables: 8-15 custom pages, blog/CMS section, advanced third-party integrations, custom features & booking workflows.
+- Pricing / Investment: ~A$5,800 / NZ$6,400 / EUR 3,600 / S$4,900 / kr 39,500
+- Key Deliverables: 8-15 bespoke pages, blog / CMS / resources section, third-party integrations (booking, newsletter, social), advanced technical SEO foundation.
 
 ## Core Value Proposition
 1. **High Conversion Rate**: Sites built to turn traffic into booked appointments and qualified leads.
@@ -31,4 +34,4 @@ Vasanth Shetty builds fast, custom-coded websites, landing pages, custom booking
 - Email: vasanthshetty.dev@gmail.com
 - GitHub: https://github.com/vasanthshettyy
 - LinkedIn: https://www.linkedin.com/in/vasanth-shetty-dev
-- Location: Available Worldwide (USA, UK, AU, EU)
+- Location: Remote Web Developer serving clients in Australia, New Zealand, Ireland, Singapore, Denmark, and international markets.

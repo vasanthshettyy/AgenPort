@@ -2,7 +2,7 @@ export const faqData = [
   {
     "id": 1,
     "question": "How long does a project take?",
-    "answer": "It depends on what you need. A single landing page or redesign usually takes 1 to 2 weeks, while a multi-page custom website or booking integration takes 2 to 4 weeks. You'll get an exact timeline before we start, so there are no surprises.",
+    "answer": "It depends on what you need. A Starter Site (1-3 pages) takes 1 to 2 weeks, a Small Business Standard site (5-8 pages) takes 2 to 3 weeks, and a Growth or Custom site (8-15 pages) takes 3 to 4 weeks. You'll get an exact timeline before we start, so there are no surprises.",
     "tag": "TIMELINE AND SPEED"
   },
   {
@@ -14,7 +14,7 @@ export const faqData = [
   {
     "id": 3,
     "question": "What's included in the price?",
-    "answer": "You get a fully custom built website made just for your business, not a template. You own the complete code once it's done. Depending on your plan, you also get included revision rounds to ensure everything is perfect.",
+    "answer": "You get a fully custom built website made just for your business, not a template. You own the complete code once it's done. Depending on your plan, you also get included revision rounds: 5 rounds for Starter Site, 10 for Small Business Standard, and 15 for Growth/Custom Site.",
     "tag": "SCOPE AND VALUE"
   },
   {

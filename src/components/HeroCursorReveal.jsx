@@ -7,14 +7,18 @@ const BLUR_PX = 30;           // px — Gaussian softness on the mask canvas
 /**
  * HeroCursorReveal
  *
- * Renders two stacked layers over the hero photo area:
- *   1. A canvas that maintains a fading mask (destination-in composite)
- *   2. The illustrated image clipped to that mask via a second canvas
+ * Renders two stacked canvas layers over the hero photo:
+ *   1. A hidden mask canvas (alpha channel only)
+ *   2. A display canvas showing the illustrated image clipped to the fading mask
  *
- * The component handles its own enter/leave events and RAF lifecycle.
- * Desktop (pointer:fine) + no prefers-reduced-motion required — otherwise renders null.
+ * LCP-safe: the illustrated image is only loaded after the real photo fires its
+ * onLoad (via the `photoLoaded` boolean prop), so it never competes for bandwidth
+ * during initial paint. requestIdleCallback (or setTimeout fallback) is used to
+ * further defer the load to after the browser is idle post-paint.
+ *
+ * Desktop (pointer:fine) + no prefers-reduced-motion required — otherwise null.
  */
-export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
+export default function HeroCursorReveal({ illustratedSrc, containerRef, photoLoaded }) {
   const maskCanvasRef = useRef(null);
   const displayCanvasRef = useRef(null);
   const illustratedImg = useRef(null);
@@ -132,11 +136,25 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     const container = containerRef.current;
     if (!container) return;
 
-    // Load illustrated image (lazy — only on desktop)
-    const img = new Image();
-    img.src = illustratedSrc;
-    img.onload = () => { imgLoaded.current = true; };
-    illustratedImg.current = img;
+    // ── LCP-safe deferred load ────────────────────────────────────────────
+    // Only start loading the illustrated image after the real photo fires its
+    // onLoad event (`photoLoaded` prop). We then further defer via
+    // requestIdleCallback so the browser is fully done painting LCP before
+    // any secondary network request begins. fetchpriority='low' as a backstop.
+    if (photoLoaded && !illustratedImg.current) {
+      const load = () => {
+        const img = new Image();
+        img.fetchpriority = 'low';
+        img.src = illustratedSrc;
+        img.onload = () => { imgLoaded.current = true; };
+        illustratedImg.current = img;
+      };
+      if (typeof requestIdleCallback !== 'undefined') {
+        requestIdleCallback(load, { timeout: 3000 });
+      } else {
+        setTimeout(load, 200);
+      }
+    }
 
     syncSize();
 
@@ -186,7 +204,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
         rafId.current = null;
       }
     };
-  }, [containerRef, illustratedSrc, draw, injectStrokePoints, syncSize]);
+  }, [containerRef, illustratedSrc, photoLoaded, draw, injectStrokePoints, syncSize]);
 
   if (!eligible.current) return null;
 

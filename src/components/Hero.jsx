@@ -10,6 +10,7 @@ const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [photoLoaded, setPhotoLoaded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -101,11 +102,13 @@ const Hero = () => {
               fetchPriority="high"
               width="520"
               height="693"
+              onLoad={() => setPhotoLoaded(true)}
             />
             {/* Cursor-reveal layer — illustrated version, desktop only */}
             <HeroCursorReveal
-              illustratedSrc="/vasanth-hero-illustrated.png"
+              illustratedSrc="/vasanth-hero-illustrated.webp"
               containerRef={imageWrapRef}
+              photoLoaded={photoLoaded}
             />
             {/* Subtle edge fade */}
             <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none z-30" />
