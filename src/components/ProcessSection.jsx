@@ -92,8 +92,10 @@ export default function ProcessSection() {
       className="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-20 bg-canvas border-t border-canvas-border overflow-hidden"
     >
       <style>{`
-        .process-card:hover .process-glow {
-          animation-play-state: running !important;
+        @media (hover: hover) {
+          .process-card:hover .process-glow {
+            animation-play-state: running !important;
+          }
         }
         @keyframes processGlowRotate {
           0% { transform: rotate(0deg); }
@@ -164,12 +166,12 @@ export default function ProcessSection() {
                 className={`process-card group relative rounded-2xl p-[1.5px] overflow-hidden transition-all duration-500 ${
                   isActive
                     ? 'is-active-card bg-gradient-to-br from-content-accent via-cyan-400 to-content-accent/50 scale-[1.02] z-10'
-                    : 'bg-canvas-border opacity-95 hover:opacity-100'
+                    : 'bg-canvas-border opacity-95 lg:hover:opacity-100'
                 }`}
               >
                 {/* Rotating Cyan Gradient Glow Border (Masked to 1.5px border rim on hover) */}
                 <div
-                  className="process-glow absolute -inset-[150%] m-auto w-[300%] h-[300%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-full"
+                  className="process-glow absolute -inset-[150%] m-auto w-[300%] h-[300%] opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-full"
                   style={{
                     background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, #00e5ff 60deg, #007799 150deg, transparent 240deg, #00e5ff 360deg)',
                     animation: 'processGlowRotate 4s linear infinite',
@@ -196,7 +198,7 @@ export default function ProcessSection() {
                     </div>
                     <h3
                       className={`text-xl sm:text-2xl font-sans font-bold tracking-tight mb-3 transition-colors duration-300 ${
-                        isActive ? 'text-content-accent' : 'text-content-primary group-hover:text-content-accent'
+                        isActive ? 'text-content-accent' : 'text-content-primary lg:group-hover:text-content-accent'
                       }`}
                     >
                       {item.title}

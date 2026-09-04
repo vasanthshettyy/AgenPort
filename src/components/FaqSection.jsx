@@ -57,7 +57,7 @@ export default function FaqSection() {
                 <button
                   onClick={() => toggleFaq(item.id)}
                   aria-expanded={isOpen}
-                  className="w-full text-left px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
+                  className="w-full min-h-[60px] text-left px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
                 >
                   <div className="flex items-center gap-4 sm:gap-6 flex-1 min-w-0">
                     <span className={`font-mono text-xs font-semibold tracking-widest flex-shrink-0 transition-colors duration-300 ${isOpen ? 'text-content-accent' : 'text-content-secondary/40'}`}>

@@ -53,7 +53,7 @@ export default function PricingSection({ onSelectPlan }) {
               <div
                 className={`group relative flex flex-col justify-between h-full p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border active:scale-[0.98] cursor-pointer ${
                   plan.popular
-                    ? 'bg-canvas-card border-content-accent/60 shadow-[0_8px_30px_rgba(0,229,255,0.12)] pricing-card-hover z-10'
+                    ? 'bg-content-accent/[0.02] lg:bg-canvas-card border-content-accent shadow-[0_8px_30px_rgba(0,229,255,0.2)] lg:shadow-[0_8px_30px_rgba(0,229,255,0.12)] pricing-card-hover z-10'
                     : 'bg-canvas-card border-canvas-border pricing-card-hover pricing-card-hover-std'
                 }`}
               >
