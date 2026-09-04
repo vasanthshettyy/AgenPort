@@ -187,9 +187,9 @@ const ProjectGrid = () => {
                 <span className="text-content-accent font-sans text-lg lg:text-xl font-bold">
                   0{index + 1}
                 </span>
-                <h3 className="text-2xl sm:text-3xl lg:text-5xl xl:text-8xl font-sans font-bold leading-none tracking-tighter flex flex-wrap items-baseline gap-2 lg:gap-4 group-hover/card:text-content-accent transition-colors duration-300">
+                <h3 className="text-2xl sm:text-3xl lg:text-5xl xl:text-8xl font-sans font-bold leading-none tracking-tighter flex flex-wrap items-baseline gap-2 lg:gap-4 lg:group-hover/card:text-content-accent transition-colors duration-300">
                   <span>{project.title}</span>
-                  <span className="text-xs sm:text-sm lg:text-sm font-mono font-bold tracking-widest uppercase text-content-accent opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-all duration-300 transform translate-x-0 lg:translate-x-2 group-hover/card:translate-x-0">
+                  <span className="text-xs sm:text-sm lg:text-sm font-mono font-bold tracking-widest uppercase text-content-accent opacity-100 lg:opacity-0 lg:group-hover/card:opacity-100 transition-all duration-300 transform translate-x-0 lg:translate-x-2 lg:group-hover/card:translate-x-0">
                     Visit Site -&gt;
                   </span>
                 </h3>

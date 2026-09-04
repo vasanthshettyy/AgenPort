@@ -50,7 +50,7 @@ export default function FaqSection() {
                 className={`faq-item rounded-2xl border transition-all duration-500 ease-out ${
                   isOpen
                     ? 'bg-canvas-card border-content-accent/60 shadow-[0_0_30px_rgba(0,229,255,0.08)]'
-                    : 'bg-canvas-card/40 border-canvas-border hover:border-content-accent/35 hover:bg-canvas-card/60'
+                    : 'bg-canvas-card/40 border-canvas-border lg:hover:border-content-accent/35 lg:hover:bg-canvas-card/60'
                 }`}
               >
                 {/* Question row */}
@@ -72,7 +72,7 @@ export default function FaqSection() {
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-500 ease-out ${
                     isOpen
                       ? 'border-content-accent bg-content-accent/10 text-content-accent rotate-180 shadow-[0_0_15px_rgba(0,229,255,0.25)] scale-105'
-                      : 'border-canvas-border text-content-secondary group-hover:border-content-accent/50 group-hover:text-content-accent'
+                      : 'border-canvas-border text-content-secondary lg:group-hover:border-content-accent/50 lg:group-hover:text-content-accent'
                   }`}>
                     <span className="text-lg leading-none select-none font-bold transition-transform duration-500">{isOpen ? '−' : '+'}</span>
                   </div>
@@ -111,7 +111,7 @@ export default function FaqSection() {
             }}
             className="group relative inline-flex items-center justify-center px-8 py-4 rounded-full border border-canvas-border font-sans font-bold text-xs uppercase tracking-widest overflow-hidden min-h-[48px]"
           >
-            <span className="btn-fill-text group-hover:text-canvas flex items-center gap-2">
+            <span className="btn-fill-text lg:group-hover:text-canvas flex items-center gap-2">
               {showAll ? 'Show Less' : `See All ${activeFaqs.length} Questions`}
               <svg
                 className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}

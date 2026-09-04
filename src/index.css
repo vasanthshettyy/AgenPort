@@ -120,16 +120,18 @@
     backface-visibility: hidden;
   }
 
-  .pricing-card-hover:hover {
-    transform: translateY(-8px) scale(1.03) !important;
-    border-color: rgba(0, 229, 255, 0.6) !important;
-    box-shadow: 0 24px 60px rgba(0, 229, 255, 0.25) !important;
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .pricing-card-hover:hover {
+      transform: translateY(-8px) scale(1.03) !important;
+      border-color: rgba(0, 229, 255, 0.6) !important;
+      box-shadow: 0 24px 60px rgba(0, 229, 255, 0.25) !important;
+    }
 
-  .pricing-card-hover-std:hover {
-    transform: translateY(-8px) scale(1.025) !important;
-    border-color: rgba(0, 229, 255, 0.5) !important;
-    box-shadow: 0 20px 50px rgba(0, 229, 255, 0.1) !important;
+    .pricing-card-hover-std:hover {
+      transform: translateY(-8px) scale(1.025) !important;
+      border-color: rgba(0, 229, 255, 0.5) !important;
+      box-shadow: 0 20px 50px rgba(0, 229, 255, 0.1) !important;
+    }
   }
 
   /* FAQ Grid Accordion transition utility */
@@ -159,10 +161,12 @@
     backface-visibility: hidden;
   }
 
-  .floating-badge-interactive:hover {
-    transform: translateY(-4px) scale(1.04) !important;
-    border-color: rgba(0, 229, 255, 0.6) !important;
-    box-shadow: 0 10px 30px rgba(0, 229, 255, 0.35), 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+  @media (hover: hover) and (pointer: fine) {
+    .floating-badge-interactive:hover {
+      transform: translateY(-4px) scale(1.04) !important;
+      border-color: rgba(0, 229, 255, 0.6) !important;
+      box-shadow: 0 10px 30px rgba(0, 229, 255, 0.35), 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+    }
   }
 }
 
@@ -211,12 +215,6 @@
     will-change: transform;
   }
 
-  .group:hover .btn-fill-layer,
-  .group\/btn:hover .btn-fill-layer-btn {
-    transform: translateY(0) !important;
-    transition: transform 300ms cubic-bezier(0.4, 0, 1, 1) !important;
-  }
-
   .btn-fill-text,
   .btn-fill-text-btn {
     position: relative !important;
@@ -225,8 +223,16 @@
     pointer-events: none;
   }
 
-  .group:hover .btn-fill-text,
-  .group\/btn:hover .btn-fill-text-btn {
-    transition: color 300ms cubic-bezier(0.4, 0, 1, 1) !important;
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover .btn-fill-layer,
+    .group\/btn:hover .btn-fill-layer-btn {
+      transform: translateY(0) !important;
+      transition: transform 300ms cubic-bezier(0.4, 0, 1, 1) !important;
+    }
+
+    .group:hover .btn-fill-text,
+    .group\/btn:hover .btn-fill-text-btn {
+      transition: color 300ms cubic-bezier(0.4, 0, 1, 1) !important;
+    }
   }
 }

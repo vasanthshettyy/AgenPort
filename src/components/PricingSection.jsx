@@ -59,7 +59,7 @@ export default function PricingSection({ onSelectPlan }) {
               >
                 {/* Popular Badge with Rotate + Scale micro-interaction */}
                 {plan.popular && (
-                  <div data-cursor-invert="true" className="absolute -top-3.5 left-4 sm:left-8 bg-content-accent text-canvas text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1 rounded-full shadow-md transition-transform duration-300 ease-out origin-left group-hover:rotate-[3deg] group-hover:scale-105">
+                  <div data-cursor-invert="true" className="absolute -top-3.5 left-4 sm:left-8 bg-content-accent text-canvas text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1 rounded-full shadow-md transition-transform duration-300 ease-out origin-left lg:group-hover:rotate-[3deg] lg:group-hover:scale-105">
                     Recommended
                   </div>
                 )}
@@ -88,16 +88,16 @@ export default function PricingSection({ onSelectPlan }) {
                     {plan.deliverables.map((item, i) => (
                       <div
                         key={i}
-                        className="group/item flex items-start gap-3 text-xs text-content-secondary transition-transform duration-200 ease-out hover:translate-x-1.5 cursor-default"
+                        className="group/item flex items-start gap-3 text-xs text-content-secondary transition-transform duration-200 ease-out lg:hover:translate-x-1.5 cursor-default"
                       >
-                        <span className="text-content-secondary/60 group-hover/item:text-content-accent text-[10px] font-mono mt-0.5 transition-colors duration-200">-</span>
-                        <span className="leading-snug group-hover/item:text-content-primary transition-colors duration-200">{item}</span>
+                        <span className="text-content-secondary/60 lg:group-hover/item:text-content-accent text-[10px] font-mono mt-0.5 transition-colors duration-200">-</span>
+                        <span className="leading-snug lg:group-hover/item:text-content-primary transition-colors duration-200">{item}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Optional Maintenance and Retainer Note */}
-                  <div className="p-3 sm:p-4 bg-canvas-hover/50 border border-canvas-border rounded-xl sm:rounded-2xl mb-4 sm:mb-8 transition-colors duration-300 group-hover:border-canvas-border/80">
+                  <div className="p-3 sm:p-4 bg-canvas-hover/50 border border-canvas-border rounded-xl sm:rounded-2xl mb-4 sm:mb-8 transition-colors duration-300 lg:group-hover:border-canvas-border/80">
                     <div className="flex justify-between items-center text-xs font-medium text-content-primary mb-1">
                       <span className="font-mono text-[10px] text-content-primary">
                         {plan.retainer.name}
@@ -122,12 +122,12 @@ export default function PricingSection({ onSelectPlan }) {
                   }`}
                 >
                   <span className={`btn-fill-text-btn ${
-                    plan.popular ? 'text-canvas group-hover/btn:text-content-accent' : 'text-content-primary group-hover/btn:text-canvas'
+                    plan.popular ? 'text-canvas lg:group-hover/btn:text-content-accent' : 'text-content-primary lg:group-hover/btn:text-canvas'
                   }`}>
                     Request Custom Quote
                   </span>
-                  <span className={`btn-fill-text-btn transform group-hover/btn:translate-x-1 ${
-                    plan.popular ? 'text-canvas group-hover/btn:text-content-accent' : 'text-content-primary group-hover/btn:text-canvas'
+                  <span className={`btn-fill-text-btn transform lg:group-hover/btn:translate-x-1 ${
+                    plan.popular ? 'text-canvas lg:group-hover/btn:text-content-accent' : 'text-content-primary lg:group-hover/btn:text-canvas'
                   }`}>-&gt;</span>
                   
                   {/* Bottom-to-top wipe fill: 300ms ease-in on enter, 100ms fast reset exit */}
@@ -136,7 +136,7 @@ export default function PricingSection({ onSelectPlan }) {
                   }`} />
 
                   {/* Shine sweep effect across button */}
-                  <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none z-20" />
+                  <div className="absolute inset-0 -translate-x-full lg:group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none z-20" />
                 </button>
               </div>
             </div>

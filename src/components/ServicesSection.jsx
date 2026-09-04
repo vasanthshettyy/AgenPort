@@ -34,7 +34,9 @@ const ServicesSection = () => {
         );
       });
 
-      // ─── Hover / touch: left-to-right fill ──────────────────────────
+      // ─── Desktop Hover Fill (gated by pointer/hover capability) ────
+      const isHoverCapable = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
       itemRefs.current.forEach((item, i) => {
         if (!item) return;
 
@@ -43,110 +45,40 @@ const ServicesSection = () => {
         const title = titleRefs.current[i];
         const desc  = descRefs.current[i];
 
-        // Start state — fill hidden at scaleX 0 from left
-        gsap.set(fill, { scaleX: 0, transformOrigin: 'left center' });
-        gsap.set(line, { scaleX: 0, transformOrigin: 'left center' });
+        if (isHoverCapable) {
+          // Start state — fill hidden at scaleX 0 from left
+          gsap.set(fill, { scaleX: 0, transformOrigin: 'left center' });
+          gsap.set(line, { scaleX: 0, transformOrigin: 'left center' });
+          gsap.set(title, { color: 'var(--color-content-secondary, #888)', x: 0 });
+          gsap.set(desc, { opacity: 0, x: -16 });
 
-        const enter = () => {
-          gsap.to(fill, {
-            scaleX: 1,
-            duration: 0.6,
-            ease: 'power2.out',
-          });
-          gsap.to(line, {
-            scaleX: 1,
-            duration: 0.5,
-            ease: 'power2.out',
-            delay: 0.05,
-          });
-          gsap.to(title, {
-            color: 'var(--color-content-primary, #fff)',
-            x: 8,
-            duration: 0.5,
-            ease: 'power2.out',
-          });
-          gsap.to(desc, {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-            ease: 'power2.out',
-          });
-        };
+          const enter = () => {
+            gsap.to(fill, { scaleX: 1, duration: 0.6, ease: 'power2.out' });
+            gsap.to(line, { scaleX: 1, duration: 0.5, ease: 'power2.out', delay: 0.05 });
+            gsap.to(title, { color: 'var(--color-content-primary, #fff)', x: 8, duration: 0.5, ease: 'power2.out' });
+            gsap.to(desc, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' });
+          };
 
-        const leave = () => {
-          gsap.to(fill, {
-            scaleX: 0,
-            duration: 0.5,
-            ease: 'power2.inOut',
-          });
-          gsap.to(line, {
-            scaleX: 0,
-            duration: 0.4,
-            ease: 'power2.inOut',
-          });
-          gsap.to(title, {
-            color: 'var(--color-content-secondary, #888)',
-            x: 0,
-            duration: 0.5,
-            ease: 'power2.inOut',
-          });
-          gsap.to(desc, {
-            opacity: 0,
-            x: -16,
-            duration: 0.4,
-            ease: 'power2.inOut',
-          });
-        };
+          const leave = () => {
+            gsap.to(fill, { scaleX: 0, duration: 0.5, ease: 'power2.inOut' });
+            gsap.to(line, { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
+            gsap.to(title, { color: 'var(--color-content-secondary, #888)', x: 0, duration: 0.5, ease: 'power2.inOut' });
+            gsap.to(desc, { opacity: 0, x: -16, duration: 0.4, ease: 'power2.inOut' });
+          };
 
-        item.addEventListener('mouseenter', enter);
-        item.addEventListener('mouseleave', leave);
-        item.addEventListener('touchstart', enter, { passive: true });
+          item.addEventListener('mouseenter', enter);
+          item.addEventListener('mouseleave', leave);
 
-        // Store cleanup refs
-        item._gsapEnter = enter;
-        item._gsapLeave = leave;
-      });
-
-      // ─── Mobile: scroll-based activation ────────────────────────────
-      itemRefs.current.forEach((item, i) => {
-        if (!item) return;
-        ScrollTrigger.create({
-          trigger: item,
-          start: 'top 60%',
-          end: 'bottom 40%',
-          onEnter: () => {
-            if (window.innerWidth < 1024) {
-              gsap.to(fillRefs.current[i],  { scaleX: 1, duration: 0.6, ease: 'power2.out' });
-              gsap.to(lineRefs.current[i],  { scaleX: 1, duration: 0.5, ease: 'power2.out', delay: 0.05 });
-              gsap.to(titleRefs.current[i], { color: 'var(--color-content-primary, #fff)', x: 8, duration: 0.5, ease: 'power2.out' });
-              gsap.to(descRefs.current[i],  { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' });
-            }
-          },
-          onLeave: () => {
-            if (window.innerWidth < 1024) {
-              gsap.to(fillRefs.current[i],  { scaleX: 0, duration: 0.5, ease: 'power2.inOut' });
-              gsap.to(lineRefs.current[i],  { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
-              gsap.to(titleRefs.current[i], { color: 'var(--color-content-secondary, #888)', x: 0, duration: 0.5, ease: 'power2.inOut' });
-              gsap.to(descRefs.current[i],  { opacity: 0, x: -16, duration: 0.4, ease: 'power2.inOut' });
-            }
-          },
-          onEnterBack: () => {
-            if (window.innerWidth < 1024) {
-              gsap.to(fillRefs.current[i],  { scaleX: 1, duration: 0.6, ease: 'power2.out' });
-              gsap.to(lineRefs.current[i],  { scaleX: 1, duration: 0.5, ease: 'power2.out', delay: 0.05 });
-              gsap.to(titleRefs.current[i], { color: 'var(--color-content-primary, #fff)', x: 8, duration: 0.5, ease: 'power2.out' });
-              gsap.to(descRefs.current[i],  { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' });
-            }
-          },
-          onLeaveBack: () => {
-            if (window.innerWidth < 1024) {
-              gsap.to(fillRefs.current[i],  { scaleX: 0, duration: 0.5, ease: 'power2.inOut' });
-              gsap.to(lineRefs.current[i],  { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
-              gsap.to(titleRefs.current[i], { color: 'var(--color-content-secondary, #888)', x: 0, duration: 0.5, ease: 'power2.inOut' });
-              gsap.to(descRefs.current[i],  { opacity: 0, x: -16, duration: 0.4, ease: 'power2.inOut' });
-            }
-          },
-        });
+          // Store cleanup refs
+          item._gsapEnter = enter;
+          item._gsapLeave = leave;
+        } else {
+          // Touch / Mobile state: keep decorative hover fills off; reveal title & description cleanly
+          gsap.set(fill, { scaleX: 0 });
+          gsap.set(line, { scaleX: 0 });
+          gsap.set(title, { color: 'var(--color-content-primary, #fff)', x: 0 });
+          gsap.set(desc, { opacity: 1, x: 0 });
+        }
       });
     }, sectionRef);
 
@@ -156,7 +88,6 @@ const ServicesSection = () => {
         if (!item) return;
         if (item._gsapEnter) item.removeEventListener('mouseenter', item._gsapEnter);
         if (item._gsapLeave) item.removeEventListener('mouseleave', item._gsapLeave);
-        if (item._gsapEnter) item.removeEventListener('touchstart', item._gsapEnter);
       });
       ctx.revert();
     };

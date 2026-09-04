@@ -67,7 +67,7 @@ export default function Header() {
                   e.preventDefault();
                   handleNavClick(item.href);
                 }}
-                className="text-xs font-bold uppercase tracking-widest text-content-secondary hover:text-content-accent transition-colors duration-300"
+                className="text-xs font-bold uppercase tracking-widest text-content-secondary lg:hover:text-content-accent transition-colors duration-300"
               >
                 {item.name}
               </a>
@@ -83,9 +83,9 @@ export default function Header() {
                   e.preventDefault();
                   handleNavClick('#contact');
                 }}
-                className="inline-block text-xs font-bold uppercase tracking-widest px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 border border-content-border rounded-full hover:border-content-accent transition-all duration-500 overflow-hidden relative"
+                className="inline-block text-xs font-bold uppercase tracking-widest px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 border border-content-border rounded-full lg:hover:border-content-accent transition-all duration-500 overflow-hidden relative"
               >
-                <span className="btn-fill-text group-hover:text-canvas">CONTACT</span>
+                <span className="btn-fill-text lg:group-hover:text-canvas">CONTACT</span>
                 <div className="btn-fill-layer bg-content-accent" />
               </a>
             </div>
@@ -95,7 +95,7 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
               aria-expanded={mobileMenuOpen}
-              className="md:hidden p-3 -mr-3 text-content-primary hover:text-content-accent focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center"
+              className="md:hidden p-3 -mr-3 text-content-primary lg:hover:text-content-accent focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center"
             >
               <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
                 <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -128,7 +128,7 @@ export default function Header() {
                   e.preventDefault();
                   handleNavClick(item.href);
                 }}
-                className="text-xl sm:text-2xl font-bold uppercase tracking-widest text-content-primary hover:text-content-accent transition-colors min-h-[44px] flex items-center justify-center"
+                className="text-xl sm:text-2xl font-bold uppercase tracking-widest text-content-primary lg:hover:text-content-accent transition-colors min-h-[44px] flex items-center justify-center"
               >
                 {item.name}
               </a>
@@ -141,7 +141,7 @@ export default function Header() {
               }}
               className="group relative mt-4 sm:mt-6 inline-flex items-center justify-center py-3.5 sm:py-4 px-6 sm:px-8 border border-content-accent bg-content-accent text-canvas font-bold uppercase tracking-widest rounded-full text-center min-h-[44px] overflow-hidden"
             >
-              <span className="btn-fill-text group-hover:text-content-accent">Get in Touch</span>
+              <span className="btn-fill-text lg:group-hover:text-content-accent">Get in Touch</span>
               <div className="btn-fill-layer bg-canvas" />
             </a>
           </nav>

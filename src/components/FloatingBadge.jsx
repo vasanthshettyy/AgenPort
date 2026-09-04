@@ -23,7 +23,7 @@ export default function FloatingBadge() {
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
       </span>
-      <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-content-primary uppercase select-none group-hover:text-content-accent transition-colors duration-300">
+      <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-content-primary uppercase select-none lg:group-hover:text-content-accent transition-colors duration-300">
         <span className="hidden sm:inline">NOW ACCEPTING FOUNDING CLIENTS • LIMITED AVAILABILITY</span>
         <span className="sm:hidden">FOUNDING CLIENTS • LIMITED</span>
       </span>
