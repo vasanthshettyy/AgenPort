@@ -62,8 +62,7 @@ export const faqData = [
   {
     "id": 11,
     "question": "Is there a contract or agreement?",
-    "answer": "",
-    "tag": "LEGAL AND TERMS",
-    "isEmpty": true
+    "answer": "Yes. Before any work starts, I email you a clear summary — scope, price, payment split, revisions included, and timeline. You reply confirming you're good with it, and that's our agreement. Everything's handled over email, so there's always a written record of exactly what we agreed to.",
+    "tag": "LEGAL AND TERMS"
   }
 ];

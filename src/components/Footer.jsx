@@ -11,7 +11,6 @@ export default function Footer() {
       href: item.href,
     })),
     { name: 'CONTACT', href: '#contact' },
-    { name: 'LINKEDIN', href: 'https://www.linkedin.com/in/vasanth-shetty-dev', isExternal: true },
   ];
 
   const handleNavClick = (e, href) => {
@@ -57,7 +56,6 @@ export default function Footer() {
           <span>&copy; {currentYear} VASANTH SHETTY. ALL RIGHTS RESERVED.</span>
           <div className="flex gap-6 sm:gap-8">
             <a href="#" className="hover:text-content-primary transition-colors py-2">PRIVACY POLICY</a>
-            <a href="#" className="hover:text-content-primary transition-colors py-2">TERMS OF SERVICE</a>
           </div>
         </div>
       </div>
