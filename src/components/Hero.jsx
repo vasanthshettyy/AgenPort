@@ -34,18 +34,6 @@ const Hero = () => {
       .to('.hero-image-wrap', { opacity: 1, x: 0, duration: 1.5 }, '-=1.4');
   }, { scope: container, dependencies: [isMobile] });
 
-  // Mouse parallax on desktop only
-  useEffect(() => {
-    if (isMobile) return;
-    const onMouseMove = (e) => {
-      const xPos = (e.clientX / window.innerWidth - 0.5) * 30;
-      const yPos = (e.clientY / window.innerHeight - 0.5) * 30;
-      gsap.to('.hero-bloom', { x: xPos, y: yPos, duration: 2, ease: 'power2.out' });
-      gsap.to('.hero-image', { x: xPos / 3, y: yPos / 3, duration: 2, ease: 'power2.out' });
-    };
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
-  }, [isMobile]);
 
   return (
     <section
