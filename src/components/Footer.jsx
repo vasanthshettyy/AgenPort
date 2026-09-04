@@ -16,6 +16,10 @@ export default function Footer() {
   const handleNavClick = (e, href) => {
     if (href.startsWith('#')) {
       e.preventDefault();
+      if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+        window.location.href = '/' + href;
+        return;
+      }
       const target = document.querySelector(href);
       if (target) target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -55,7 +59,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 sm:pt-8 lg:pt-12 border-t border-canvas-border text-[10px] font-bold tracking-[0.2em] text-content-secondary/40 uppercase text-center sm:text-left">
           <span>&copy; {currentYear} VASANTH SHETTY. ALL RIGHTS RESERVED.</span>
           <div className="flex gap-6 sm:gap-8">
-            <a href="#" className="hover:text-content-primary transition-colors py-2">PRIVACY POLICY</a>
+            <a href="/privacy-policy" className="hover:text-content-primary transition-colors py-2">PRIVACY POLICY</a>
           </div>
         </div>
       </div>

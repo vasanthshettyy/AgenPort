@@ -27,6 +27,10 @@ export default function Header() {
 
   const handleNavClick = (href) => {
     setMobileMenuOpen(false);
+    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+      window.location.href = '/' + href;
+      return;
+    }
     const target = document.querySelector(href);
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   };

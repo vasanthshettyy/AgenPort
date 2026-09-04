@@ -18,6 +18,7 @@ const ProjectGrid = React.lazy(() => import('./components/ProjectGrid'));
 const ContactSection = React.lazy(() => import('./components/ContactSection'));
 const FaqSection = React.lazy(() => import('./components/FaqSection'));
 const Footer = React.lazy(() => import('./components/Footer'));
+const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 
 const SkeletonLoader = () => (
   <div className="w-full h-96 bg-canvas flex items-center justify-center">
@@ -37,6 +38,27 @@ function App() {
   }, []);
 
   // Simple Native Router
+  if (currentPath === '/privacy-policy' || currentPath === '/privacy-policy/') {
+    return (
+      <SmoothScroll>
+        <CustomCursor />
+        <Header />
+        <main>
+          <ErrorBoundary>
+            <Suspense fallback={<SkeletonLoader />}>
+              <PrivacyPolicy />
+            </Suspense>
+          </ErrorBoundary>
+        </main>
+        <ErrorBoundary>
+          <Suspense fallback={<SkeletonLoader />}>
+            <Footer />
+          </Suspense>
+        </ErrorBoundary>
+      </SmoothScroll>
+    );
+  }
+
   if (currentPath !== '/' && currentPath !== '/index.html') {
     return <NotFound />;
   }
