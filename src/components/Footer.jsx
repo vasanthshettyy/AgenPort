@@ -1,7 +1,26 @@
 
 
+import { navigation } from '../data/navigation';
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const footerLinks = [
+    ...navigation.map((item) => ({
+      name: item.name.toUpperCase(),
+      href: item.href,
+    })),
+    { name: 'CONTACT', href: '#contact' },
+    { name: 'LINKEDIN', href: 'https://www.linkedin.com/in/vasanth-shetty-dev', isExternal: true },
+  ];
+
+  const handleNavClick = (e, href) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <footer className="bg-canvas py-10 sm:py-16 lg:py-32 px-4 sm:px-6 lg:px-20 border-t border-canvas-border">
@@ -18,15 +37,16 @@ export default function Footer() {
 
           <div className="flex flex-col lg:items-end gap-4 sm:gap-6 lg:gap-12">
             <nav className="flex flex-wrap gap-4 sm:gap-6 lg:gap-16">
-              {['SERVICES', 'PROJECTS', 'FAQ', 'CONTACT', 'LINKEDIN'].map((link) => (
+              {footerLinks.map((link) => (
                 <a
-                  key={link}
-                  href={link === 'LINKEDIN' ? 'https://www.linkedin.com/in/vasanth-shetty-dev' : `#${link.toLowerCase()}`}
-                  target={link === 'LINKEDIN' ? '_blank' : undefined}
-                  rel={link === 'LINKEDIN' ? 'noopener noreferrer' : undefined}
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  target={link.isExternal ? '_blank' : undefined}
+                  rel={link.isExternal ? 'noopener noreferrer' : undefined}
                   className="text-[10px] sm:text-xs font-bold tracking-widest text-content-secondary hover:text-content-accent transition-colors min-h-[44px] flex items-center"
                 >
-                  {link}
+                  {link.name}
                 </a>
               ))}
             </nav>
