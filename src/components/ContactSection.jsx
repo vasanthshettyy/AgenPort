@@ -129,7 +129,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-64 bg-canvas px-4 sm:px-6 lg:px-20 overflow-hidden">
+    <section id="contact" className="pt-12 pb-48 sm:py-16 lg:py-64 bg-canvas px-4 sm:px-6 lg:px-20 overflow-hidden">
       <div className="max-w-[1400px] w-full mx-auto">
         <h2 className="text-3xl sm:text-5xl lg:text-massive font-sans font-bold mb-6 sm:mb-8 lg:mb-32 tracking-tighter uppercase">
           Work Together.
@@ -199,7 +199,7 @@ export default function ContactSection() {
                 onChange={handleChange}
                 rows="3"
                 placeholder="PROJECT DETAILS / PACKAGE INTEREST"
-                className="w-full bg-transparent border-b border-canvas-border py-3 text-sm sm:text-base lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
+                className="w-full bg-transparent border-b border-canvas-border py-3 text-base sm:text-lg lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
             </div>

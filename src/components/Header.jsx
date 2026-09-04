@@ -11,8 +11,12 @@ export default function Header() {
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
     }
   }, [mobileMenuOpen]);
 
@@ -91,7 +95,7 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
               aria-expanded={mobileMenuOpen}
-              className="md:hidden p-2 text-content-primary hover:text-content-accent focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="md:hidden p-3 -mr-3 text-content-primary hover:text-content-accent focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center"
             >
               <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
                 <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />

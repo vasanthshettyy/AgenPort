@@ -60,7 +60,7 @@ const Hero = () => {
           </p>
 
           {/* CTAs */}
-          <div className="hero-cta flex flex-col sm:flex-row gap-4 items-start">
+          <div className="hero-cta flex flex-col sm:flex-row gap-6 items-start">
             <button
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative px-8 py-4 bg-content-primary text-canvas font-bold tracking-wider uppercase rounded-full overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.12)] min-h-[48px]"

@@ -173,9 +173,9 @@ const ProjectGrid = () => {
             >
               <div className="relative w-full lg:w-2/3 aspect-[16/10] overflow-hidden rounded-md border border-canvas-border bg-canvas-surface group">
                 <ProjectPreview project={project} />
-                <div className="absolute inset-0 bg-canvas/60 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
-                  <div className="group/btn relative overflow-hidden px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 border border-content-secondary/30 rounded-full transition-all hover:border-content-accent">
-                    <span className="btn-fill-text-btn text-base sm:text-lg lg:text-2xl font-bold tracking-widest text-content-primary group-hover/btn:text-canvas">
+                <div className="absolute inset-0 bg-canvas/60 opacity-100 lg:opacity-0 lg:group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
+                  <div className="group/btn relative overflow-hidden px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 border border-content-secondary/30 rounded-full transition-all lg:hover:border-content-accent">
+                    <span className="btn-fill-text-btn text-base sm:text-lg lg:text-2xl font-bold tracking-widest text-content-primary lg:group-hover/btn:text-canvas">
                       VIEW PROJECT
                     </span>
                     <div className="btn-fill-layer-btn bg-content-accent" />
