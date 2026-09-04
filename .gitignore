@@ -23,4 +23,8 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+
+# Personal local reference docs
+roadmap.md
+website-content.md
+
