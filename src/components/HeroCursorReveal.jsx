@@ -146,10 +146,15 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
       return;
     }
 
+    const { width: w, height: h } = dims.current;
+    if (w === 0 || h === 0) {
+      rafId.current = requestAnimationFrame(loop);
+      return;
+    }
+
     const dt = Math.min(64, now - lastFrameTime.current || 16);
     lastFrameTime.current = now;
 
-    const { width: w, height: h } = dims.current;
     const mCtx = maskCtx.current;
 
     // 1. Exponential decay pass (destination-out) over TRAIL_DURATION
@@ -261,23 +266,23 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
       lastPoint.current = null;
     };
 
-    const onResize = () => {
+    const resizeObserver = new ResizeObserver(() => {
       resizeAll();
-    };
+    });
+    resizeObserver.observe(container);
 
     container.addEventListener('mouseenter', onMouseEnter);
     container.addEventListener('mousemove', onMouseMove);
     container.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('resize', onResize);
 
     return () => {
       if (idleId && typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(idleId);
       if (timerId) clearTimeout(timerId);
 
+      resizeObserver.disconnect();
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mousemove', onMouseMove);
       container.removeEventListener('mouseleave', onMouseLeave);
-      window.removeEventListener('resize', onResize);
 
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
