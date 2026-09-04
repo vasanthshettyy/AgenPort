@@ -73,8 +73,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT — Image (desktop only visible, mobile shows below) */}
-        <div className="relative lg:w-[480px] xl:w-[520px] flex-shrink-0 flex items-center justify-center">
+        {/* RIGHT — Image (desktop only reveal, mobile shows plain photo) */}
+        <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-none lg:w-[480px] xl:w-[520px] flex-shrink-0 flex items-center justify-center">
           {/* Glow bloom */}
           <div className="hero-bloom absolute inset-0 w-full h-full bg-content-neon/10 rounded-full blur-[100px] pointer-events-none" />
 
