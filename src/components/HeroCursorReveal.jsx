@@ -4,9 +4,12 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 const SPOT_RADIUS = 30;       // px — radius of reveal spot
 const TRAIL_DURATION = 3000;  // ms — smooth 3.0-second decay trail
 const BLUR_PX = 29;           // px — Gaussian softness for mask stroke
-const ALIGN_SCALE = 1.17;     // zoom level to match real photo framing
-const ALIGN_Y     = -0.148;   // vertical alignment offset
-const ALIGN_X     = 0.048;    // horizontal alignment offset
+// Responsive relative alignment values (locked to real base photo geometry)
+const REAL_W = 800;
+const REAL_H = 532;
+const REL_SCALE = 0.6224; // Illustrated image scale relative to real photo scale
+const REL_X = 0.2127;     // Horizontal offset relative to real photo's rendered width
+const REL_Y = -0.148;     // Vertical offset relative to real photo's rendered height
 
 /**
  * HeroCursorReveal
@@ -65,7 +68,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }, []);
 
-  // ── Draw image with tuned alignment ──────────────────────────────────────
+  // ── Draw image with responsive alignment locked to real photo geometry ───
   const renderRevealSource = useCallback(() => {
     if (!revealSourceCtx.current || !illustratedImg.current || !imgLoaded.current) return;
     const { width: cw, height: ch } = dims.current;
@@ -76,15 +79,19 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     const imgH = img.naturalHeight || img.height;
     if (!imgW || !imgH) return;
 
-    // Base object-cover scale (same as CSS object-cover object-top)
-    const baseScale = Math.max(cw / imgW, ch / imgH);
-    // Apply alignment correction: scale + position shift
-    const finalScale = baseScale * ALIGN_SCALE;
-    const dw = imgW * finalScale;
-    const dh = imgH * finalScale;
+    // 1. Calculate real photo rendered bounds (matching CSS object-cover object-top)
+    const scaleReal = Math.max(cw / REAL_W, ch / REAL_H);
+    const dwReal = REAL_W * scaleReal;
+    const dhReal = REAL_H * scaleReal;
+    const xReal = (cw - dwReal) / 2;
+    const yReal = 0; // object-top
 
-    const dx = (cw - dw) / 2 + cw * ALIGN_X;
-    const dy = ch * ALIGN_Y;
+    // 2. Calculate illustrated photo position/scale relative to real photo bounds
+    const scaleIll = scaleReal * REL_SCALE;
+    const dw = imgW * scaleIll;
+    const dh = imgH * scaleIll;
+    const dx = xReal + dwReal * REL_X;
+    const dy = yReal + dhReal * REL_Y;
 
     const ctx = revealSourceCtx.current;
     ctx.clearRect(0, 0, cw, ch);
