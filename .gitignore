@@ -27,4 +27,17 @@ dist-ssr
 # Personal local reference docs
 roadmap.md
 website-content.md
+todo.md
+mobile-audit-report.md
+
+# Temporary, debug & test files
+scratch/
+*.png
+!public/*.webp
+screenshot.cjs
+test-hover.cjs
+lighthouse-mobile.json
+.antigravityignore
+public/op_vas_illustration.png
+
 
