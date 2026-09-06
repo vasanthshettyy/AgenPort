@@ -1,31 +1,35 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 
-// Hardcoded final tuned values
-const SPOT_RADIUS = 30;       // px — radius of reveal spot
-const TRAIL_DURATION = 3000;  // ms — smooth 3.0-second decay trail
-const BLUR_PX = 29;           // px — Gaussian softness for mask stroke
+/**
+ * 🔒 LOCKED TUNED HERO ALIGNMENT VALUES
+ * DO NOT ALTER THESE NUMBERS UNLESS DIRECTLY REQUESTED BY USER.
+ *
+ * Fine-tuned parameters:
+ * - REL_X: 0.162 (Horizontal alignment offset relative to base photo)
+ * - REL_Y: -0.143 (Vertical alignment offset relative to base photo)
+ * - REL_SCALE: 0.58 (Scale of illustrated image relative to base photo)
+ * - SPOT_RADIUS: 38 (px — reveal circle radius)
+ * - TRAIL_DURATION: 4900 (ms — 4.9s smooth decay trail)
+ * - BLUR_PX: 13 (px — softness blur)
+ */
+const CONFIG = Object.freeze({
+  SPOT_RADIUS: 38,       // px — radius of reveal spot
+  TRAIL_DURATION: 4900,  // ms — smooth 4.9-second decay trail
+  BLUR_PX: 13,           // px — Gaussian softness blur
+  REL_SCALE: 0.58,       // Illustrated image scale relative to real photo scale
+  REL_X: 0.162,          // Horizontal offset relative to real photo's rendered width
+  REL_Y: -0.143,         // Vertical offset relative to real photo's rendered height
+});
+
 // Responsive relative alignment values (locked to real base photo geometry)
 const REAL_W = 800;
 const REAL_H = 532;
-const REL_SCALE = 0.6224; // Illustrated image scale relative to real photo scale
-const REL_X = 0.2127;     // Horizontal offset relative to real photo's rendered width
-const REL_Y = -0.148;     // Vertical offset relative to real photo's rendered height
 
 /**
  * HeroCursorReveal
- *
- * Renders an offscreen mask & canvas trail reveal effect over the hero photo.
- * On desktop (pointer: fine, min-width 768px, no reduced motion):
- *   - Hovering over the photo container reveals the illustrated WebP image
- *     underneath through a soft circular trail that follows the cursor
- *     and fades out over 3.0 seconds.
- *   - Continuous stroke drawing prevents discrete dot gaps.
- *   - Single-pass destination-out exponential decay ensures 60fps performance.
- *   - LCP safe: Illustrated image load is deferred via requestIdleCallback/hover.
- *   - Mobile & reduced-motion safe: Returns null on touch/small screens or reduced motion.
  */
 export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
-  const [isEligible, setIsEligible] = useState(false);
+  const [isEligible, setIsEligible] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
 
   const displayCanvasRef = useRef(null);
   const maskCanvas = useRef(null);
@@ -48,10 +52,8 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
   // ── Eligibility Check ─────────────────────────────────────────────────────
   useEffect(() => {
     const checkEligibility = () => {
-      const finePointer = window.matchMedia('(pointer: fine)').matches;
       const desktopWidth = window.innerWidth >= 768;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      setIsEligible(finePointer && desktopWidth && !reducedMotion);
+      setIsEligible(desktopWidth);
     };
 
     checkEligibility();
@@ -87,6 +89,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     const yReal = 0; // object-top
 
     // 2. Calculate illustrated photo position/scale relative to real photo bounds
+    const { REL_SCALE, REL_X, REL_Y } = CONFIG;
     const scaleIll = scaleReal * REL_SCALE;
     const dw = imgW * scaleIll;
     const dh = imgH * scaleIll;
@@ -130,20 +133,40 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     renderRevealSource();
   }, [containerRef, fitCanvas, renderRevealSource]);
 
-  // ── Image Loader (deferred, low-priority) ──────────────────────────────────
+  // ── Image Loader (robust load with cached handling) ────────────────────────
   const startLoadingImage = useCallback(() => {
-    if (loadingStarted.current || illustratedImg.current) return;
+    if (imgLoaded.current) return;
+    if (illustratedImg.current) {
+      if (illustratedImg.current.complete && illustratedImg.current.naturalWidth > 0) {
+        imgLoaded.current = true;
+        renderRevealSource();
+      }
+      return;
+    }
     loadingStarted.current = true;
 
     const img = new Image();
-    img.src = illustratedSrc;
     img.onload = () => {
       imgLoaded.current = true;
       illustratedImg.current = img;
       renderRevealSource();
     };
+    img.onerror = (err) => {
+      console.error('Failed to load reveal image:', illustratedSrc, err);
+    };
+    img.src = illustratedSrc;
     illustratedImg.current = img;
+
+    if (img.complete && img.naturalWidth > 0) {
+      imgLoaded.current = true;
+      renderRevealSource();
+    }
   }, [illustratedSrc, renderRevealSource]);
+
+  // Load image immediately on mount
+  useEffect(() => {
+    startLoadingImage();
+  }, [startLoadingImage]);
 
   // ── Animation Loop ────────────────────────────────────────────────────────
   const loop = useCallback((now) => {
@@ -163,8 +186,9 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     lastFrameTime.current = now;
 
     const mCtx = maskCtx.current;
+    const { TRAIL_DURATION, BLUR_PX, SPOT_RADIUS } = CONFIG;
 
-    // 1. Exponential decay pass (destination-out) over TRAIL_DURATION
+    // Exponential decay pass (destination-out) over TRAIL_DURATION
     const k = 3.912 / TRAIL_DURATION; // ln(1/0.02) / ms
     const fadeAlpha = 1 - Math.exp(-k * dt);
     mCtx.save();
@@ -173,12 +197,14 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     mCtx.fillRect(0, 0, w, h);
     mCtx.restore();
 
-    // 2. Paint continuous stroke to mask canvas on hover
+    // Paint continuous stroke to mask canvas on hover
     if (isHovering.current && currentPoint.current) {
       lastActiveTime.current = now;
       mCtx.save();
       if (BLUR_PX > 0) {
         mCtx.filter = `blur(${BLUR_PX}px)`;
+      } else {
+        mCtx.filter = 'none';
       }
       mCtx.lineCap = 'round';
       mCtx.lineJoin = 'round';
@@ -200,42 +226,41 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
       lastPoint.current = currentPoint.current;
     }
 
-    // 3. Compose to display canvas: draw pre-rendered illustrated source, clip to mask
+    // Compose to display canvas: draw pre-rendered illustrated source, clip to mask
     const dCtx = displayCanvas.getContext('2d');
     dCtx.clearRect(0, 0, w, h);
 
     if (imgLoaded.current && revealSourceCanvas.current) {
+      dCtx.save();
+      dCtx.globalAlpha = 1;
       dCtx.drawImage(revealSourceCanvas.current, 0, 0, w, h);
       dCtx.globalCompositeOperation = 'destination-in';
+      dCtx.globalAlpha = 1;
       dCtx.drawImage(maskCanvas.current, 0, 0, w, h);
-      dCtx.globalCompositeOperation = 'source-over';
+      dCtx.restore();
     }
 
-    // 4. Continue RAF while hovering or while trail fade is draining
-    if (isHovering.current || now - lastActiveTime.current < TRAIL_DURATION * 1.2) {
+    // Continue RAF while hovering or while trail fade is draining
+    if (isHovering.current || now - lastActiveTime.current < TRAIL_DURATION * 1.1) {
       rafId.current = requestAnimationFrame(loop);
     } else {
       rafId.current = null;
       lastPoint.current = null;
+      if (maskCtx.current) {
+        maskCtx.current.clearRect(0, 0, w, h);
+      }
       dCtx.clearRect(0, 0, w, h);
     }
   }, []);
 
-  // ── Setup listeners and deferred image load ──────────────────────────────
+  // ── Setup listeners ───────────────────────────────────────────────────────
   useEffect(() => {
     if (!isEligible) return;
 
     const container = containerRef.current;
     if (!container) return;
 
-    let idleId;
-    let timerId;
-    if (typeof requestIdleCallback !== 'undefined') {
-      idleId = requestIdleCallback(() => startLoadingImage(), { timeout: 2000 });
-    } else {
-      timerId = setTimeout(() => startLoadingImage(), 200);
-    }
-
+    startLoadingImage();
     resizeAll();
 
     const updatePos = (clientX, clientY) => {
@@ -247,6 +272,9 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     };
 
     const startLoop = () => {
+      if (dims.current.width === 0 || dims.current.height === 0) {
+        resizeAll();
+      }
       if (rafId.current === null) {
         lastFrameTime.current = performance.now();
         rafId.current = requestAnimationFrame(loop);
@@ -271,6 +299,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     const onMouseLeave = () => {
       isHovering.current = false;
       lastPoint.current = null;
+      startLoop(); // Ensure decay animation loop continues running after mouse leave
     };
 
     const resizeObserver = new ResizeObserver(() => {
@@ -283,9 +312,6 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     container.addEventListener('mouseleave', onMouseLeave);
 
     return () => {
-      if (idleId && typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(idleId);
-      if (timerId) clearTimeout(timerId);
-
       resizeObserver.disconnect();
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mousemove', onMouseMove);

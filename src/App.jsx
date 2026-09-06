@@ -37,7 +37,6 @@ function App() {
     return () => window.removeEventListener('popstate', onLocationChange);
   }, []);
 
-  // Simple Native Router
   if (currentPath === '/privacy-policy' || currentPath === '/privacy-policy/') {
     return (
       <SmoothScroll>
