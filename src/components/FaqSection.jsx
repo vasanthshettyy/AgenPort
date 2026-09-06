@@ -57,13 +57,13 @@ export default function FaqSection() {
                 <button
                   onClick={() => toggleFaq(item.id)}
                   aria-expanded={isOpen}
-                  className="w-full min-h-[60px] text-left px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
+                  className="group w-full min-h-[60px] text-left px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
                 >
                   <div className="flex items-center gap-4 sm:gap-6 flex-1 min-w-0">
-                    <span className={`font-mono text-xs font-semibold tracking-widest flex-shrink-0 transition-colors duration-300 ${isOpen ? 'text-content-accent' : 'text-content-secondary/40'}`}>
+                    <span className={`font-mono text-xs font-semibold tracking-widest flex-shrink-0 transition-colors duration-300 ${isOpen ? 'text-content-accent' : 'text-content-secondary/40 group-hover:text-content-secondary'}`}>
                       {String(idx + 1).padStart(2, '0')}
                     </span>
-                    <h3 className={`text-base sm:text-xl font-sans font-semibold tracking-tight transition-colors duration-300 ${isOpen ? 'text-content-accent' : 'text-content-primary'}`}>
+                    <h3 className={`text-base sm:text-xl font-sans font-semibold tracking-tight transition-colors duration-300 ${isOpen ? 'text-content-accent' : 'text-content-primary group-hover:text-content-accent'}`}>
                       {item.question}
                     </h3>
                   </div>
@@ -71,10 +71,26 @@ export default function FaqSection() {
                   {/* Smooth Animated Toggle Icon (+ / -) */}
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-500 ease-out ${
                     isOpen
-                      ? 'border-content-accent bg-content-accent/10 text-content-accent rotate-180 shadow-[0_0_15px_rgba(0,229,255,0.25)] scale-105'
-                      : 'border-canvas-border text-content-secondary lg:group-hover:border-content-accent/50 lg:group-hover:text-content-accent'
+                      ? 'border-content-accent bg-content-accent/10 text-content-accent shadow-[0_0_15px_rgba(0,229,255,0.25)] scale-105'
+                      : 'border-canvas-border text-content-secondary group-hover:border-content-accent/60 group-hover:text-content-accent'
                   }`}>
-                    <span className="text-lg leading-none select-none font-bold transition-transform duration-500">{isOpen ? '−' : '+'}</span>
+                    <svg
+                      className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-500 ease-out ${isOpen ? 'rotate-180 text-content-accent' : 'rotate-0'}`}
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    >
+                      <line x1="2" y1="8" x2="14" y2="8" />
+                      <line
+                        x1="8"
+                        y1="2"
+                        x2="8"
+                        y2="14"
+                        className={`transition-all duration-500 origin-center ${isOpen ? 'opacity-0 scale-0 rotate-90' : 'opacity-100 scale-100 rotate-0'}`}
+                      />
+                    </svg>
                   </div>
                 </button>
 

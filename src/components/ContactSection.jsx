@@ -175,9 +175,9 @@ export default function ContactSection() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="YOUR NAME"
-                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/30 transition-all duration-300 hover:border-content-secondary/60 focus:border-content-accent"
               />
-              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-500 ease-out pointer-events-none" />
             </div>
 
             <div className="group relative">
@@ -187,9 +187,9 @@ export default function ContactSection() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="YOUR EMAIL"
-                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent"
+                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/30 transition-all duration-300 hover:border-content-secondary/60 focus:border-content-accent"
               />
-              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-500 ease-out pointer-events-none" />
             </div>
 
             <div className="group relative">
@@ -199,9 +199,9 @@ export default function ContactSection() {
                 onChange={handleChange}
                 rows="3"
                 placeholder="PROJECT DETAILS / PACKAGE INTEREST"
-                className="w-full bg-transparent border-b border-canvas-border py-3 text-base sm:text-lg lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/20 transition-all focus:border-content-accent resize-none"
+                className="w-full bg-transparent border-b border-canvas-border py-3 text-base sm:text-lg lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/30 transition-all duration-300 hover:border-content-secondary/60 focus:border-content-accent resize-none"
               />
-              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-700" />
+              <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-500 ease-out pointer-events-none" />
             </div>
 
             {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
@@ -210,13 +210,13 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto group relative inline-flex items-center justify-center px-6 sm:px-8 lg:px-16 py-3 sm:py-4 lg:py-8 border border-content-border rounded-full overflow-hidden transition-all hover:border-content-accent min-h-[48px]"
+                className="group w-full sm:w-auto relative inline-flex items-center justify-center px-6 sm:px-8 lg:px-16 py-3 sm:py-4 lg:py-8 border border-content-border rounded-full overflow-hidden transition-all duration-300 hover:border-content-accent hover:shadow-[0_0_30px_rgba(0,229,255,0.25)] min-h-[48px] cursor-pointer"
               >
-                <span className={`btn-fill-text text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`btn-fill-text text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                   SUBMIT INQUIRY
                 </span>
                 {isSubmitting && (
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center z-20">
                     <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-4 border-content-accent/30 border-t-content-accent rounded-full animate-spin" />
                   </div>
                 )}
