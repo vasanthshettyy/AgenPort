@@ -73,11 +73,35 @@ const ServicesSection = () => {
           item._gsapEnter = enter;
           item._gsapLeave = leave;
         } else {
-          // Touch / Mobile state: keep decorative hover fills off; reveal title & description cleanly
-          gsap.set(fill, { scaleX: 0 });
-          gsap.set(line, { scaleX: 0 });
-          gsap.set(title, { color: 'var(--color-content-primary, #fff)', x: 0 });
-          gsap.set(desc, { opacity: 1, x: 0 });
+          // Mobile / Touch state:
+          // Resting state — all info visible by default in readable grey tone
+          gsap.set(fill, { scaleX: 0, transformOrigin: 'left center' });
+          gsap.set(line, { scaleX: 0, transformOrigin: 'left center' });
+          gsap.set(title, { color: 'var(--color-content-secondary, #9ca3af)', x: 0, textShadow: 'none' });
+          gsap.set(desc, { opacity: 0.85, x: 0, color: 'var(--color-content-secondary, #9ca3af)' });
+
+          const touchStart = () => {
+            gsap.to(fill, { scaleX: 1, duration: 0.4, ease: 'power2.out' });
+            gsap.to(line, { scaleX: 1, duration: 0.4, ease: 'power2.out' });
+            gsap.to(title, { color: '#ffffff', x: 6, textShadow: '0 0 16px rgba(0, 229, 255, 0.45)', duration: 0.4, ease: 'power2.out' });
+            gsap.to(desc, { opacity: 1, color: '#f1f5f9', duration: 0.4, ease: 'power2.out' });
+          };
+
+          const touchEnd = () => {
+            gsap.to(fill, { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
+            gsap.to(line, { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
+            gsap.to(title, { color: 'var(--color-content-secondary, #9ca3af)', x: 0, textShadow: 'none', duration: 0.4, ease: 'power2.inOut' });
+            gsap.to(desc, { opacity: 0.85, color: 'var(--color-content-secondary, #9ca3af)', duration: 0.4, ease: 'power2.inOut' });
+          };
+
+          item.addEventListener('touchstart', touchStart, { passive: true });
+          item.addEventListener('touchend', touchEnd, { passive: true });
+          item.addEventListener('touchcancel', touchEnd, { passive: true });
+          item.addEventListener('mousedown', touchStart);
+          item.addEventListener('mouseup', touchEnd);
+
+          item._mobileTouchStart = touchStart;
+          item._mobileTouchEnd = touchEnd;
         }
       });
     }, sectionRef);
@@ -88,6 +112,13 @@ const ServicesSection = () => {
         if (!item) return;
         if (item._gsapEnter) item.removeEventListener('mouseenter', item._gsapEnter);
         if (item._gsapLeave) item.removeEventListener('mouseleave', item._gsapLeave);
+        if (item._mobileTouchStart) item.removeEventListener('touchstart', item._mobileTouchStart);
+        if (item._mobileTouchEnd) {
+          item.removeEventListener('touchend', item._mobileTouchEnd);
+          item.removeEventListener('touchcancel', item._mobileTouchEnd);
+          item.removeEventListener('mousedown', item._mobileTouchStart);
+          item.removeEventListener('mouseup', item._mobileTouchEnd);
+        }
       });
       ctx.revert();
     };
