@@ -73,18 +73,44 @@ export default function ProcessSection() {
     setHoverPos({ x: -100, y: -100, activeIndex: null, rotateX: 0, rotateY: 0 });
   };
 
+  // 3D Parallax touch tracking on mobile (<1024px)
+  const handleTouchMove = (e, index) => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) return;
+    if (!e.touches || !e.touches[0]) return;
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.touches[0].clientX - rect.left;
+    const y = e.touches[0].clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateY = ((x - centerX) / centerX) * 5;
+    const rotateX = -((y - centerY) / centerY) * 5;
+    setHoverPos({ x, y, activeIndex: index, rotateX, rotateY });
+  };
+
+  const handleTouchEnd = () => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) return;
+    setHoverPos({ x: -100, y: -100, activeIndex: null, rotateX: 0, rotateY: 0 });
+  };
+
   // Mobile/Tablet tap interaction handler (<1024px)
-  const handleMobileTap = (index) => {
+  const handleMobileTap = (e, index) => {
     if (typeof window !== 'undefined' && window.innerWidth >= 1024) return;
 
+    if (e && e.touches && e.touches[0]) {
+      handleTouchMove(e, index);
+    }
+    
     if (mobileTimerRef.current) clearTimeout(mobileTimerRef.current);
 
     if (mobileActiveStep === index) {
       setMobileActiveStep(null);
+      setHoverPos({ x: -100, y: -100, activeIndex: null, rotateX: 0, rotateY: 0 });
     } else {
       setMobileActiveStep(index);
       mobileTimerRef.current = setTimeout(() => {
         setMobileActiveStep(null);
+        setHoverPos({ x: -100, y: -100, activeIndex: null, rotateX: 0, rotateY: 0 });
       }, 1800);
     }
   };
@@ -163,7 +189,11 @@ export default function ProcessSection() {
             return (
               <div
                 key={item.step}
-                onClick={() => handleMobileTap(index)}
+                onClick={(e) => handleMobileTap(e, index)}
+                onTouchStart={(e) => handleMobileTap(e, index)}
+                onTouchMove={(e) => handleTouchMove(e, index)}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={handleTouchEnd}
                 onMouseMove={(e) => handleMouseMove(e, index)}
                 onMouseLeave={handleMouseLeave}
                 className={`process-card group relative rounded-2xl border border-canvas-border bg-canvas-card overflow-hidden transition-all duration-500 ease-out select-none lg:cursor-pointer ${isCardActive
@@ -172,17 +202,21 @@ export default function ProcessSection() {
                   }`}
                 style={{
                   perspective: '1000px',
-                  transform: isHovered
+                  transform: isCardActive && hoverPos.activeIndex === index
                     ? `perspective(1000px) rotateX(${hoverPos.rotateX.toFixed(2)}deg) rotateY(${hoverPos.rotateY.toFixed(2)}deg)`
+                    : isCardActive
+                    ? 'perspective(1000px) rotateX(-2deg) rotateY(2deg)'
                     : 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
                 }}
               >
-                {/* Light moving spotlight shade on desktop hover */}
-                {isHovered && (
+                {/* Light moving spotlight shade on desktop hover / mobile touch */}
+                {isCardActive && (
                   <div
                     className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-500 ease-out"
                     style={{
-                      background: `radial-gradient(350px circle at ${hoverPos.x}px ${hoverPos.y}px, rgba(0, 229, 255, 0.12), transparent 80%)`,
+                      background: hoverPos.activeIndex === index
+                        ? `radial-gradient(350px circle at ${hoverPos.x}px ${hoverPos.y}px, rgba(0, 229, 255, 0.14), transparent 80%)`
+                        : 'radial-gradient(350px circle at 50% 50%, rgba(0, 229, 255, 0.12), transparent 80%)',
                     }}
                   />
                 )}
