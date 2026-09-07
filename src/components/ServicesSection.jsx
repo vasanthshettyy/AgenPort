@@ -84,7 +84,7 @@ const ServicesSection = () => {
             gsap.to(fill, { scaleX: 1, duration: 0.4, ease: 'power2.out' });
             gsap.to(line, { scaleX: 1, duration: 0.4, ease: 'power2.out' });
             gsap.to(title, { color: '#ffffff', x: 6, textShadow: '0 0 16px rgba(0, 229, 255, 0.45)', duration: 0.4, ease: 'power2.out' });
-            gsap.to(desc, { opacity: 1, color: '#f1f5f9', duration: 0.4, ease: 'power2.out' });
+            gsap.to(desc, { opacity: 1, color: '#ffffff', duration: 0.4, ease: 'power2.out' });
           };
 
           const touchEnd = () => {
