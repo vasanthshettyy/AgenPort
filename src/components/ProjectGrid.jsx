@@ -7,80 +7,72 @@ import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
 function ProjectPreview({ project }) {
-  const primaryMetric = project.conversion_metrics?.[0];
+  const [index, setIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!isVisible || reduceMotion || !project.images || project.images.length < 2) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % project.images.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, [isVisible, project.images]);
+
+  const hostname = project.liveUrl
+    ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    : 'live-preview';
 
   return (
-    <div className="project-img absolute inset-0 w-full h-[120%] -top-[10%]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(0,229,255,0.18),_transparent_45%),linear-gradient(160deg,_rgba(18,18,18,0.98),_rgba(10,10,10,0.92))]" />
-      <div className="relative flex h-full flex-col justify-between p-3 sm:p-5 lg:p-8">
-        <div className="flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 sm:py-3 backdrop-blur-sm">
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="h-2 w-2 rounded-full bg-red-400" />
-            <span className="h-2 w-2 rounded-full bg-yellow-400" />
-            <span className="h-2 w-2 rounded-full bg-green-400" />
-          </div>
-          <span className="text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-content-secondary">
-            Live Project Snapshot
-          </span>
+    <div ref={ref} className="project-img absolute inset-0 w-full h-[120%] -top-[10%] bg-canvas-surface overflow-hidden flex flex-col">
+      {/* Browser Header Bar */}
+      <div className="relative z-10 flex items-center justify-between border-b border-white/10 bg-black/50 px-3 sm:px-4 py-2 backdrop-blur-md shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="h-2 sm:h-2.5 w-2 sm:w-2.5 rounded-full bg-red-500/80" />
+          <span className="h-2 sm:h-2.5 w-2 sm:w-2.5 rounded-full bg-yellow-500/80" />
+          <span className="h-2 sm:h-2.5 w-2 sm:w-2.5 rounded-full bg-green-500/80" />
         </div>
-
-        <div className="max-w-xl rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-canvas/70 p-4 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-sm">
-          <div className="mb-3 sm:mb-4 flex items-center justify-between gap-3 sm:gap-4">
-            <div>
-              <p className="text-[9px] sm:text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.25em] text-content-accent">
-                {project.niche}
-              </p>
-              <h3 className="mt-1.5 sm:mt-2 text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight text-content-primary">
-                {project.title}
-              </h3>
-            </div>
-            <span className="rounded-full border border-content-accent/30 bg-content-accent/10 px-2 sm:px-3 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-content-accent">
-              External Launch
-            </span>
-          </div>
-
-          <p className="text-xs sm:text-sm leading-relaxed text-content-secondary lg:text-base">
-            {project.problem_statement}
-          </p>
-
-          <div className="mt-4 sm:mt-6 grid gap-3 sm:gap-4 sm:grid-cols-2">
-            <div className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
-              <p className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-content-secondary">
-                Outcome
-              </p>
-              <p className="mt-2 sm:mt-3 text-base sm:text-lg font-semibold text-content-primary">
-                {primaryMetric ? primaryMetric.value : 'Custom Build'}
-              </p>
-              <p className="mt-1 text-xs sm:text-sm text-content-secondary">
-                {primaryMetric ? primaryMetric.label : 'Built to support the business goal.'}
-              </p>
-            </div>
-            <div className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
-              <p className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-content-secondary">
-                Delivery Focus
-              </p>
-              <ul className="mt-2 sm:mt-3 space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-content-secondary">
-                {project.technical_approach.slice(0, 3).map((item) => (
-                  <li key={item} className="flex items-start gap-1.5 sm:gap-2">
-                    <span className="mt-1 h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-content-accent" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-3 py-0.5 text-[9px] sm:text-[10px] font-mono tracking-wider text-content-secondary">
+          <span className="h-1.5 w-1.5 rounded-full bg-content-accent animate-pulse" />
+          <span>{hostname}</span>
         </div>
-
-        <div className="flex flex-wrap gap-2 sm:gap-3 mt-3 sm:mt-4">
-          {project.tech_stack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-white/10 bg-white/5 px-2 sm:px-3 py-1.5 sm:py-2 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-content-secondary backdrop-blur-sm"
-            >
-              {tech}
-            </span>
-          ))}
+        <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-content-secondary hidden sm:block">
+          {index + 1} / {project.images?.length || 1}
         </div>
+      </div>
+
+      {/* Screenshot Slideshow Container */}
+      <div className="relative flex-1 w-full h-full overflow-hidden bg-black/80">
+        {project.images && project.images.length > 0 ? (
+          project.images.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={`${project.title} screenshot ${i + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${
+                i === index ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center text-content-secondary text-xs sm:text-sm font-mono">
+            Preview Snapshot
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none" />
       </div>
     </div>
   );

@@ -10,6 +10,11 @@ export const projects = [
     tech_stack: ["Next.js", "Healthcare", "AI", "SaaS"],
     live_url: "https://aether-intake.vercel.app",
     liveUrl: "https://aether-intake.vercel.app",
+    images: [
+      "/projects/aether-1.png",
+      "/projects/aether-2.png",
+      "/projects/aether-3.png"
+    ],
     image_url: ""
   },
   {
@@ -23,6 +28,11 @@ export const projects = [
     tech_stack: ["Next.js", "Real Estate", "Web App"],
     live_url: "https://meridian-assets.vercel.app",
     liveUrl: "https://meridian-assets.vercel.app",
+    images: [
+      "/projects/meridian-1.png",
+      "/projects/meridian-2.png",
+      "/projects/meridian-3.png"
+    ],
     image_url: ""
   },
   {
@@ -36,6 +46,11 @@ export const projects = [
     tech_stack: ["Next.js", "Product Design", "Neural Tech", "Landing Page"],
     live_url: "https://axiom-neon-one.vercel.app",
     liveUrl: "https://axiom-neon-one.vercel.app",
+    images: [
+      "/projects/axiom-1.png",
+      "/projects/axiom-2.png",
+      "/projects/axiom-3.png"
+    ],
     image_url: ""
   },
   {
@@ -49,6 +64,11 @@ export const projects = [
     tech_stack: ["React", "Next.js", "Full-Stack", "Portfolio"],
     live_url: "https://vasanth-shetty-portfolio.vercel.app",
     liveUrl: "https://vasanth-shetty-portfolio.vercel.app",
+    images: [
+      "/projects/portfolio-1.png",
+      "/projects/portfolio-2.png",
+      "/projects/portfolio-3.png"
+    ],
     image_url: ""
   }
 ];
