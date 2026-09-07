@@ -11,30 +11,35 @@ const values = [
     title: 'CONVERSION',
     desc: 'Built to turn your website visitors into booked appointments and phone calls.',
     stat: 'Higher ROI',
+    badge: 'More Leads',
   },
   {
     number: '02',
     title: 'MOBILE-FIRST',
     desc: 'The majority of your clients find you on their phones. I ensure a flawless mobile experience.',
     stat: 'Mobile Ready',
+    badge: 'Mobile Optimized',
   },
   {
     number: '03',
     title: 'SEO FOCUSED',
     desc: 'Built with technical SEO best practices so you naturally rank higher on Google search results.',
     stat: 'Rank Higher',
+    badge: 'Google Search Ready',
   },
   {
     number: '04',
     title: 'RELIABILITY',
     desc: 'Your business runs around the clock, and your website should too. Lightning fast with zero downtime.',
     stat: '99.9% Uptime',
+    badge: 'Always Live',
   },
   {
     number: '05',
     title: 'NO HIDDEN FEES',
     desc: 'You own your website completely. No hostage situations, no expensive monthly platform taxes.',
     stat: '100% Yours',
+    badge: 'Zero Lock-In',
   },
 ];
 
@@ -182,6 +187,21 @@ const ValueSection = () => {
 
   return (
     <section id="process" ref={container} className="relative bg-canvas overflow-hidden">
+      <style>{`
+        @media (max-width: 1023px) {
+          .stat-badge {
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+            transition: all 0.25s ease-out;
+          }
+          .value-item.mobile-touched .stat-badge {
+            background-color: rgba(0, 229, 255, 0.22) !important;
+            border-color: rgba(0, 229, 255, 0.6) !important;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.45), inset 0 0 10px rgba(0, 229, 255, 0.2) !important;
+            transform: scale(1.04);
+          }
+        }
+      `}</style>
+
       {values.map((v, i) => (
         <div
           key={i}
@@ -202,9 +222,9 @@ const ValueSection = () => {
                 </span>
 
                 {/* Mobile-only accent pill badge for stat */}
-                <span className="stat-badge lg:hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-content-accent/10 border border-content-accent/20 text-content-accent font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300">
+                <span className="stat-badge lg:hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-content-accent/10 border border-content-accent/20 text-content-accent font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-content-accent animate-pulse" />
-                  {v.stat}
+                  {v.badge || v.stat}
                 </span>
               </div>
 
@@ -230,4 +250,5 @@ const ValueSection = () => {
 };
 
 export default ValueSection;
+
 
