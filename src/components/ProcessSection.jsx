@@ -166,9 +166,9 @@ export default function ProcessSection() {
                 onClick={() => handleMobileTap(index)}
                 onMouseMove={(e) => handleMouseMove(e, index)}
                 onMouseLeave={handleMouseLeave}
-                className={`process-card group relative rounded-2xl border border-canvas-border bg-canvas-card overflow-hidden transition-all duration-300 ease-out select-none lg:cursor-pointer ${isCardActive
-                    ? 'shadow-[0_12px_40px_-5px_rgba(0,229,255,0.28),0_0_25px_rgba(0,229,255,0.12)] border-content-accent/40'
-                    : 'hover:border-content-accent/40 lg:hover:shadow-[0_12px_40px_-5px_rgba(0,229,255,0.28),0_0_25px_rgba(0,229,255,0.12)]'
+                className={`process-card group relative rounded-2xl border border-canvas-border bg-canvas-card overflow-hidden transition-all duration-500 ease-out select-none lg:cursor-pointer ${isCardActive
+                    ? 'shadow-[0_12px_40px_-5px_rgba(0,229,255,0.28),0_0_25px_rgba(0,229,255,0.12)] border-content-accent/40 scale-[1.015]'
+                    : 'hover:border-content-accent/40 lg:hover:shadow-[0_12px_40px_-5px_rgba(0,229,255,0.28),0_0_25px_rgba(0,229,255,0.12)] lg:hover:scale-[1.015]'
                   }`}
                 style={{
                   perspective: '1000px',
@@ -180,7 +180,7 @@ export default function ProcessSection() {
                 {/* Light moving spotlight shade on desktop hover */}
                 {isHovered && (
                   <div
-                    className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
+                    className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-500 ease-out"
                     style={{
                       background: `radial-gradient(350px circle at ${hoverPos.x}px ${hoverPos.y}px, rgba(0, 229, 255, 0.12), transparent 80%)`,
                     }}
@@ -193,9 +193,9 @@ export default function ProcessSection() {
 
                 {/* Card Content Container */}
                 <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col justify-between overflow-hidden">
-                  {/* Ghost Numeral — Keeps fixed dark watermark color text-white/[0.07], only scales up slightly */}
+                  {/* Ghost Numeral — Soft 5% scale transition in fixed dark watermark color */}
                   <div
-                    className={`absolute right-3 bottom-1 font-sans font-black text-[6.5rem] sm:text-[8.5rem] lg:text-[9rem] leading-none tracking-tighter text-white/[0.07] pointer-events-none select-none z-0 transition-transform duration-300 ease-out ${isCardActive ? 'scale-110' : 'lg:group-hover:scale-110'
+                    className={`absolute right-3 bottom-1 font-sans font-black text-[6.5rem] sm:text-[8.5rem] lg:text-[9rem] leading-none tracking-tighter text-white/[0.07] pointer-events-none select-none z-0 transition-transform duration-500 ease-out ${isCardActive ? 'scale-105' : 'lg:group-hover:scale-105'
                       }`}
                   >
                     {item.step}
@@ -204,7 +204,7 @@ export default function ProcessSection() {
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-6">
                       <span
-                        className={`font-mono text-xs font-bold px-3 py-1 rounded-full transition-all duration-300 ease-out ${isCardActive
+                        className={`font-mono text-xs font-bold px-3 py-1 rounded-full transition-all duration-500 ease-out ${isCardActive
                             ? 'text-canvas bg-content-accent shadow-[0_0_12px_rgba(0,229,255,0.5)] border border-content-accent'
                             : 'text-content-accent bg-content-accent/10 border border-content-accent/20 lg:group-hover:bg-content-accent/20 lg:group-hover:border-content-accent/40'
                           }`}
@@ -212,16 +212,16 @@ export default function ProcessSection() {
                         STEP {item.step}
                       </span>
                       <div
-                        className={`transition-all duration-300 ease-out ${isCardActive
-                            ? 'text-content-accent scale-110'
-                            : 'text-content-secondary lg:group-hover:text-content-accent lg:group-hover:scale-110'
+                        className={`transition-all duration-500 ease-out ${isCardActive
+                            ? 'text-content-accent scale-105'
+                            : 'text-content-secondary lg:group-hover:text-content-accent lg:group-hover:scale-105'
                           }`}
                       >
                         {getStepIcon(item.step)}
                       </div>
                     </div>
                     <h3
-                      className={`text-xl sm:text-2xl font-sans font-bold tracking-tight mb-3 transition-all duration-300 ease-out ${isCardActive
+                      className={`text-xl sm:text-2xl font-sans font-bold tracking-tight mb-3 transition-all duration-500 ease-out ${isCardActive
                           ? 'text-content-accent [text-shadow:0_0_16px_rgba(0,229,255,0.45)]'
                           : 'text-content-primary lg:group-hover:text-content-accent lg:group-hover:[text-shadow:0_0_16px_rgba(0,229,255,0.45)]'
                         }`}
@@ -229,7 +229,7 @@ export default function ProcessSection() {
                       {item.title}
                     </h3>
                     <p
-                      className={`text-sm sm:text-base font-light leading-relaxed transition-colors duration-300 ease-out ${isCardActive ? 'text-white' : 'text-content-secondary lg:group-hover:text-white'
+                      className={`text-sm sm:text-base font-light leading-relaxed transition-colors duration-500 ease-out ${isCardActive ? 'text-white' : 'text-content-secondary lg:group-hover:text-white'
                         }`}
                     >
                       {item.description}
