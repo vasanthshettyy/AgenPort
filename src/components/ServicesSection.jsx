@@ -78,7 +78,7 @@ const ServicesSection = () => {
           gsap.set(fill, { scaleX: 0, transformOrigin: 'left center' });
           gsap.set(line, { scaleX: 0, transformOrigin: 'left center' });
           gsap.set(title, { color: 'var(--color-content-secondary, #9ca3af)', x: 0, textShadow: 'none' });
-          gsap.set(desc, { opacity: 0.85, x: 0, color: 'var(--color-content-secondary, #9ca3af)' });
+          gsap.set(desc, { opacity: 1, x: 0, color: '#cbd5e1' });
 
           const touchStart = () => {
             gsap.to(fill, { scaleX: 1, duration: 0.4, ease: 'power2.out' });
@@ -91,7 +91,7 @@ const ServicesSection = () => {
             gsap.to(fill, { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
             gsap.to(line, { scaleX: 0, duration: 0.4, ease: 'power2.inOut' });
             gsap.to(title, { color: 'var(--color-content-secondary, #9ca3af)', x: 0, textShadow: 'none', duration: 0.4, ease: 'power2.inOut' });
-            gsap.to(desc, { opacity: 0.85, color: 'var(--color-content-secondary, #9ca3af)', duration: 0.4, ease: 'power2.inOut' });
+            gsap.to(desc, { opacity: 1, color: '#cbd5e1', duration: 0.4, ease: 'power2.inOut' });
           };
 
           item.addEventListener('touchstart', touchStart, { passive: true });
@@ -161,10 +161,10 @@ const ServicesSection = () => {
 
                 <div
                   ref={(el) => (descRefs.current[index] = el)}
-                  className="max-w-md will-change-transform"
+                  className="max-w-md will-change-transform text-content-secondary"
                   style={{ opacity: 0, transform: 'translateX(-16px)' }}
                 >
-                  <p className="text-sm sm:text-base lg:text-2xl text-content-secondary font-light leading-relaxed">
+                  <p className="text-sm sm:text-base lg:text-2xl font-light leading-relaxed text-inherit">
                     {service.desc || service.description}
                   </p>
                 </div>
