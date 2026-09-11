@@ -8,36 +8,89 @@ gsap.registerPlugin(ScrollTrigger);
 
 function ProjectPreview({ project }) {
   const [index, setIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const ref = useRef(null);
+  const elapsedRef = useRef(0);
+  const lastTimeRef = useRef(null);
+
+  const CYCLE_DURATION = 2800;
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mq.matches);
+    const listener = (e) => setReduceMotion(e.matches);
+    if (mq.addEventListener) mq.addEventListener('change', listener);
+    return () => mq.removeEventListener?.('change', listener);
+  }, []);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.2 }
+      { threshold: 0 }
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
 
+  // Timer loop for Instagram Stories style progress bar
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!isVisible || reduceMotion || !project.images || project.images.length < 2) return;
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % project.images.length);
-    }, 2800);
-    return () => clearInterval(id);
-  }, [isVisible, project.images]);
+    if (!isVisible || !project.images || project.images.length < 2) return;
+
+    let animId;
+
+    const tick = (now) => {
+      if (lastTimeRef.current !== null && !isHovered) {
+        const delta = now - lastTimeRef.current;
+        elapsedRef.current += delta;
+
+        if (elapsedRef.current >= CYCLE_DURATION) {
+          elapsedRef.current = 0;
+          setIndex((prev) => (prev + 1) % project.images.length);
+          setProgress(0);
+        } else {
+          setProgress((elapsedRef.current / CYCLE_DURATION) * 100);
+        }
+      }
+      lastTimeRef.current = now;
+      animId = requestAnimationFrame(tick);
+    };
+
+    lastTimeRef.current = performance.now();
+    animId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      lastTimeRef.current = null;
+    };
+  }, [isVisible, isHovered, project.images]);
+
+  const handleSelectSlide = (i, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setIndex(i);
+    elapsedRef.current = 0;
+    setProgress(0);
+  };
 
   const hostname = project.liveUrl
     ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
     : 'live-preview';
 
   return (
-    <div ref={ref} className="project-img absolute inset-0 w-full h-[120%] -top-[10%] bg-canvas-surface overflow-hidden flex flex-col">
+    <div
+      ref={ref}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="project-img absolute inset-0 w-full h-[106%] -top-[3%] bg-black overflow-hidden flex flex-col"
+    >
       {/* Browser Header Bar */}
       <div className="relative z-10 flex items-center justify-between border-b border-white/10 bg-black/50 px-3 sm:px-4 py-2 backdrop-blur-md shrink-0">
         <div className="flex items-center gap-1.5 sm:gap-2">
@@ -49,22 +102,53 @@ function ProjectPreview({ project }) {
           <span className="h-1.5 w-1.5 rounded-full bg-content-accent animate-pulse" />
           <span>{hostname}</span>
         </div>
-        <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-content-secondary hidden sm:block">
-          {index + 1} / {project.images?.length || 1}
+        
+        {/* Instagram Stories-Style Segmented Progress Bar */}
+        <div className="flex items-center gap-1.5 sm:gap-2 z-20">
+          {project.images && project.images.length > 1 && (
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              {project.images.map((_, i) => {
+                let segmentWidth = '0%';
+                if (i < index) {
+                  segmentWidth = '100%';
+                } else if (i === index) {
+                  segmentWidth = `${progress}%`;
+                }
+
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={(e) => handleSelectSlide(i, e)}
+                    className="group/seg relative h-1.5 w-6 sm:w-8 rounded-full bg-white/20 overflow-hidden focus:outline-none transition-opacity hover:bg-white/30 cursor-pointer"
+                    aria-label={`Go to slide ${i + 1}`}
+                  >
+                    <div
+                      className="absolute inset-y-0 left-0 bg-content-accent rounded-full transition-[width] duration-75 ease-linear"
+                      style={{ width: segmentWidth }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-content-secondary hidden sm:inline-block ml-0.5">
+            {index + 1}/{project.images?.length || 1}
+          </span>
         </div>
       </div>
 
       {/* Screenshot Slideshow Container */}
-      <div className="relative flex-1 w-full h-full overflow-hidden bg-black/80">
+      <div className="relative flex-1 w-full h-full overflow-hidden bg-black">
         {project.images && project.images.length > 0 ? (
           project.images.map((src, i) => (
             <img
               key={src}
               src={src}
               alt={`${project.title} screenshot ${i + 1}`}
-              className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${
-                i === index ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover object-top ${
+                reduceMotion ? 'transition-none' : 'transition-opacity duration-500'
+              } ${i === index ? 'opacity-100' : 'opacity-0'}`}
             />
           ))
         ) : (
@@ -99,16 +183,19 @@ const ProjectGrid = () => {
       const img = item.querySelector('.project-img');
       const text = item.querySelector('.project-text');
 
-      gsap.to(img, {
-        y: -100,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5,
+      gsap.fromTo(img,
+        { yPercent: 3 },
+        {
+          yPercent: -3,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5,
+          }
         }
-      });
+      );
 
       gsap.from(text, {
         x: i % 2 === 0 ? 100 : -100,
@@ -165,8 +252,8 @@ const ProjectGrid = () => {
             >
               <div className="relative w-full lg:w-2/3 aspect-[16/10] overflow-hidden rounded-md border border-canvas-border bg-canvas-surface group">
                 <ProjectPreview project={project} />
-                <div className="absolute inset-0 bg-canvas/60 opacity-100 lg:opacity-0 lg:group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
-                  <div className="group/btn relative overflow-hidden px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 border border-content-secondary/30 rounded-full transition-all lg:hover:border-content-accent">
+                <div className="absolute inset-0 bg-canvas/60 opacity-100 lg:opacity-0 lg:group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10 pointer-events-none">
+                  <div className="group/btn pointer-events-auto relative overflow-hidden px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 border border-content-secondary/30 rounded-full transition-all lg:hover:border-content-accent">
                     <span className="btn-fill-text-btn text-base sm:text-lg lg:text-2xl font-bold tracking-widest text-content-primary lg:group-hover/btn:text-canvas">
                       VIEW PROJECT
                     </span>
