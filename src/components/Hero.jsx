@@ -10,7 +10,10 @@ const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
-  const [showTouchHint, setShowTouchHint] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return sessionStorage.getItem('hero_reveal_demo_played') === 'true';
+  });
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -18,21 +21,11 @@ const Hero = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const isMobileViewport = window.innerWidth < 768;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isMobileViewport && !reduceMotion) {
-      setShowTouchHint(true);
-      const timer = setTimeout(() => {
-        setShowTouchHint(false);
-      }, 4500);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   const handleInteraction = useCallback(() => {
-    setShowTouchHint(false);
+    setHasInteracted(true);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('hero_reveal_demo_played', 'true');
+    }
   }, []);
 
   // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly
@@ -96,18 +89,12 @@ const Hero = () => {
           {/* Glow bloom */}
           <div className="hero-bloom absolute inset-0 w-full h-full bg-content-neon/10 rounded-full blur-[100px] pointer-events-none" />
 
-          {/* Touch discovery hint on mobile */}
-          {isMobile && showTouchHint && (
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 pointer-events-none transition-opacity duration-700">
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-widest text-content-primary uppercase shadow-xl animate-bounce">
-                <span className="w-1.5 h-1.5 rounded-full bg-content-accent animate-ping" />
-                <span>Touch &amp; Drag to Reveal ✨</span>
-              </div>
-            </div>
-          )}
-
           {/* Image wrapper */}
           <div ref={imageWrapRef} className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden">
+            {/* Subtle ambient border glow — visible only before first interaction/demo */}
+            {!hasInteracted && (
+              <div className="absolute inset-0 rounded-md border border-content-accent/30 shadow-[0_0_20px_rgba(0,229,255,0.2)] pointer-events-none z-25 transition-opacity duration-1000 animate-pulse" />
+            )}
             {/* Base layer — real photo, always visible */}
             <img
               src={me}

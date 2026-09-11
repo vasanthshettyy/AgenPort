@@ -46,6 +46,10 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
 
   const rafId = useRef(null);
   const isHovering = useRef(false);
+  const isDemoPlaying = useRef(false);
+  const demoTimeoutRef = useRef(null);
+  const demoRafRef = useRef(null);
+
   const currentPoint = useRef(null);
   const lastPoint = useRef(null);
   const lastFrameTime = useRef(0);
@@ -285,7 +289,80 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       }
     };
 
+    const cancelDemo = () => {
+      if (demoTimeoutRef.current) {
+        clearTimeout(demoTimeoutRef.current);
+        demoTimeoutRef.current = null;
+      }
+      if (demoRafRef.current) {
+        cancelAnimationFrame(demoRafRef.current);
+        demoRafRef.current = null;
+      }
+      if (isDemoPlaying.current) {
+        isDemoPlaying.current = false;
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('hero_reveal_demo_played', 'true');
+        }
+        if (onInteraction) onInteraction();
+      }
+    };
+
+    const runAutoDemo = () => {
+      if (isHovering.current) return;
+      isDemoPlaying.current = true;
+      lastPoint.current = null;
+
+      const p0 = { x: 0.35, y: 0.35 };
+      const p1 = { x: 0.65, y: 0.40 };
+      const p2 = { x: 0.55, y: 0.65 };
+
+      let startTime = null;
+      const duration = 1100;
+
+      const stepDemo = (now) => {
+        if (!isDemoPlaying.current) return;
+        if (!startTime) startTime = now;
+        const elapsed = now - startTime;
+        const t = Math.min(1, elapsed / duration);
+
+        const relX = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+        const relY = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+
+        const { width: w, height: h } = dims.current;
+        if (w > 0 && h > 0) {
+          currentPoint.current = { x: relX * w, y: relY * h };
+          isHovering.current = true;
+          startLoop();
+        }
+
+        if (t < 1) {
+          demoRafRef.current = requestAnimationFrame(stepDemo);
+        } else {
+          isHovering.current = false;
+          isDemoPlaying.current = false;
+          lastPoint.current = null;
+          demoRafRef.current = null;
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('hero_reveal_demo_played', 'true');
+          }
+          if (onInteraction) onInteraction();
+          startLoop();
+        }
+      };
+
+      demoRafRef.current = requestAnimationFrame(stepDemo);
+    };
+
+    // Schedule one-time auto-demo after 1.2s delay if not already played in session
+    const hasPlayedDemo = typeof window !== 'undefined' && sessionStorage.getItem('hero_reveal_demo_played') === 'true';
+    if (!hasPlayedDemo) {
+      demoTimeoutRef.current = setTimeout(() => {
+        runAutoDemo();
+      }, 1200);
+    }
+
     const onMouseEnter = (e) => {
+      cancelDemo();
       startLoadingImage();
       isHovering.current = true;
       lastPoint.current = null;
@@ -295,6 +372,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     };
 
     const onMouseMove = (e) => {
+      if (isDemoPlaying.current) cancelDemo();
       startLoadingImage();
       isHovering.current = true;
       updatePos(e.clientX, e.clientY);
@@ -302,6 +380,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     };
 
     const onMouseLeave = () => {
+      if (isDemoPlaying.current) cancelDemo();
       isHovering.current = false;
       lastPoint.current = null;
       startLoop(); // Ensure decay animation loop continues running after mouse leave
@@ -312,6 +391,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     let gestureMode = 'UNDECIDED'; // 'UNDECIDED' | 'REVEAL' | 'SCROLL'
 
     const onTouchStart = (e) => {
+      cancelDemo();
       if (!e.touches || !e.touches[0]) return;
       touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
       gestureMode = 'UNDECIDED';
@@ -332,6 +412,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
         if (dist >= 6) {
           if (deltaX >= deltaY * 0.8) {
             gestureMode = 'REVEAL';
+            cancelDemo();
             isHovering.current = true;
             lastPoint.current = null;
             updatePos(currentX, currentY);
@@ -375,6 +456,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     container.addEventListener('touchcancel', onTouchEnd, { passive: true });
 
     return () => {
+      cancelDemo();
       resizeObserver.disconnect();
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mousemove', onMouseMove);

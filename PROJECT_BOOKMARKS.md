@@ -40,7 +40,12 @@
 ### 7. Hero Section Touch-Drag Reveal (`HeroCursorReveal.jsx` & `Hero.jsx`)
 - **Mobile Touch-and-Drag Reveal**: Touch coordinates (`touchstart`, `touchmove`, `touchend`, `touchcancel`) feed directly into the illustrated reveal layer and 4.9s exponential decay canvas trail.
 - **Gesture Intent Detection**: Calculates movement delta (`deltaX` vs `deltaY`) over a 6px threshold. Horizontal/diagonal exploration (`deltaX >= deltaY * 0.8`) locks into `REVEAL` mode with `e.preventDefault()`, while vertical thumb swipes lock into `SCROLL` mode letting the page scroll 100% naturally.
-- **Mobile Discovery Badge**: Floating "TOUCH & DRAG TO REVEAL ✨" pill overlay on mobile that auto-dismisses after 4.5s or on first touch interaction.
+
+### 8. Auto-Demo Bezier Sweep & Ambient Border Glow (`HeroCursorReveal.jsx` & `Hero.jsx`)
+- **Scripted Relative Bezier Sweep**: Plays a single natural curved sweep across the portrait (`(35%x, 35%y) -> (65%x, 40%y) -> (55%x, 65%y)`) on first load, scaling automatically to container dimensions.
+- **SessionStorage Persistence**: Stores `hero_reveal_demo_played = true` so auto-demo plays once per session.
+- **Seamless Real Interaction Handover**: Any real mouse or touch input instantly cancels demo RAF loop and hands control to user.
+- **Ambient Border Glow**: Subtle soft pulsing cyan border glow on `.hero-image-wrap` before first interaction (zero text labels or badges).
 
 ---
 
