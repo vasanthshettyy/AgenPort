@@ -521,65 +521,30 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       {demoPointerPos && (
         <div
           aria-hidden="true"
-          className="absolute pointer-events-none z-30 -translate-x-[36%] -translate-y-[22%] transition-opacity duration-300"
+          className="absolute pointer-events-none z-30 -translate-x-[42%] -translate-y-[8%] transition-opacity duration-300"
           style={{
             left: `${demoPointerPos.x * 100}%`,
             top: `${demoPointerPos.y * 100}%`,
           }}
         >
-          <div className="relative flex items-center justify-center filter drop-shadow-[0_6px_18px_rgba(0,0,0,0.6)]">
+          <div className="relative flex items-center justify-center filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
             {/* Ambient soft glow ring */}
-            <div className="absolute inset-0 rounded-full bg-white/25 blur-lg scale-150 pointer-events-none" />
+            <div className="absolute inset-0 rounded-full bg-white/20 blur-md scale-125 pointer-events-none" />
 
-            {/* Hand Pointer SVG matching reference image (2x size: 60px/68px) */}
+            {/* Clean classic pointer hand SVG: solid white stroke, translucent white fill */}
             <svg
-              className="relative w-14 h-14 sm:w-16 sm:h-16"
-              viewBox="0 0 100 100"
+              className="relative w-12 h-12 sm:w-14 sm:h-14"
+              viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Radiating click/touch burst rays around index fingertip */}
-              <g stroke="rgba(255, 255, 255, 0.95)" strokeWidth="3.5" strokeLinecap="round">
-                <line x1="36" y1="15" x2="36" y2="7" />
-                <line x1="25" y1="20" x2="17" y2="13" />
-                <line x1="19" y1="30" x2="10" y2="30" />
-                <line x1="22" y1="41" x2="14" y2="47" />
-                <line x1="47" y1="20" x2="55" y2="13" />
-                <line x1="53" y1="30" x2="62" y2="30" />
-              </g>
-
-              {/* Hand silhouette body with light glassy fill and bold dark outline */}
               <path
-                d="M 31 30
-                   C 31 23 41 23 41 30
-                   L 41 43
-                   C 43 39 50 39 52 44
-                   C 54 41 61 41 63 47
-                   C 65 46 72 47 73 54
-                   L 73 66
-                   C 73 73 66 79 59 81
-                   L 46 81
-                   C 39 81 33 76 30 70
-                   L 25 58
-                   C 23 53 27 48 32 49
-                   C 36 50 39 53 40 56
-                   L 31 30 Z"
-                fill="rgba(240, 242, 245, 0.92)"
-                stroke="rgba(15, 23, 42, 0.95)"
-                strokeWidth="4"
+                d="M10 2a1 1 0 0 0-1 1v8.59l-1.3-1.3a1.5 1.5 0 0 0-2.12 0 1.5 1.5 0 0 0 0 2.12l4.8 4.8A4.5 4.5 0 0 0 13.56 19h3.44a4.5 4.5 0 0 0 4.5-4.5V10a1.5 1.5 0 0 0-3 0v.5a1.5 1.5 0 0 0-2.5-1.12V8.5a1.5 1.5 0 0 0-3 0V7a1.5 1.5 0 0 0-3 0V3a1 1 0 0 0-1-1z"
+                fill="rgba(255, 255, 255, 0.3)"
+                stroke="#FFFFFF"
+                strokeWidth="1.8"
+                strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeLinecap="round"
-              />
-
-              {/* Inner wrist cuff accent line matching reference image */}
-              <line
-                x1="48"
-                y1="75"
-                x2="65"
-                y2="75"
-                stroke="rgba(15, 23, 42, 0.95)"
-                strokeWidth="4"
-                strokeLinecap="round"
               />
             </svg>
           </div>
