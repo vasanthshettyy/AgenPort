@@ -34,6 +34,7 @@ mobile-audit-report.md
 scratch/
 *.png
 !public/*.webp
+!public/projects/*.png
 screenshot.cjs
 test-hover.cjs
 lighthouse-mobile.json
