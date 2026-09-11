@@ -337,7 +337,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       const [p0, p1, p2] = DEMO_PATHS[pathIdx];
 
       let startTime = null;
-      const duration = 600; // Snappy 600ms scripted sweep
+      const duration = 1350; // Slow, deliberate 1.35s scripted sweep for clear perception
 
       const stepDemo = (now) => {
         if (!isDemoPlaying.current || hasRealInteracted.current) {
@@ -521,15 +521,25 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       {demoPointerPos && (
         <div
           aria-hidden="true"
-          className="absolute pointer-events-none z-30 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200"
+          className="absolute pointer-events-none z-30 -translate-x-[20%] -translate-y-[10%] transition-opacity duration-300"
           style={{
             left: `${demoPointerPos.x * 100}%`,
             top: `${demoPointerPos.y * 100}%`,
           }}
         >
-          <div className="relative flex items-center justify-center">
-            <span className="animate-ping absolute inline-flex h-6 w-6 rounded-full bg-content-accent opacity-40" />
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-content-accent border-2 border-white shadow-[0_0_12px_#00E5FF]" />
+          <div className="relative flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+            <div className="absolute inset-0 rounded-full bg-white/20 blur-md scale-125 pointer-events-none" />
+            <svg
+              className="relative w-7 h-7 transform -rotate-12"
+              viewBox="0 0 24 24"
+              fill="rgba(255, 255, 255, 0.82)"
+              stroke="rgba(255, 255, 255, 0.95)"
+              strokeWidth="0.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 2a1 1 0 0 0-1 1v9.79l-1.8-1.8a1 1 0 0 0-1.41 0 1 1 0 0 0 0 1.41l3.5 3.5c.38.38.89.59 1.42.59h5.58c1.1 0 2-.9 2-2V9a1 1 0 1 0-2 0v2.79l-1-1A1 1 0 0 0 14 10a1 1 0 0 0-1-1 1 1 0 0 0-1-1 1 1 0 0 0-1-1V3a1 1 0 0 0-1-1z" />
+            </svg>
           </div>
         </div>
       )}
