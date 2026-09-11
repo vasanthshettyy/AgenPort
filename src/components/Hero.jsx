@@ -10,22 +10,10 @@ const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
-  const [hasInteracted, setHasInteracted] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return sessionStorage.getItem('hero_reveal_demo_played') === 'true';
-  });
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const handleInteraction = useCallback(() => {
     setHasInteracted(true);
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('hero_reveal_demo_played', 'true');
-    }
   }, []);
 
   // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly

@@ -34,6 +34,8 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 
+  const [demoPointerPos, setDemoPointerPos] = useState(null);
+
   const displayCanvasRef = useRef(null);
   const maskCanvas = useRef(null);
   const maskCtx = useRef(null);
@@ -47,6 +49,8 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
   const rafId = useRef(null);
   const isHovering = useRef(false);
   const isDemoPlaying = useRef(false);
+  const hasRealInteracted = useRef(false);
+  const lastPathIdxRef = useRef(-1);
   const demoTimeoutRef = useRef(null);
   const demoRafRef = useRef(null);
 
@@ -261,7 +265,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     }
   }, []);
 
-  // ── Setup listeners ───────────────────────────────────────────────────────
+  // ── Setup listeners & continuous looping auto-demo ────────────────────────
   useEffect(() => {
     if (!isEligible) return;
 
@@ -289,44 +293,65 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       }
     };
 
-    const cancelDemo = () => {
-      if (demoTimeoutRef.current) {
-        clearTimeout(demoTimeoutRef.current);
-        demoTimeoutRef.current = null;
-      }
+    const stopDemoAnimationOnly = () => {
       if (demoRafRef.current) {
         cancelAnimationFrame(demoRafRef.current);
         demoRafRef.current = null;
       }
       if (isDemoPlaying.current) {
         isDemoPlaying.current = false;
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('hero_reveal_demo_played', 'true');
-        }
-        if (onInteraction) onInteraction();
       }
+      setDemoPointerPos(null);
     };
 
+    const cancelDemoAndLoop = () => {
+      hasRealInteracted.current = true;
+      if (demoTimeoutRef.current) {
+        clearTimeout(demoTimeoutRef.current);
+        demoTimeoutRef.current = null;
+      }
+      stopDemoAnimationOnly();
+      if (onInteraction) onInteraction();
+    };
+
+    const DEMO_PATHS = [
+      // Path 0: Diagonal top-left -> bottom-right curve
+      [{ x: 0.28, y: 0.32 }, { x: 0.65, y: 0.38 }, { x: 0.58, y: 0.68 }],
+      // Path 1: Curved arc bottom-left -> top-right
+      [{ x: 0.32, y: 0.68 }, { x: 0.38, y: 0.30 }, { x: 0.70, y: 0.42 }],
+      // Path 2: Reverse diagonal top-right -> left-center
+      [{ x: 0.68, y: 0.32 }, { x: 0.32, y: 0.45 }, { x: 0.42, y: 0.65 }],
+    ];
+
     const runAutoDemo = () => {
-      if (isHovering.current) return;
+      if (hasRealInteracted.current || isHovering.current) return;
       isDemoPlaying.current = true;
       lastPoint.current = null;
 
-      const p0 = { x: 0.35, y: 0.35 };
-      const p1 = { x: 0.65, y: 0.40 };
-      const p2 = { x: 0.55, y: 0.65 };
+      // Pick a random path index (preferably different from last)
+      let pathIdx = Math.floor(Math.random() * DEMO_PATHS.length);
+      if (pathIdx === lastPathIdxRef.current) {
+        pathIdx = (pathIdx + 1) % DEMO_PATHS.length;
+      }
+      lastPathIdxRef.current = pathIdx;
+      const [p0, p1, p2] = DEMO_PATHS[pathIdx];
 
       let startTime = null;
-      const duration = 1100;
+      const duration = 600; // Snappy 600ms scripted sweep
 
       const stepDemo = (now) => {
-        if (!isDemoPlaying.current) return;
+        if (!isDemoPlaying.current || hasRealInteracted.current) {
+          setDemoPointerPos(null);
+          return;
+        }
         if (!startTime) startTime = now;
         const elapsed = now - startTime;
         const t = Math.min(1, elapsed / duration);
 
         const relX = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
         const relY = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+
+        setDemoPointerPos({ x: relX, y: relY });
 
         const { width: w, height: h } = dims.current;
         if (w > 0 && h > 0) {
@@ -342,37 +367,43 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
           isDemoPlaying.current = false;
           lastPoint.current = null;
           demoRafRef.current = null;
-          if (typeof window !== 'undefined') {
-            sessionStorage.setItem('hero_reveal_demo_played', 'true');
+          setDemoPointerPos(null);
+          startLoop(); // Continue decay pass
+
+          // Schedule next loop iteration in 5000ms if user hasn't interacted
+          if (!hasRealInteracted.current) {
+            demoTimeoutRef.current = setTimeout(() => {
+              if (!hasRealInteracted.current && !isHovering.current) {
+                runAutoDemo();
+              }
+            }, 5000);
           }
-          if (onInteraction) onInteraction();
-          startLoop();
         }
       };
 
       demoRafRef.current = requestAnimationFrame(stepDemo);
     };
 
-    // Schedule one-time auto-demo after 1.2s delay if not already played in session
-    const hasPlayedDemo = typeof window !== 'undefined' && sessionStorage.getItem('hero_reveal_demo_played') === 'true';
-    if (!hasPlayedDemo) {
+    // Schedule initial auto-demo playback after 1.2s delay
+    if (!hasRealInteracted.current) {
       demoTimeoutRef.current = setTimeout(() => {
         runAutoDemo();
       }, 1200);
     }
 
     const onMouseEnter = (e) => {
-      cancelDemo();
+      cancelDemoAndLoop();
       startLoadingImage();
       isHovering.current = true;
       lastPoint.current = null;
       updatePos(e.clientX, e.clientY);
       startLoop();
-      if (onInteraction) onInteraction();
     };
 
     const onMouseMove = (e) => {
-      if (isDemoPlaying.current) cancelDemo();
+      if (!hasRealInteracted.current || isDemoPlaying.current) {
+        cancelDemoAndLoop();
+      }
       startLoadingImage();
       isHovering.current = true;
       updatePos(e.clientX, e.clientY);
@@ -380,7 +411,9 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     };
 
     const onMouseLeave = () => {
-      if (isDemoPlaying.current) cancelDemo();
+      if (isDemoPlaying.current) {
+        cancelDemoAndLoop();
+      }
       isHovering.current = false;
       lastPoint.current = null;
       startLoop(); // Ensure decay animation loop continues running after mouse leave
@@ -391,7 +424,6 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     let gestureMode = 'UNDECIDED'; // 'UNDECIDED' | 'REVEAL' | 'SCROLL'
 
     const onTouchStart = (e) => {
-      cancelDemo();
       if (!e.touches || !e.touches[0]) return;
       touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
       gestureMode = 'UNDECIDED';
@@ -412,12 +444,11 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
         if (dist >= 6) {
           if (deltaX >= deltaY * 0.8) {
             gestureMode = 'REVEAL';
-            cancelDemo();
+            cancelDemoAndLoop();
             isHovering.current = true;
             lastPoint.current = null;
             updatePos(currentX, currentY);
             startLoop();
-            if (onInteraction) onInteraction();
           } else {
             gestureMode = 'SCROLL';
             isHovering.current = false;
@@ -456,7 +487,11 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     container.addEventListener('touchcancel', onTouchEnd, { passive: true });
 
     return () => {
-      cancelDemo();
+      if (demoTimeoutRef.current) {
+        clearTimeout(demoTimeoutRef.current);
+        demoTimeoutRef.current = null;
+      }
+      stopDemoAnimationOnly();
       resizeObserver.disconnect();
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mousemove', onMouseMove);
@@ -477,10 +512,27 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
   if (!isEligible) return null;
 
   return (
-    <canvas
-      ref={displayCanvasRef}
-      aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none z-20"
-    />
+    <>
+      <canvas
+        ref={displayCanvasRef}
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full pointer-events-none z-20"
+      />
+      {demoPointerPos && (
+        <div
+          aria-hidden="true"
+          className="absolute pointer-events-none z-30 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200"
+          style={{
+            left: `${demoPointerPos.x * 100}%`,
+            top: `${demoPointerPos.y * 100}%`,
+          }}
+        >
+          <div className="relative flex items-center justify-center">
+            <span className="animate-ping absolute inline-flex h-6 w-6 rounded-full bg-content-accent opacity-40" />
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-content-accent border-2 border-white shadow-[0_0_12px_#00E5FF]" />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
