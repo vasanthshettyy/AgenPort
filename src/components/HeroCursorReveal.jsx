@@ -307,26 +307,54 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       startLoop(); // Ensure decay animation loop continues running after mouse leave
     };
 
-    // Touch event handlers for mobile devices
+    // Touch event handlers for mobile devices (Intent Detection)
+    let touchStartPos = null;
+    let gestureMode = 'UNDECIDED'; // 'UNDECIDED' | 'REVEAL' | 'SCROLL'
+
     const onTouchStart = (e) => {
       if (!e.touches || !e.touches[0]) return;
+      touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      gestureMode = 'UNDECIDED';
       startLoadingImage();
-      isHovering.current = true;
-      lastPoint.current = null;
-      updatePos(e.touches[0].clientX, e.touches[0].clientY);
-      startLoop();
-      if (onInteraction) onInteraction();
     };
 
     const onTouchMove = (e) => {
-      if (!e.touches || !e.touches[0]) return;
-      startLoadingImage();
-      isHovering.current = true;
-      updatePos(e.touches[0].clientX, e.touches[0].clientY);
-      startLoop();
+      if (!e.touches || !e.touches[0] || !touchStartPos) return;
+
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+
+      if (gestureMode === 'UNDECIDED') {
+        const deltaX = Math.abs(currentX - touchStartPos.x);
+        const deltaY = Math.abs(currentY - touchStartPos.y);
+        const dist = Math.hypot(deltaX, deltaY);
+
+        if (dist >= 6) {
+          if (deltaX >= deltaY * 0.8) {
+            gestureMode = 'REVEAL';
+            isHovering.current = true;
+            lastPoint.current = null;
+            updatePos(currentX, currentY);
+            startLoop();
+            if (onInteraction) onInteraction();
+          } else {
+            gestureMode = 'SCROLL';
+            isHovering.current = false;
+          }
+        }
+      }
+
+      if (gestureMode === 'REVEAL') {
+        if (e.cancelable) e.preventDefault();
+        isHovering.current = true;
+        updatePos(currentX, currentY);
+        startLoop();
+      }
     };
 
     const onTouchEnd = () => {
+      touchStartPos = null;
+      gestureMode = 'UNDECIDED';
       isHovering.current = false;
       lastPoint.current = null;
       startLoop();
@@ -342,7 +370,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     container.addEventListener('mouseleave', onMouseLeave);
 
     container.addEventListener('touchstart', onTouchStart, { passive: true });
-    container.addEventListener('touchmove', onTouchMove, { passive: true });
+    container.addEventListener('touchmove', onTouchMove, { passive: false });
     container.addEventListener('touchend', onTouchEnd, { passive: true });
     container.addEventListener('touchcancel', onTouchEnd, { passive: true });
 

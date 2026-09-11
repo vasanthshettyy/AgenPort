@@ -39,7 +39,7 @@
 
 ### 7. Hero Section Touch-Drag Reveal (`HeroCursorReveal.jsx` & `Hero.jsx`)
 - **Mobile Touch-and-Drag Reveal**: Touch coordinates (`touchstart`, `touchmove`, `touchend`, `touchcancel`) feed directly into the illustrated reveal layer and 4.9s exponential decay canvas trail.
-- **Passive Scroll Coexistence**: Touch listeners registered with `{ passive: true }`, ensuring touch dragging reveals the canvas layer without interfering with native page scrolling.
+- **Gesture Intent Detection**: Calculates movement delta (`deltaX` vs `deltaY`) over a 6px threshold. Horizontal/diagonal exploration (`deltaX >= deltaY * 0.8`) locks into `REVEAL` mode with `e.preventDefault()`, while vertical thumb swipes lock into `SCROLL` mode letting the page scroll 100% naturally.
 - **Mobile Discovery Badge**: Floating "TOUCH & DRAG TO REVEAL ✨" pill overlay on mobile that auto-dismisses after 4.5s or on first touch interaction.
 
 ---
