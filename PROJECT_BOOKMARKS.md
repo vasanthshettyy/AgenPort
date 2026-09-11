@@ -37,6 +37,11 @@
 - **Scroll-Lock Safety**: `document.body.style.overflow = 'hidden'` and `touchAction = 'none'` applied strictly when mobile drawer is open, cleanly reverting when closed.
 - **Smooth Anchor Links**: Instant scroll-to-view navigation for section targets (`#work`, `#services`, `#process`, `#pricing`, `#faq`, `#contact`).
 
+### 7. Hero Section Touch-Drag Reveal (`HeroCursorReveal.jsx` & `Hero.jsx`)
+- **Mobile Touch-and-Drag Reveal**: Touch coordinates (`touchstart`, `touchmove`, `touchend`, `touchcancel`) feed directly into the illustrated reveal layer and 4.9s exponential decay canvas trail.
+- **Passive Scroll Coexistence**: Touch listeners registered with `{ passive: true }`, ensuring touch dragging reveals the canvas layer without interfering with native page scrolling.
+- **Mobile Discovery Badge**: Floating "TOUCH & DRAG TO REVEAL ✨" pill overlay on mobile that auto-dismisses after 4.5s or on first touch interaction.
+
 ---
 
 ## 📜 Recent Git Commit History

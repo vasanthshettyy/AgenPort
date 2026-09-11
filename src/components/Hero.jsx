@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import HeroCursorReveal from './HeroCursorReveal';
@@ -10,11 +10,29 @@ const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [showTouchHint, setShowTouchHint] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const isMobileViewport = window.innerWidth < 768;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isMobileViewport && !reduceMotion) {
+      setShowTouchHint(true);
+      const timer = setTimeout(() => {
+        setShowTouchHint(false);
+      }, 4500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleInteraction = useCallback(() => {
+    setShowTouchHint(false);
   }, []);
 
   // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly
@@ -73,10 +91,20 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT — Image (desktop only reveal, mobile shows plain photo) */}
+        {/* RIGHT — Image */}
         <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-none lg:w-[480px] xl:w-[520px] flex-shrink-0 flex items-center justify-center">
           {/* Glow bloom */}
           <div className="hero-bloom absolute inset-0 w-full h-full bg-content-neon/10 rounded-full blur-[100px] pointer-events-none" />
+
+          {/* Touch discovery hint on mobile */}
+          {isMobile && showTouchHint && (
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 pointer-events-none transition-opacity duration-700">
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-widest text-content-primary uppercase shadow-xl animate-bounce">
+                <span className="w-1.5 h-1.5 rounded-full bg-content-accent animate-ping" />
+                <span>Touch &amp; Drag to Reveal ✨</span>
+              </div>
+            </div>
+          )}
 
           {/* Image wrapper */}
           <div ref={imageWrapRef} className="hero-image-wrap relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden">
@@ -90,10 +118,11 @@ const Hero = () => {
               width="520"
               height="693"
             />
-            {/* Cursor-reveal layer — illustrated version, desktop only */}
+            {/* Cursor/Touch-reveal layer — illustrated version */}
             <HeroCursorReveal
               illustratedSrc="/vasanth-hero-illustrated.webp"
               containerRef={imageWrapRef}
+              onInteraction={handleInteraction}
             />
             {/* Subtle edge fade */}
             <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent pointer-events-none z-30" />

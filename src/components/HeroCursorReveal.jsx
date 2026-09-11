@@ -28,8 +28,11 @@ const REAL_H = 532;
 /**
  * HeroCursorReveal
  */
-export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
-  const [isEligible, setIsEligible] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
+export default function HeroCursorReveal({ illustratedSrc, containerRef, onInteraction }) {
+  const [isEligible, setIsEligible] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
 
   const displayCanvasRef = useRef(null);
   const maskCanvas = useRef(null);
@@ -49,16 +52,17 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
   const lastActiveTime = useRef(0);
   const dims = useRef({ width: 0, height: 0 });
 
-  // ── Eligibility Check ─────────────────────────────────────────────────────
+  // ── Eligibility Check (Supported unless prefers-reduced-motion: reduce) ────
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const checkEligibility = () => {
-      const desktopWidth = window.innerWidth >= 768;
-      setIsEligible(desktopWidth);
+      setIsEligible(!mq.matches);
     };
 
     checkEligibility();
-    window.addEventListener('resize', checkEligibility);
-    return () => window.removeEventListener('resize', checkEligibility);
+    if (mq.addEventListener) mq.addEventListener('change', checkEligibility);
+    return () => mq.removeEventListener?.('change', checkEligibility);
   }, []);
 
   // ── Fit canvas with DPR scaling ───────────────────────────────────────────
@@ -287,6 +291,7 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
       lastPoint.current = null;
       updatePos(e.clientX, e.clientY);
       startLoop();
+      if (onInteraction) onInteraction();
     };
 
     const onMouseMove = (e) => {
@@ -302,6 +307,31 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
       startLoop(); // Ensure decay animation loop continues running after mouse leave
     };
 
+    // Touch event handlers for mobile devices
+    const onTouchStart = (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      startLoadingImage();
+      isHovering.current = true;
+      lastPoint.current = null;
+      updatePos(e.touches[0].clientX, e.touches[0].clientY);
+      startLoop();
+      if (onInteraction) onInteraction();
+    };
+
+    const onTouchMove = (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      startLoadingImage();
+      isHovering.current = true;
+      updatePos(e.touches[0].clientX, e.touches[0].clientY);
+      startLoop();
+    };
+
+    const onTouchEnd = () => {
+      isHovering.current = false;
+      lastPoint.current = null;
+      startLoop();
+    };
+
     const resizeObserver = new ResizeObserver(() => {
       resizeAll();
     });
@@ -311,18 +341,28 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef }) {
     container.addEventListener('mousemove', onMouseMove);
     container.addEventListener('mouseleave', onMouseLeave);
 
+    container.addEventListener('touchstart', onTouchStart, { passive: true });
+    container.addEventListener('touchmove', onTouchMove, { passive: true });
+    container.addEventListener('touchend', onTouchEnd, { passive: true });
+    container.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
     return () => {
       resizeObserver.disconnect();
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mousemove', onMouseMove);
       container.removeEventListener('mouseleave', onMouseLeave);
 
+      container.removeEventListener('touchstart', onTouchStart);
+      container.removeEventListener('touchmove', onTouchMove);
+      container.removeEventListener('touchend', onTouchEnd);
+      container.removeEventListener('touchcancel', onTouchEnd);
+
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
         rafId.current = null;
       }
     };
-  }, [isEligible, containerRef, startLoadingImage, resizeAll, loop]);
+  }, [isEligible, containerRef, startLoadingImage, resizeAll, loop, onInteraction]);
 
   if (!isEligible) return null;
 
