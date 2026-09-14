@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { pricingPlans } from '../data/pricingData';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -8,19 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function PricingSection({ onSelectPlan }) {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
-  const [isMobile, setIsMobile] = useState(false);
-  // Track which card index is being long-pressed (mobile border sweep)
-  const [pressedCard, setPressedCard] = useState(null);
-  const pressTimerRef = useRef(null);
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // ── PART 1: GSAP Scroll Entrance Animation ────────────────────────────────
+  // ── GSAP Scroll Entrance Animation ──────────────────────────────────────
   useEffect(() => {
     // Respect prefers-reduced-motion
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -52,36 +41,11 @@ export default function PricingSection({ onSelectPlan }) {
           start: 'top 82%',
           once: true,
         },
-        onComplete() {
-          // One-time cyan glow pulse on the featured card border after it settles
-          if (featuredCard) {
-            featuredCard.classList.add('pricing-featured-glow-pulse');
-            // Remove after the animation completes (600ms) so it won't repeat
-            setTimeout(() => {
-              featuredCard.classList.remove('pricing-featured-glow-pulse');
-            }, 700);
-          }
-        },
       });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
-
-  // ── PART 2: Mobile Touch Border-Sweep — long-press activation ────────────
-  const handleTouchStart = (idx) => {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) return;
-    // Require a 180ms sustained press before activating the sweep
-    pressTimerRef.current = setTimeout(() => {
-      setPressedCard(idx);
-    }, 180);
-  };
-
-  const handleTouchEnd = () => {
-    clearTimeout(pressTimerRef.current);
-    setPressedCard(null);
-  };
 
   const handleCtaClick = (plan) => {
     const planData = { planName: plan.name, retainerSelected: false };
@@ -113,16 +77,13 @@ export default function PricingSection({ onSelectPlan }) {
               key={plan.id}
               ref={(el) => (cardsRef.current[idx] = el)}
               className="h-full"
-              onTouchStart={() => handleTouchStart(idx)}
-              onTouchEnd={handleTouchEnd}
-              onTouchCancel={handleTouchEnd}
             >
               <div
                 className={`group relative flex flex-col justify-between h-full p-4 sm:p-6 lg:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border active:scale-[0.98] cursor-pointer ${
                   plan.popular
                     ? 'bg-content-accent/[0.02] lg:bg-canvas-card border-content-accent shadow-[0_8px_30px_rgba(0,229,255,0.2)] lg:shadow-[0_8px_30px_rgba(0,229,255,0.12)] pricing-card-hover z-10'
                     : 'bg-canvas-card border-canvas-border pricing-card-hover pricing-card-hover-std'
-                }${pressedCard === idx ? ' pricing-border-sweep' : ''}`}
+                }`}
               >
                 {/* Popular Badge with Rotate + Scale micro-interaction */}
                 {plan.popular && (
