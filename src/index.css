@@ -16,6 +16,21 @@
     overflow-x: hidden;
   }
 
+  /* Desktop custom cursor override — hide native cursor on interactive elements */
+  @media (hover: hover) and (pointer: fine) {
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    label,
+    [role="button"],
+    .cursor-pointer {
+      cursor: none !important;
+    }
+  }
+
   html {
     scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;

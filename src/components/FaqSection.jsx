@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { faqData } from '../data/faqData';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,13 +9,38 @@ export default function FaqSection() {
   const [openId, setOpenId] = useState(null);
   const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef(null);
+  const extraItemRefs = useRef([]);
 
   const activeFaqs = faqData.filter((item) => !item.isEmpty);
   const visibleFaqs = showAll ? activeFaqs : activeFaqs.slice(0, 5);
 
   const toggleFaq = (id) => setOpenId(openId === id ? null : id);
 
-  // Pure CSS layout with zero GSAP inline style interference
+  useEffect(() => {
+    if (showAll) {
+      const prefersReducedMotion =
+        typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        const elements = extraItemRefs.current.filter(Boolean);
+        if (elements.length > 0) {
+          gsap.fromTo(
+            elements,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              stagger: 0.07,
+              ease: 'power2.out',
+              clearProps: 'opacity,transform',
+            }
+          );
+        }
+      }
+    } else {
+      extraItemRefs.current = [];
+    }
+  }, [showAll]);
 
   return (
     <section
@@ -47,6 +71,7 @@ export default function FaqSection() {
             return (
               <div
                 key={item.id}
+                ref={idx >= 5 ? (el) => (extraItemRefs.current[idx - 5] = el) : null}
                 className={`faq-item rounded-2xl border transition-all duration-500 ease-out ${
                   isOpen
                     ? 'bg-canvas-card border-content-accent/60 shadow-[0_0_30px_rgba(0,229,255,0.08)]'
