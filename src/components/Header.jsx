@@ -6,10 +6,35 @@ import { useGSAP } from '@gsap/react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const closeTimer = useRef(null);
   const container = useRef();
 
-  useEffect(() => {
+  const toggleMenu = () => {
     if (mobileMenuOpen) {
+      closeMenu();
+    } else {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+      setIsMounted(true);
+      setIsClosing(false);
+      setMobileMenuOpen(true);
+    }
+  };
+
+  const closeMenu = () => {
+    if (!mobileMenuOpen && !isMounted) return;
+    setIsClosing(true);
+    setMobileMenuOpen(false);
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => {
+      setIsMounted(false);
+      setIsClosing(false);
+    }, 350);
+  };
+
+  useEffect(() => {
+    if (isMounted) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
@@ -18,7 +43,13 @@ export default function Header() {
       document.documentElement.style.overflow = '';
       document.body.style.touchAction = '';
     }
-  }, [mobileMenuOpen]);
+  }, [isMounted]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
+  }, []);
 
   useGSAP(() => {
     gsap.from(container.current, {
@@ -30,7 +61,7 @@ export default function Header() {
   }, { scope: container });
 
   const handleNavClick = (href) => {
-    setMobileMenuOpen(false);
+    closeMenu();
     if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
       window.location.href = '/' + href;
       return;
@@ -90,33 +121,37 @@ export default function Header() {
               </a>
             </div>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Hamburger / Symmetric X Toggle */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={toggleMenu}
               aria-label="Toggle Menu"
               aria-expanded={mobileMenuOpen}
-              className="md:hidden p-3 -mr-3 text-content-primary lg:hover:text-content-accent focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center"
+              className="md:hidden p-3 -mr-3 text-content-primary lg:hover:text-content-accent focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center cursor-pointer"
             >
-              <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
-                <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-                <span className={`w-full h-0.5 bg-current transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
-                <span className={`w-full h-0.5 bg-current transition-transform duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              <div className="relative w-5 h-5 flex items-center justify-center">
+                <span className={`w-full h-0.5 bg-current absolute transition-all duration-300 transform ${mobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'}`} />
+                <span className={`w-full h-0.5 bg-current absolute transition-all duration-300 ${mobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'}`} />
+                <span className={`w-full h-0.5 bg-current absolute transition-all duration-300 transform ${mobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'}`} />
               </div>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Overlay */}
-      {mobileMenuOpen && (
+      {/* Mobile Drawer Overlay with Smooth Entrance & Exit Animations */}
+      {isMounted && (
         <div
           className="fixed inset-0 z-40 bg-canvas/95 backdrop-blur-xl md:hidden flex flex-col justify-center px-6"
-          style={{ animation: 'mobileMenuIn 0.35s cubic-bezier(0.4,0,0.2,1) both' }}
+          style={{ animation: `${isClosing ? 'mobileMenuOut' : 'mobileMenuIn'} 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards` }}
         >
           <style>{`
             @keyframes mobileMenuIn {
               from { opacity: 0; transform: translateY(-16px); }
               to   { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes mobileMenuOut {
+              from { opacity: 1; transform: translateY(0); }
+              to   { opacity: 0; transform: translateY(-16px); }
             }
           `}</style>
           <nav className="flex flex-col gap-6 sm:gap-8 text-center">

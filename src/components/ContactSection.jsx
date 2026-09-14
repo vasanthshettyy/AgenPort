@@ -212,7 +212,7 @@ export default function ContactSection() {
                 disabled={isSubmitting}
                 className="group w-full sm:w-auto relative inline-flex items-center justify-center px-6 sm:px-8 lg:px-16 py-3 sm:py-4 lg:py-8 border border-content-border rounded-full overflow-hidden transition-all duration-300 hover:border-content-accent hover:shadow-[0_0_30px_rgba(0,229,255,0.25)] min-h-[48px] cursor-pointer"
               >
-                <span className={`btn-fill-text text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary group-hover:text-canvas transition-colors duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`btn-fill-text text-base sm:text-xl lg:text-2xl font-bold tracking-widest text-content-primary lg:group-hover:text-canvas transition-colors duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                   SUBMIT INQUIRY
                 </span>
                 {isSubmitting && (
