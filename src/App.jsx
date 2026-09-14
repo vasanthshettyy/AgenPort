@@ -126,10 +126,8 @@ function App() {
         <meta name="twitter:title" content="Vasanth Shetty — Full-Stack Web Developer" />
         <meta name="twitter:description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer." />
 
-        {/* Phase 7E.3: JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
+        {/* Phase 7E.3: JSON-LD Structured Data — managed in-place via id="json-ld-schema" */}
+        <script type="application/ld+json" id="json-ld-schema" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Helmet>
 
       <Header />

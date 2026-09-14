@@ -25,13 +25,62 @@
     <link rel="alternate" type="text/plain" href="/llms.txt" title="AI Agent Specification" />
     <!-- Preload LCP hero image — compressed WebP (24KB vs 2MB PNG) -->
     <link rel="preload" as="image" href="/vasanth-hero.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Static Structured Data (JSON-LD) for non-JS Crawlers & SEO Parsers.
+         Managed in-place by React Helmet via id="json-ld-schema" post-hydration. -->
+    <script type="application/ld+json" id="json-ld-schema">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "Vasanth Shetty — Full-Stack Web Developer",
+          "url": "https://dev-vasanth.vercel.app",
+          "logo": "https://dev-vasanth.vercel.app/favicon.svg",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "vasanthshetty.dev@gmail.com",
+            "contactType": "customer service"
+          },
+          "sameAs": [
+            "https://github.com/vasanthshettyy",
+            "https://www.linkedin.com/in/vasanth-shetty-dev"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How long does a project take?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A single landing page or redesign usually takes 1 to 2 weeks, while a multi-page custom website or booking integration takes 2 to 4 weeks."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I own my website and code?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, completely. Upon completion and final payment, full code ownership is transferred directly to you. No monthly software fees or lock-in."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body style="background-color: #0a0a0a; color: #f5f5f7;">
     <div id="root"></div>
     <noscript>
       <!-- Pre-rendered Static Fallback for AI Agents, Crawlers & Non-JS Fetch Tools -->
       <header>
-        <a href="/">VASANTH SHETTY</a>
+        <a href="/">
+          <img src="/vasanth-avatar.webp" alt="Vasanth Shetty Profile Avatar" width="32" height="32" />
+          VASANTH SHETTY
+        </a>
         <nav>
           <a href="#services">Services</a>
           <a href="#work">Work</a>
@@ -44,6 +93,7 @@
         <section id="hero">
           <h1>PREMIUM WEB DEVELOPMENT FOR SERVICE BUSINESSES.</h1>
           <p>I build fast, custom-coded websites that turn visitors into clients. No templates. No platform limitations.</p>
+          <img src="/vasanth-hero.webp" alt="Vasanth Shetty — Full-Stack Web Developer Hero Showcase" width="1200" height="800" />
           <a href="#contact">Start a Project</a>
         </section>
 
@@ -109,6 +159,7 @@
           <article id="sys-01">
             <p>01 / Clinical Intake</p>
             <h3><a href="https://aether-intake.vercel.app" target="_blank" rel="noopener noreferrer">AetherIntake</a></h3>
+            <img src="/projects/aether-1.png" alt="AetherIntake Healthcare AI Intake Platform Screenshot" width="800" height="450" />
             <p>A concept platform exploring how AI-driven intake flows could streamline clinical onboarding. Built to demonstrate automated scheduling, secure patient portals, and intake form design.</p>
             <p>Tech: Next.js, Healthcare, AI, SaaS</p>
             <p>Build Type: Concept</p>
@@ -116,6 +167,7 @@
           <article id="sys-02">
             <p>02 / Proptech</p>
             <h3><a href="https://meridian-assets.vercel.app" target="_blank" rel="noopener noreferrer">Meridian Assets</a></h3>
+            <img src="/projects/meridian-1.png" alt="Meridian Assets Proptech Platform Screenshot" width="800" height="450" />
             <p>A personal project exploring property valuation UI design — a clean, professional interface for real estate professionals and investors, built to demonstrate responsive data presentation.</p>
             <p>Tech: Next.js, Real Estate, Web App</p>
             <p>Build Type: Personal</p>
@@ -123,6 +175,7 @@
           <article id="sys-03">
             <p>03 / Neural Tech</p>
             <h3><a href="https://axiom-neon-one.vercel.app" target="_blank" rel="noopener noreferrer">AXIOM Neural Interface</a></h3>
+            <img src="/projects/axiom-1.png" alt="AXIOM Neural Interface Concept Landing Page Screenshot" width="800" height="450" />
             <p>A personal product landing page concept for AXIOM, a fictional wrist-worn neural interface. Built to explore high-tech neon aesthetic design, scroll-linked animations, and immersive product storytelling.</p>
             <p>Tech: Next.js, Product Design, Neural Tech, Landing Page</p>
             <p>Build Type: Concept</p>
@@ -130,6 +183,7 @@
           <article id="sys-04">
             <p>04 / Engineering Portfolio</p>
             <h3><a href="https://vasanth-shetty-portfolio.vercel.app" target="_blank" rel="noopener noreferrer">Vasanth Shetty Portfolio</a></h3>
+            <img src="/projects/portfolio-1.png" alt="Vasanth Shetty Engineering Portfolio Screenshot" width="800" height="450" />
             <p>My developer portfolio — built from scratch to showcase full-stack engineering capabilities, interactive UI design systems, and production web applications.</p>
             <p>Tech: React, Next.js, Full-Stack, Portfolio</p>
             <p>Build Type: Live Site</p>
@@ -138,7 +192,7 @@
 
         <section id="contact">
           <h2>Contact</h2>
-          <p>Email: vasanthshetty.dev@gmail.com</p>
+          <p>Email: <a href="mailto:vasanthshetty.dev@gmail.com">vasanthshetty.dev@gmail.com</a></p>
         </section>
       </main>
     </noscript>
