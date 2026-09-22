@@ -6,6 +6,48 @@ import HeroCursorReveal from './HeroCursorReveal';
 // Stable public path — compressed WebP (24KB vs 2MB original PNG)
 const me = '/vasanth-hero.webp';
 
+const ROTATING_WORDS = [
+  "LANDING PAGES.",
+  "LEAD GEN SITES.",
+  "ONLINE STORES.",
+  "CUSTOM WEBSITES."
+];
+
+const HeroHeadlineCycler = () => {
+  const [index, setIndex] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handler = (e) => setPrefersReducedMotion(e.matches);
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handler);
+      return () => mediaQuery.removeEventListener('change', handler);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [prefersReducedMotion]);
+
+  return (
+    <span className="hero-line block text-content-accent relative h-[1.15em] overflow-hidden align-bottom [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_85%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_85%,transparent_100%)]">
+      <span
+        key={prefersReducedMotion ? 'static' : index}
+        className={`block text-content-accent font-extrabold whitespace-nowrap ${prefersReducedMotion ? '' : 'animate-hero-word-slide'
+          }`}
+      >
+        {ROTATING_WORDS[index]}
+      </span>
+    </span>
+  );
+};
+
 const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
@@ -46,11 +88,11 @@ const Hero = () => {
         {/* LEFT — Text */}
         <div className="flex-1 flex flex-col items-start gap-6 lg:gap-8 z-10">
 
-          {/* Headline — no overflow-hidden clipping */}
-          <h1 className="flex flex-col gap-1 text-[clamp(2rem,5.5vw,5.5rem)] leading-[0.92] tracking-[-0.04em] font-extrabold">
-            <span className="hero-line block">PREMIUM WEB</span>
-            <span className="hero-line block italic text-content-secondary">DEVELOPMENT FOR</span>
-            <span className="hero-line block">SERVICE BUSINESSES.</span>
+          {/* Main Headline */}
+          <h1 className="flex flex-col gap-1 text-[clamp(2rem,4.5vw,4.5rem)] leading-[0.94] tracking-[-0.04em] font-extrabold">
+            <span className="hero-line block">FREELANCE WEB</span>
+            <span className="hero-line block italic text-content-secondary">DEVELOPER FOR GROWING BRANDS: </span>
+            <HeroHeadlineCycler />
           </h1>
 
           {/* Subtext */}
