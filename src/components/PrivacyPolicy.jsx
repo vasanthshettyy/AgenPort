@@ -6,7 +6,24 @@ export default function PrivacyPolicy() {
     <>
       <Helmet>
         <title>Privacy Policy — Vasanth Shetty</title>
+        <meta name="description" content="Privacy Policy for Vasanth Shetty — Freelance Web Developer." />
         <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://dev-vasanth.vercel.app/privacy-policy" />
+
+        <meta property="og:site_name" content="Vasanth Shetty" />
+        <meta property="og:title" content="Privacy Policy — Vasanth Shetty" />
+        <meta property="og:description" content="Privacy Policy for Vasanth Shetty — Freelance Web Developer." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://dev-vasanth.vercel.app/privacy-policy" />
+        <meta property="og:image" content="https://dev-vasanth.vercel.app/og-image.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Privacy Policy — Vasanth Shetty" />
+        <meta name="twitter:description" content="Privacy Policy for Vasanth Shetty — Freelance Web Developer." />
+        <meta name="twitter:image" content="https://dev-vasanth.vercel.app/og-image.png" />
       </Helmet>
       <section className="py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-20 bg-canvas min-h-screen">
         <div className="max-w-3xl w-full mx-auto">
