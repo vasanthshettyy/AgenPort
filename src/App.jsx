@@ -109,24 +109,29 @@ function App() {
       <CustomCursor />
       <ScrollProgress />
       <Helmet>
-        {/* Phase 7E.2: Meta Tags */}
-        <title>Vasanth Shetty — Full-Stack Web Developer</title>
-        <meta name="description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer to generate leads and scale your business." />
+        <title>Vasanth Shetty — Freelance Web Developer for Growing Brands</title>
+        <meta name="description" content="Custom-coded websites, landing pages, lead gen sites, and online stores for growing brands. Built to convert visitors into clients with 100% code ownership." />
         <link rel="canonical" href="https://dev-vasanth.vercel.app/" />
 
-        {/* Phase 7E.4: Open Graph */}
-        <meta property="og:title" content="Vasanth Shetty — Full-Stack Web Developer" />
-        <meta property="og:description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer." />
+        {/* Open Graph (WhatsApp, iMessage, Instagram, Facebook, LinkedIn, Gmail, Slack) */}
+        <meta property="og:site_name" content="Vasanth Shetty" />
+        <meta property="og:title" content="Vasanth Shetty — Freelance Web Developer for Growing Brands" />
+        <meta property="og:description" content="Custom-coded websites, landing pages, lead gen sites, and online stores for growing brands. Built to convert visitors into clients with 100% code ownership." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dev-vasanth.vercel.app/" />
+        <meta property="og:image" content="https://dev-vasanth.vercel.app/og-image.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="en_US" />
 
-        {/* Phase 7E.5: Twitter Card */}
+        {/* Twitter / X Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vasanth Shetty — Full-Stack Web Developer" />
-        <meta name="twitter:description" content="Custom-coded websites, landing pages, and small e-commerce sites for service businesses. Built by a solo developer." />
+        <meta name="twitter:title" content="Vasanth Shetty — Freelance Web Developer for Growing Brands" />
+        <meta name="twitter:description" content="Custom-coded websites, landing pages, lead gen sites, and online stores for growing brands. Built to convert visitors into clients." />
+        <meta name="twitter:image" content="https://dev-vasanth.vercel.app/og-image.png" />
 
-        {/* Phase 7E.3: JSON-LD Structured Data — managed in-place via id="json-ld-schema" */}
+        {/* JSON-LD Structured Data */}
         <script type="application/ld+json" id="json-ld-schema" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Helmet>
 
