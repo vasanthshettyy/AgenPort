@@ -114,33 +114,34 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
   }, []);
 
   // ── Resize all offscreen and display canvases ──────────────────────────────
-  const resizeAll = useCallback(() => {
+  const resizeAll = useCallback((w, h) => {
     const container = containerRef.current;
     const displayCanvas = displayCanvasRef.current;
     if (!container || !displayCanvas) return;
 
-    const rect = container.getBoundingClientRect();
-    if (rect.width === 0 || rect.height === 0) return;
+    const width = w ?? container.clientWidth;
+    const height = h ?? container.clientHeight;
+    if (width === 0 || height === 0) return;
 
     const dpr = Math.max(1, window.devicePixelRatio || 1);
-    dims.current = { width: rect.width, height: rect.height };
+    dims.current = { width, height };
 
     const displayCtx = displayCanvas.getContext('2d');
-    fitCanvas(displayCanvas, displayCtx, rect.width, rect.height, dpr);
-    displayCtx.clearRect(0, 0, rect.width, rect.height);
+    fitCanvas(displayCanvas, displayCtx, width, height, dpr);
+    displayCtx.clearRect(0, 0, width, height);
 
     if (!maskCanvas.current) {
       maskCanvas.current = document.createElement('canvas');
       maskCtx.current = maskCanvas.current.getContext('2d');
     }
-    fitCanvas(maskCanvas.current, maskCtx.current, rect.width, rect.height, dpr);
-    maskCtx.current.clearRect(0, 0, rect.width, rect.height);
+    fitCanvas(maskCanvas.current, maskCtx.current, width, height, dpr);
+    maskCtx.current.clearRect(0, 0, width, height);
 
     if (!revealSourceCanvas.current) {
       revealSourceCanvas.current = document.createElement('canvas');
       revealSourceCtx.current = revealSourceCanvas.current.getContext('2d');
     }
-    fitCanvas(revealSourceCanvas.current, revealSourceCtx.current, rect.width, rect.height, dpr);
+    fitCanvas(revealSourceCanvas.current, revealSourceCtx.current, width, height, dpr);
 
     renderRevealSource();
   }, [containerRef, fitCanvas, renderRevealSource]);
@@ -273,13 +274,18 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
     if (!container) return;
 
     startLoadingImage();
-    resizeAll();
+    const initRaf = requestAnimationFrame(() => {
+      resizeAll();
+    });
 
+    let cachedRect = null;
     const updatePos = (clientX, clientY) => {
-      const rect = container.getBoundingClientRect();
+      if (!cachedRect) {
+        cachedRect = container.getBoundingClientRect();
+      }
       currentPoint.current = {
-        x: clientX - rect.left,
-        y: clientY - rect.top,
+        x: clientX - cachedRect.left,
+        y: clientY - cachedRect.top,
       };
     };
 
@@ -472,16 +478,32 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       startLoop();
     };
 
-    const resizeObserver = new ResizeObserver(() => {
-      resizeAll();
+    const resizeObserver = new ResizeObserver((entries) => {
+      cachedRect = null;
+      const entry = entries[0];
+      if (entry && entry.contentRect) {
+        resizeAll(entry.contentRect.width, entry.contentRect.height);
+      } else {
+        resizeAll();
+      }
     });
     resizeObserver.observe(container);
 
-    container.addEventListener('mouseenter', onMouseEnter);
+    const handleEnter = (e) => {
+      cachedRect = container.getBoundingClientRect();
+      onMouseEnter(e);
+    };
+
+    const handleTouchStartWithCache = (e) => {
+      cachedRect = container.getBoundingClientRect();
+      onTouchStart(e);
+    };
+
+    container.addEventListener('mouseenter', handleEnter);
     container.addEventListener('mousemove', onMouseMove);
     container.addEventListener('mouseleave', onMouseLeave);
 
-    container.addEventListener('touchstart', onTouchStart, { passive: true });
+    container.addEventListener('touchstart', handleTouchStartWithCache, { passive: true });
     container.addEventListener('touchmove', onTouchMove, { passive: false });
     container.addEventListener('touchend', onTouchEnd, { passive: true });
     container.addEventListener('touchcancel', onTouchEnd, { passive: true });
@@ -491,13 +513,14 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
         clearTimeout(demoTimeoutRef.current);
         demoTimeoutRef.current = null;
       }
+      cancelAnimationFrame(initRaf);
       stopDemoAnimationOnly();
       resizeObserver.disconnect();
-      container.removeEventListener('mouseenter', onMouseEnter);
+      container.removeEventListener('mouseenter', handleEnter);
       container.removeEventListener('mousemove', onMouseMove);
       container.removeEventListener('mouseleave', onMouseLeave);
 
-      container.removeEventListener('touchstart', onTouchStart);
+      container.removeEventListener('touchstart', handleTouchStartWithCache);
       container.removeEventListener('touchmove', onTouchMove);
       container.removeEventListener('touchend', onTouchEnd);
       container.removeEventListener('touchcancel', onTouchEnd);
