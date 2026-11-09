@@ -175,7 +175,7 @@ export default function ContactSection() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="YOUR NAME"
-                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/30 transition-all duration-300 hover:border-content-secondary/60 focus:border-content-accent"
+                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/70 transition-all duration-300 hover:border-content-secondary/80 focus:border-content-accent"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-500 ease-out pointer-events-none" />
             </div>
@@ -187,7 +187,7 @@ export default function ContactSection() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="YOUR EMAIL"
-                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/30 transition-all duration-300 hover:border-content-secondary/60 focus:border-content-accent"
+                className="w-full bg-transparent border-b border-canvas-border py-3 sm:py-4 lg:py-6 text-base sm:text-lg lg:text-2xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/70 transition-all duration-300 hover:border-content-secondary/80 focus:border-content-accent"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-500 ease-out pointer-events-none" />
             </div>
@@ -199,7 +199,7 @@ export default function ContactSection() {
                 onChange={handleChange}
                 rows="3"
                 placeholder="PROJECT DETAILS / PACKAGE INTEREST"
-                className="w-full bg-transparent border-b border-canvas-border py-3 text-base sm:text-lg lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/30 transition-all duration-300 hover:border-content-secondary/60 focus:border-content-accent resize-none"
+                className="w-full bg-transparent border-b border-canvas-border py-3 text-base sm:text-lg lg:text-xl font-sans font-medium focus:outline-none placeholder:text-content-secondary/70 transition-all duration-300 hover:border-content-secondary/80 focus:border-content-accent resize-none"
               />
               <div className="absolute bottom-0 left-0 h-0.5 bg-content-accent w-0 group-focus-within:w-full transition-all duration-500 ease-out pointer-events-none" />
             </div>

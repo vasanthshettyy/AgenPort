@@ -26,14 +26,22 @@ export default function ScrollProgress() {
       }
     };
 
-    // Initial update
-    updateProgress();
+    // Defer initial update to next frame to prevent forced reflow during hydration
+    rafId = requestAnimationFrame(() => {
+      updateProgress();
+      rafId = null;
+    });
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateProgress, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
 
     const resizeObserver = new ResizeObserver(() => {
-      updateProgress();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          updateProgress();
+          rafId = null;
+        });
+      }
     });
     resizeObserver.observe(document.documentElement);
 

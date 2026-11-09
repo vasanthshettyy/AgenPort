@@ -147,7 +147,7 @@ const ServicesSection = () => {
 
               <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-20">
                 <div className="flex items-center gap-3 lg:gap-20">
-                  <span className="text-lg lg:text-2xl font-sans font-bold text-content-secondary/30">
+                  <span className="text-lg lg:text-2xl font-sans font-bold text-content-secondary">
                     0{index + 1}
                   </span>
                   <h3

@@ -118,7 +118,7 @@ export default function PricingSection({ onSelectPlan }) {
                         key={i}
                         className="group/item flex items-start gap-3 text-xs text-content-secondary transition-transform duration-200 ease-out lg:hover:translate-x-1.5 cursor-default"
                       >
-                        <span className="text-content-secondary/60 lg:group-hover/item:text-content-accent text-[10px] font-mono mt-0.5 transition-colors duration-200">-</span>
+                        <span className="text-content-secondary lg:group-hover/item:text-content-accent text-[10px] font-mono mt-0.5 transition-colors duration-200">-</span>
                         <span className="leading-snug lg:group-hover/item:text-content-primary transition-colors duration-200">{item}</span>
                       </div>
                     ))}

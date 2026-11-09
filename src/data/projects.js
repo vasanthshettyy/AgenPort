@@ -11,9 +11,9 @@ export const projects = [
     live_url: "https://aether-intake.vercel.app",
     liveUrl: "https://aether-intake.vercel.app",
     images: [
-      "/projects/aether-1.png",
-      "/projects/aether-2.png",
-      "/projects/aether-3.png"
+      "/projects/aether-1.webp",
+      "/projects/aether-2.webp",
+      "/projects/aether-3.webp"
     ],
     image_url: ""
   },
@@ -29,9 +29,9 @@ export const projects = [
     live_url: "https://meridian-assets.vercel.app",
     liveUrl: "https://meridian-assets.vercel.app",
     images: [
-      "/projects/meridian-1.png",
-      "/projects/meridian-2.png",
-      "/projects/meridian-3.png"
+      "/projects/meridian-1.webp",
+      "/projects/meridian-2.webp",
+      "/projects/meridian-3.webp"
     ],
     image_url: ""
   },
@@ -47,9 +47,9 @@ export const projects = [
     live_url: "https://axiom-neon-one.vercel.app",
     liveUrl: "https://axiom-neon-one.vercel.app",
     images: [
-      "/projects/axiom-1.png",
-      "/projects/axiom-2.png",
-      "/projects/axiom-3.png"
+      "/projects/axiom-1.webp",
+      "/projects/axiom-2.webp",
+      "/projects/axiom-3.webp"
     ],
     image_url: ""
   },
@@ -65,9 +65,9 @@ export const projects = [
     live_url: "https://vasanth-shetty-portfolio.vercel.app",
     liveUrl: "https://vasanth-shetty-portfolio.vercel.app",
     images: [
-      "/projects/portfolio-1.png",
-      "/projects/portfolio-2.png",
-      "/projects/portfolio-3.png"
+      "/projects/portfolio-1.webp",
+      "/projects/portfolio-2.webp",
+      "/projects/portfolio-3.webp"
     ],
     image_url: ""
   }

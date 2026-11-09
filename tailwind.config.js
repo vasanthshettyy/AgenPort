@@ -26,7 +26,7 @@ export default {
         },
         content: {
           primary: '#f5f5f7',
-          secondary: '#a1a1a6',
+          secondary: '#c4c4c8',
           accent: '#00e5ff',
           neon: '#00e5ff',
           border: '#1f1f1f',

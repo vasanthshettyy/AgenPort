@@ -146,6 +146,8 @@ function ProjectPreview({ project }) {
               key={src}
               src={src}
               alt={`${project.title} screenshot ${i + 1}`}
+              width="800"
+              height="500"
               loading="lazy"
               decoding="async"
               className={`absolute inset-0 w-full h-full object-cover object-top ${

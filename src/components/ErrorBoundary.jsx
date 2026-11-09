@@ -22,7 +22,7 @@ class ErrorBoundary extends Component {
             !
           </div>
           <h3 className="text-xl font-bold text-white mb-2">Module Failed to Load</h3>
-          <p className="text-gray-400 text-sm">A temporary error occurred while rendering this section.</p>
+          <p className="text-gray-300 text-sm">A temporary error occurred while rendering this section.</p>
           <button 
             onClick={() => this.setState({ hasError: false })}
             className="mt-4 px-4 py-2 text-xs font-semibold text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-white/10"

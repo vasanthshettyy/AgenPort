@@ -20,12 +20,6 @@ const FaqSection = React.lazy(() => import('./components/FaqSection'));
 const Footer = React.lazy(() => import('./components/Footer'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 
-const SkeletonLoader = () => (
-  <div className="w-full h-96 bg-canvas flex items-center justify-center">
-    <div className="w-8 h-8 border-4 border-accent-primary/30 border-t-accent-primary rounded-full animate-spin"></div>
-  </div>
-);
-
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
@@ -44,13 +38,13 @@ function App() {
         <Header />
         <main>
           <ErrorBoundary>
-            <Suspense fallback={<SkeletonLoader />}>
+            <Suspense fallback={null}>
               <PrivacyPolicy />
             </Suspense>
           </ErrorBoundary>
         </main>
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <Footer />
           </Suspense>
         </ErrorBoundary>
@@ -173,50 +167,50 @@ function App() {
         <Hero />
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <ValueSection />
           </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <ServicesSection />
           </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <ProcessSection />
           </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <PricingSection />
           </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <ProjectGrid />
           </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <FaqSection />
           </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={null}>
             <ContactSection />
           </Suspense>
         </ErrorBoundary>
       </main>
 
       <ErrorBoundary>
-        <Suspense fallback={<SkeletonLoader />}>
+        <Suspense fallback={null}>
           <Footer />
         </Suspense>
       </ErrorBoundary>

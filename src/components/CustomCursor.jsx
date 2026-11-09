@@ -6,6 +6,11 @@ const CustomCursor = () => {
   const followerRef = useRef(null);
 
   useEffect(() => {
+    // Skip listener attachment on touch/mobile devices where cursor is hidden
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return;
+    }
+
     const cursor = cursorRef.current;
     const follower = followerRef.current;
 

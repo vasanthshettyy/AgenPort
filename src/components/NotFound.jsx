@@ -11,7 +11,7 @@ export default function NotFound() {
         <div className="max-w-md w-full text-center">
           <div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-accent-primary to-accent-secondary mb-6">404</div>
           <h1 className="text-2xl font-bold text-white mb-4">Page Not Found</h1>
-          <p className="text-gray-400 mb-8">
+          <p className="text-gray-300 mb-8">
             The page you are looking for has been moved or does not exist.
           </p>
           <a href="/" className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl text-canvas font-bold bg-accent-primary overflow-hidden">
