@@ -160,6 +160,9 @@ function App() {
         <meta name="twitter:description" content="Official portfolio of Vasanth Shetty (Vasant Shetty) — Freelance Web Developer & Automation Specialist building high-converting websites, AI chatbots, and lead capture workflows." />
         <meta name="twitter:image" content="https://dev-vasanth.vercel.app/og-image.png" />
 
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="AI Agent Specification" />
+        <link rel="ard" href="/.well-known/ard.json" title="Agent Resource Discovery Manifest" />
+
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json" id="json-ld-schema" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Helmet>

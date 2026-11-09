@@ -1,0 +1,38 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:dev-vasanth.vercel.app:service:portfolio",
+      "displayName": "Vasanth Shetty Portfolio & Automation Services",
+      "type": "text/html",
+      "url": "https://dev-vasanth.vercel.app/",
+      "capabilities": [
+        "WebDevelopment",
+        "AIChatbots",
+        "LeadCapture",
+        "WorkflowAutomation"
+      ],
+      "description": "Full-stack web development, AI chatbot integration, and automated lead capture workflows.",
+      "representativeQueries": [
+        "hire freelance web developer",
+        "build custom React website",
+        "integrate AI chatbot for customer support",
+        "automate lead capture and appointment notifications"
+      ]
+    },
+    {
+      "identifier": "urn:air:dev-vasanth.vercel.app:doc:llms",
+      "displayName": "Vasanth Shetty LLM Overview",
+      "type": "text/markdown",
+      "url": "https://dev-vasanth.vercel.app/llms.txt",
+      "capabilities": [
+        "LLMSpecification",
+        "AgentOverview"
+      ],
+      "description": "Machine-readable documentation for AI agents and LLM crawlers.",
+      "representativeQueries": [
+        "read Vasanth Shetty capabilities",
+        "Vasanth Shetty services overview"
+      ]
+    }
+  ]
+}
