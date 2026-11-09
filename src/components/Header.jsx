@@ -52,6 +52,7 @@ export default function Header() {
   }, []);
 
   useGSAP(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
     gsap.from(container.current, {
       y: -100,
       opacity: 0,

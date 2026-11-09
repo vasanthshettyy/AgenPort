@@ -390,11 +390,12 @@ export default function HeroCursorReveal({ illustratedSrc, containerRef, onInter
       demoRafRef.current = requestAnimationFrame(stepDemo);
     };
 
-    // Schedule initial auto-demo playback after 1.2s delay
+    // Schedule initial auto-demo playback after delay (4s on mobile to avoid CPU contention during critical initial page load)
+    const initialDelay = (typeof window !== 'undefined' && window.innerWidth < 768) ? 4000 : 1500;
     if (!hasRealInteracted.current) {
       demoTimeoutRef.current = setTimeout(() => {
         runAutoDemo();
-      }, 1200);
+      }, initialDelay);
     }
 
     const onMouseEnter = (e) => {

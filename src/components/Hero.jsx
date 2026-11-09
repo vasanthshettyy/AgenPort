@@ -58,21 +58,20 @@ const Hero = () => {
     setHasInteracted(true);
   }, []);
 
-  // GSAP entrance — no overflow-hidden clip needed, animate opacity+y directly
+  // GSAP entrance — on desktop only to eliminate mobile forced reflows and ensure sub-1s LCP
   useGSAP(() => {
-    // Set initial state via GSAP (not hardcoded in JSX) so elements paint visible for LCP,
-    // then GSAP immediately hides them synchronously before the first frame, then animates in.
-    gsap.set(['.hero-line', '.hero-sub', '.hero-cta', '.hero-image-wrap'], { opacity: 0 });
-    gsap.set('.hero-line', { y: 40 });
-    gsap.set(['.hero-sub', '.hero-cta'], { y: 20 });
-    gsap.set('.hero-image-wrap', { x: 60 });
+    const isMobileView = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobileView) return;
+
+    gsap.set(['.hero-line', '.hero-sub', '.hero-cta'], { opacity: 0, y: 30 });
+    gsap.set('.hero-image-wrap', { opacity: 0, x: 40 });
 
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-    tl.to('.hero-line', { opacity: 1, y: 0, stagger: 0.12, duration: 1.2 })
-      .to('.hero-sub', { opacity: 1, y: 0, duration: 1 }, '-=0.8')
-      .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
-      .to('.hero-image-wrap', { opacity: 1, x: 0, duration: 1.5 }, '-=1.4');
+    tl.to('.hero-line', { opacity: 1, y: 0, stagger: 0.12, duration: 1.0 })
+      .to('.hero-sub', { opacity: 1, y: 0, duration: 0.8 }, '-=0.7')
+      .to('.hero-cta', { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
+      .to('.hero-image-wrap', { opacity: 1, x: 0, duration: 1.0 }, '-=0.9');
   }, { scope: container, dependencies: [isMobile] });
 
 
