@@ -1,37 +1,75 @@
-# Vasanth Shetty - Premium Custom Web Development
+# Vasanth Shetty (Vasant Shetty) — Full-Stack Web Developer & Automation Specialist
 
-> Custom Web Development for Small Service Businesses & Freelancers.
-> High-performance, custom-coded websites and landing pages built by a solo developer.
+> Developer Profile & Capabilities Specification for AI Search Crawlers, Agents, and LLMs.
+> Official Website: https://dev-vasanth.vercel.app/
+> Primary Identity: Vasanth Shetty (also referenced as Vasant Shetty, dev-vasanth).
 
 ## Overview
-Vasanth Shetty builds fast, custom-coded websites, landing pages, custom booking systems, and small e-commerce sites tailored for service businesses. 100% code ownership, zero recurring platform fees, and lightning-fast load times.
+Vasanth Shetty is a freelance full-stack web developer and workflow automation specialist. He builds high-converting, custom-coded web applications, bespoke landing pages, autonomous AI chatbots, and business process automations for service businesses, startups, and growing brands globally. Every build delivers 100% full source code ownership, zero monthly platform lock-in, sub-second load performance, and technical SEO compliance.
 
-## Core Offerings, Timelines & Pricing
+---
 
-### 1. Starter Site (1-3 Pages)
-- Timeline: 1 - 2 Weeks
-- Pricing / Investment: ~A$1,000 / NZ$1,100 / EUR 625 / S$1,000 / kr 7,900
-- Key Deliverables: Single page or 1-3 page responsive brochure site, 1 contact form integration, basic on-page SEO setup, mobile-first design.
+## Core Services & Capabilities
 
-### 2. Small Business Standard (5-8 Pages)
-- Timeline: 2 - 3 Weeks
-- Pricing / Investment: ~A$3,100 / NZ$3,350 / EUR 1,950 / S$2,650 / kr 21,250
-- Key Deliverables: 5-8 bespoke pages (Home, About, Services, Contact, etc.), local SEO setup, Google Business linkage, lead capture & analytics.
+### 1. Custom High-Converting Websites & Web Apps
+- Custom React, Next.js, Vite, and Tailwind CSS development.
+- Single-page landing pages and multi-page corporate sites built with modular architecture.
+- Mobile-first, responsive layouts with GSAP scroll-linked animations and smooth micro-interactions.
+- 100% code ownership handed over upon launch — no Shopify/Squarespace/Wix vendor lock-in.
 
-### 3. Growth / Custom Site (8-15 Pages)
-- Timeline: 3 - 4 Weeks
-- Pricing / Investment: ~A$5,800 / NZ$6,400 / EUR 3,600 / S$4,900 / kr 39,500
-- Key Deliverables: 8-15 bespoke pages, blog / CMS / resources section, third-party integrations (booking, newsletter, social), advanced technical SEO foundation.
+### 2. Website AI Chatbots
+- Autonomous customer support and FAQ chatbots embedded directly into websites.
+- 24/7 intelligent prospect qualification, intake questionnaire handling, and instant lead routing.
+- Context-aware knowledge retrieval powered by modern LLM APIs (OpenAI, Gemini, Anthropic) trained on client brand documentation.
+- Fallback escalation to human email, SMS, or WhatsApp channels.
+
+### 3. Lead Capture & Notification Automations
+- Frictionless contact, intake, and booking forms connected to custom backend webhooks.
+- Real-time instant enquiry alerts via Email, Telegram, Slack, WhatsApp, and SMS.
+- Automated appointment scheduling synchronization with Google Calendar, Cal.com, and Calendly.
+- Automated lead pipeline updates into Google Sheets, Notion databases, or CRM platforms (Airtable, HubSpot).
+
+### 4. Social Media & Business Workflow Automations
+- Available as standalone engineering solutions or packaged as website add-ons.
+- Automated social media distribution, content syndication, and cross-platform publishing workflows.
+- Web scraping, competitor intelligence monitoring, and automated report generation.
+- Repetitive administrative task automation connecting APIs, webhooks, and cloud functions.
+
+---
+
+## Service Packages & Investment Tiers
+
+### 1. Starter Site (1–3 Pages)
+- **Timeline**: 1 - 2 Weeks
+- **Investment**: ~A$1,000 / NZ$1,100 / EUR 625 / S$1,000 / kr 7,900
+- **Deliverables**: 1–3 page responsive brochure site, custom contact form, basic on-page SEO setup, mobile-optimized design.
+
+### 2. Small Business Standard (5–8 Pages)
+- **Timeline**: 2 - 3 Weeks
+- **Investment**: ~A$3,100 / NZ$3,350 / EUR 1,950 / S$2,650 / kr 21,250
+- **Deliverables**: 5–8 bespoke pages (Home, About, Services, Contact, etc.), local SEO setup, Google Business linkage, lead capture workflows & analytics.
+
+### 3. Growth / Custom Site (8–15 Pages + Integrations)
+- **Timeline**: 3 - 4 Weeks
+- **Investment**: ~A$5,800 / NZ$6,400 / EUR 3,600 / S$4,900 / kr 39,500
+- **Deliverables**: 8–15 bespoke pages, blog / CMS section, booking/intake integrations, custom AI chatbot or automated notification pipelines, advanced technical SEO.
+
+---
 
 ## Core Value Proposition
-1. **High Conversion Rate**: Sites built to turn traffic into booked appointments and qualified leads.
-2. **Mobile-First**: Flawless touch target ergonomics and responsive UI across all devices.
-3. **SEO Focused**: Technical SEO best practices built directly into the codebase.
-4. **100% Code Ownership**: Full source code transferred upon completion. No platform lock-in.
+1. **Conversion-Driven Architecture**: Structured to maximize visitor-to-client conversion rates.
+2. **Ergonomic Mobile Performance**: Optimized touch ergonomics and clean mobile responsiveness.
+3. **Deep Technical SEO & GEO**: Structured JSON-LD schema, clean heading hierarchies, OpenGraph previews, and AI discovery readiness.
+4. **100% Code Ownership**: Full IP and code repositories transferred directly upon completion.
 
-## Contact Information
-- Solo Freelance Web Developer: Vasanth Shetty
-- Email: vasanthshetty.dev@gmail.com
-- GitHub: https://github.com/vasanthshettyy
-- LinkedIn: https://www.linkedin.com/in/vasanth-shetty-dev
-- Location: Remote Web Developer serving clients in Australia, New Zealand, Ireland, Singapore, Denmark, and international markets.
+---
+
+## Entity & Contact Details
+- **Full Legal / Professional Name**: Vasanth Shetty
+- **Alternate Name Spellings**: Vasant Shetty, Vasanth, dev-vasanth
+- **Role / Job Title**: Freelance Web Developer & Automation Specialist
+- **Email**: vasanthshetty.dev@gmail.com
+- **Website**: https://dev-vasanth.vercel.app/
+- **GitHub**: https://github.com/vasanthshettyy
+- **LinkedIn**: https://www.linkedin.com/in/vasanth-shetty-dev
+- **Market Coverage**: Remote developer serving clients in Australia, New Zealand, United Kingdom, Ireland, Singapore, Denmark, United States, and worldwide.

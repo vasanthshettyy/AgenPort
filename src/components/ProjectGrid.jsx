@@ -146,6 +146,8 @@ function ProjectPreview({ project }) {
               key={src}
               src={src}
               alt={`${project.title} screenshot ${i + 1}`}
+              loading="lazy"
+              decoding="async"
               className={`absolute inset-0 w-full h-full object-cover object-top ${
                 reduceMotion ? 'transition-none' : 'transition-opacity duration-500'
               } ${i === index ? 'opacity-100' : 'opacity-0'}`}

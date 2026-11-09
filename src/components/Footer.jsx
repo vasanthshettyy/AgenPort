@@ -30,9 +30,9 @@ export default function Footer() {
       <div className="max-w-[1400px] w-full mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-start lg:items-end mb-8 sm:mb-12 lg:mb-32">
           <div>
-            <h2 className="text-2xl sm:text-4xl lg:text-6xl xl:text-massive font-sans font-bold tracking-tighter mb-3 sm:mb-4 lg:mb-12">
+            <p className="text-2xl sm:text-4xl lg:text-6xl xl:text-massive font-sans font-bold tracking-tighter mb-3 sm:mb-4 lg:mb-12">
               VASANTH SHETTY
-            </h2>
+            </p>
             <p className="text-sm sm:text-base lg:text-2xl xl:text-3xl text-content-secondary font-light max-w-xl">
               Building custom, high-converting websites and landing pages for service businesses.
             </p>
