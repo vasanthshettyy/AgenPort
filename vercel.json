@@ -1,5 +1,23 @@
 {
+  "redirects": [
+    {
+      "source": "/privacy-policy",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy/(.*)",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "headers": [
+    {
+      "source": "/privacy-policy(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
     {
       "source": "/.well-known/(.*)",
       "headers": [
