@@ -2,7 +2,7 @@
 
 import { navigation } from '../data/navigation';
 
-export default function Footer({ onOpenPrivacyPolicy }) {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
@@ -59,13 +59,7 @@ export default function Footer({ onOpenPrivacyPolicy }) {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 sm:pt-8 lg:pt-12 border-t border-canvas-border text-[10px] font-bold tracking-[0.2em] text-content-secondary uppercase text-center sm:text-left">
           <span>&copy; {currentYear} VASANTH SHETTY. ALL RIGHTS RESERVED.</span>
           <div className="flex gap-6 sm:gap-8">
-            <button
-              type="button"
-              onClick={onOpenPrivacyPolicy}
-              className="lg:hover:text-content-primary transition-colors py-2 min-h-[44px] inline-flex items-center text-[10px] font-bold tracking-[0.2em] text-content-secondary uppercase bg-transparent border-0 cursor-pointer p-0"
-            >
-              PRIVACY POLICY
-            </button>
+            <a href="/privacy-policy" className="lg:hover:text-content-primary transition-colors py-2 min-h-[44px] inline-flex items-center">PRIVACY POLICY</a>
           </div>
         </div>
       </div>

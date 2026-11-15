@@ -22,15 +22,6 @@ const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (window.location.pathname.startsWith('/privacy-policy')) {
-      window.history.replaceState(null, '', '/');
-      setIsPrivacyOpen(true);
-    }
-  }, []);
 
   useEffect(() => {
     const onLocationChange = () => {
@@ -40,7 +31,28 @@ function App() {
     return () => window.removeEventListener('popstate', onLocationChange);
   }, []);
 
-  if (currentPath !== '/' && currentPath !== '/index.html' && !currentPath.startsWith('/privacy-policy')) {
+  if (currentPath === '/privacy-policy' || currentPath === '/privacy-policy/') {
+    return (
+      <SmoothScroll>
+        <CustomCursor />
+        <Header />
+        <main>
+          <ErrorBoundary>
+            <Suspense fallback={null}>
+              <PrivacyPolicy />
+            </Suspense>
+          </ErrorBoundary>
+        </main>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        </ErrorBoundary>
+      </SmoothScroll>
+    );
+  }
+
+  if (currentPath !== '/' && currentPath !== '/index.html') {
     return <NotFound />;
   }
 
@@ -199,19 +211,11 @@ function App() {
 
       <ErrorBoundary>
         <Suspense fallback={null}>
-          <Footer onOpenPrivacyPolicy={() => setIsPrivacyOpen(true)} />
+          <Footer />
         </Suspense>
       </ErrorBoundary>
 
       <FloatingBadge />
-
-      {isPrivacyOpen && (
-        <ErrorBoundary>
-          <Suspense fallback={null}>
-            <PrivacyPolicy onClose={() => setIsPrivacyOpen(false)} />
-          </Suspense>
-        </ErrorBoundary>
-      )}
     </SmoothScroll>
   );
 }
