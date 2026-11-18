@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function FloatingBadge() {
   const handleClick = () => {
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });

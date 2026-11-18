@@ -51,7 +51,7 @@ const HeroHeadlineCycler = () => {
 const Hero = () => {
   const container = useRef();
   const imageWrapRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [hasInteracted, setHasInteracted] = useState(false);
 
   const handleInteraction = useCallback(() => {
