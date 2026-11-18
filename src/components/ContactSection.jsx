@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
 
 const DEFAULT_MESSAGE = "Hi Vasanth, I'm interested in building a custom web project for my business. Could we discuss the scope and project requirements?";
+
+let swalModulePromise = null;
+const loadSwal = () => {
+  if (!swalModulePromise) {
+    swalModulePromise = import('sweetalert2').then((m) => m.default || m);
+  }
+  return swalModulePromise;
+};
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -15,6 +22,14 @@ export default function ContactSection() {
   const [submittedAt, setSubmittedAt] = useState(() => Date.now());
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => loadSwal());
+      } else {
+        setTimeout(loadSwal, 2000);
+      }
+    }
+
     const handlePrefill = (e) => {
       const data = e.detail;
       if (data) {
@@ -85,44 +100,55 @@ export default function ContactSection() {
 
     setIsSubmitting(true);
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          details: formData.details,
-          website: formData.website,
-          submittedAt,
-        })
-      });
+    const swalPromise = loadSwal().catch(() => null);
+    const postPromise = fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        details: formData.details,
+        website: formData.website,
+        submittedAt,
+      })
+    });
 
+    try {
+      const [response, Swal] = await Promise.all([postPromise, swalPromise]);
       const responseData = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         throw new Error(responseData.error || 'Server returned an error');
       }
 
-      Swal.fire({
-        title: 'ENQUIRY RECEIVED',
-        text: 'I will reach out to you shortly.',
-        icon: 'success',
-        background: '#0a0a0a',
-        color: '#f5f5f7',
-        confirmButtonColor: '#00e5ff',
-      });
+      if (Swal) {
+        Swal.fire({
+          title: 'ENQUIRY RECEIVED',
+          text: 'I will reach out to you shortly.',
+          icon: 'success',
+          background: '#0a0a0a',
+          color: '#f5f5f7',
+          confirmButtonColor: '#00e5ff',
+        });
+      } else {
+        window.alert('ENQUIRY RECEIVED: I will reach out to you shortly.');
+      }
 
       resetForm();
     } catch (submitError) {
-      Swal.fire({
-        title: 'SYSTEM ERROR',
-        text: submitError.message || 'Please contact me directly.',
-        icon: 'error',
-        background: '#0a0a0a',
-        color: '#f5f5f7',
-        confirmButtonColor: '#00e5ff',
-      });
+      const Swal = await swalPromise;
+      if (Swal) {
+        Swal.fire({
+          title: 'SYSTEM ERROR',
+          text: submitError.message || 'Please contact me directly.',
+          icon: 'error',
+          background: '#0a0a0a',
+          color: '#f5f5f7',
+          confirmButtonColor: '#00e5ff',
+        });
+      } else {
+        window.alert(`SYSTEM ERROR: ${submitError.message || 'Please contact me directly.'}`);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -156,7 +182,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
+          <form onSubmit={handleSubmit} onFocus={loadSwal} className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
             <input
               type="text"
               name="website"
