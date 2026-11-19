@@ -26,7 +26,7 @@ export const faqData = [
   {
     "id": 5,
     "question": "Why should I work with a solo freelancer instead of an agency?",
-    "answer": "You get to work directly with the person actually building your site — no account managers, no handoffs between departments, no getting passed around. What I quote is what you pay, and every decision goes through one person who's fully invested in getting it right for you.",
+    "answer": "You get to work directly with the person actually building your site — no account managers, no handoffs between departments, no getting passed around. As a solo Full-Stack Web Developer, what I quote is what you pay, and every decision goes through one person who's fully invested in getting it right for you.",
     "tag": "DIRECT COLLABORATION"
   },
   {

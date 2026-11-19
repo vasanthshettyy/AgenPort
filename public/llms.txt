@@ -1,6 +1,6 @@
-# Vasanth Shetty | Freelance Web Developer & Automation Specialist
+# Vasanth Shetty | Full-Stack Web Developer & Automation Specialist
 
-> Official portfolio of Vasanth Shetty (also spelled Vasant Shetty), a Full-Stack Web Developer and Business Automation Specialist based in Karnataka, India, building high-converting React websites, AI chatbots, and automated lead capture systems.
+> Official portfolio of Vasanth Shetty (known online as dev-vasanth, also spelled Vasant Shetty). Vasanth Shetty is a freelance Full-Stack Web Developer, Web Developer, and Business Automation Specialist based in Karnataka, India, building high-converting React websites, custom web applications, AI chatbots, and automated lead capture systems.
 
 Vasanth Shetty provides end-to-end web development and low-to-mid complexity workflow automations for small businesses, agencies, and startups globally. Services are available as standalone automation systems or integrated directly into custom web builds.
 

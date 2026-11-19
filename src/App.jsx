@@ -64,24 +64,25 @@ function App() {
         "@id": "https://dev-vasanth.vercel.app/#website",
         "url": "https://dev-vasanth.vercel.app/",
         "name": "Vasanth Shetty",
-        "alternateName": ["dev-vasanth", "Vasant Shetty"]
+        "alternateName": ["dev-vasanth", "Vasant Shetty", "Vasanth Shetty Dev"]
       },
       {
         "@type": "Person",
         "@id": "https://dev-vasanth.vercel.app/#person",
         "name": "Vasanth Shetty",
-        "alternateName": ["Vasant Shetty", "Vasanth", "dev-vasanth"],
-        "jobTitle": "Freelance Web Developer & Automation Specialist",
+        "alternateName": ["Vasant Shetty", "Vasanth", "dev-vasanth", "Vasanth Shetty Dev"],
+        "jobTitle": "Full-Stack Web Developer & Automation Specialist",
         "url": "https://dev-vasanth.vercel.app/",
         "image": "https://dev-vasanth.vercel.app/vasanth-hero.webp",
         "knowsAbout": [
+          "Full-Stack Web Development",
           "Web Development",
-          "Website Chatbots",
-          "Business Automations",
-          "Lead Capture Systems",
           "React",
-          "Social Media Automation",
-          "Conversion Optimization"
+          "Next.js",
+          "Tailwind CSS",
+          "AI Chatbots",
+          "Business Automation",
+          "Lead Capture Systems"
         ],
         "sameAs": [
           "https://github.com/vasanthshettyy",
@@ -138,27 +139,27 @@ function App() {
       <CustomCursor />
       <ScrollProgress />
       <Helmet>
-        <title>Vasanth Shetty | Freelance Web Developer, AI Chatbots & Automations</title>
-        <meta name="description" content="Official portfolio of Vasanth Shetty (Vasant Shetty) — Freelance Web Developer & Automation Specialist building high-converting websites, AI chatbots, and lead capture workflows." />
+        <title>Vasanth Shetty | Full-Stack Web Developer, AI Chatbots & Automations</title>
+        <meta name="description" content="Vasanth Shetty — freelance Full-Stack Web Developer building custom websites, AI chatbots, and business automations designed to convert." />
         <link rel="canonical" href="https://dev-vasanth.vercel.app/" />
 
         {/* Open Graph (WhatsApp, iMessage, Instagram, Facebook, LinkedIn, Gmail, Slack) */}
         <meta property="og:site_name" content="Vasanth Shetty" />
-        <meta property="og:title" content="Vasanth Shetty | Freelance Web Developer, AI Chatbots & Automations" />
-        <meta property="og:description" content="Official portfolio of Vasanth Shetty (Vasant Shetty) — Freelance Web Developer & Automation Specialist building high-converting websites, AI chatbots, and lead capture workflows." />
+        <meta property="og:title" content="Vasanth Shetty | Full-Stack Web Developer, AI Chatbots & Automations" />
+        <meta property="og:description" content="Vasanth Shetty — freelance Full-Stack Web Developer building custom websites, AI chatbots, and business automations designed to convert." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dev-vasanth.vercel.app/" />
         <meta property="og:image" content="https://dev-vasanth.vercel.app/og-image.png" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Vasanth Shetty - Freelance Web Developer & Automation Specialist" />
+        <meta property="og:image:alt" content="Vasanth Shetty - Full-Stack Web Developer & Automation Specialist" />
         <meta property="og:locale" content="en_US" />
 
         {/* Twitter / X Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vasanth Shetty | Freelance Web Developer, AI Chatbots & Automations" />
-        <meta name="twitter:description" content="Official portfolio of Vasanth Shetty (Vasant Shetty) — Freelance Web Developer & Automation Specialist building high-converting websites, AI chatbots, and lead capture workflows." />
+        <meta name="twitter:title" content="Vasanth Shetty | Full-Stack Web Developer, AI Chatbots & Automations" />
+        <meta name="twitter:description" content="Vasanth Shetty — freelance Full-Stack Web Developer building custom websites, AI chatbots, and business automations designed to convert." />
         <meta name="twitter:image" content="https://dev-vasanth.vercel.app/og-image.png" />
 
         <link rel="alternate" type="text/plain" href="/llms.txt" title="AI Agent Specification" />
