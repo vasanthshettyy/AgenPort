@@ -35,6 +35,8 @@ scratch/
 *.png
 !public/*.webp
 !public/projects/*.png
+!public/favicon-96x96.png
+!public/favicon-192x192.png
 screenshot.cjs
 test-hover.cjs
 lighthouse-mobile.json

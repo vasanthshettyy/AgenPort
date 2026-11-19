@@ -1,9 +1,19 @@
 User-agent: Googlebot
 Allow: /
+Allow: /*.png$
+Allow: /*.ico$
+Disallow: /api/*
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.png$
+Allow: /*.ico$
 Disallow: /api/*
 
 User-agent: Bingbot
 Allow: /
+Allow: /*.png$
+Allow: /*.ico$
 Disallow: /api/*
 
 User-agent: GPTBot
@@ -28,6 +38,8 @@ Disallow: /api/*
 
 User-agent: *
 Allow: /
+Allow: /*.png$
+Allow: /*.ico$
 Disallow: /api/*
 
 Sitemap: https://dev-vasanth.vercel.app/sitemap.xml

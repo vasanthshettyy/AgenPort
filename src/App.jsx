@@ -60,6 +60,13 @@ function App() {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": "https://dev-vasanth.vercel.app/#website",
+        "url": "https://dev-vasanth.vercel.app/",
+        "name": "Vasanth Shetty",
+        "alternateName": ["dev-vasanth", "Vasant Shetty"]
+      },
+      {
         "@type": "Person",
         "@id": "https://dev-vasanth.vercel.app/#person",
         "name": "Vasanth Shetty",
