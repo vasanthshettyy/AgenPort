@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef, useCallback, memo, useMemo } from 'react';
 import { EMAIL, kb } from './kb.js';
 import { search, getEntryById } from './search.js';
-import SmoothOrb from './SmoothOrb.jsx';
+import Orb from './Orb.jsx';
 
 // 4 Preset Stage Suggestions
 const STAGE_SUGGESTIONS = [
@@ -76,6 +76,7 @@ export default function ChatPanel({ isOpen, onClose }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orbState, setOrbState] = useState('breathing');
   const [isMobile, setIsMobile] = useState(false);
+  const orbRef = useRef(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -182,15 +183,11 @@ export default function ChatPanel({ isOpen, onClose }) {
   // Determine stage vs conversation mode
   const isConversationMode = messages.length > 0;
 
-  // Target orb scale: 136px desktop / 112px mobile in stage, 72px in conversation
-  const targetScale = isConversationMode
-    ? 72 / 64
-    : isMobile
-    ? 112 / 64
-    : 136 / 64;
-
-  const currentOrbPx = isConversationMode ? 72 : isMobile ? 112 : 136;
-  const glowSize = Math.round(currentOrbPx * 3.2);
+  // Orb visual sizes (CSS px): stage desktop=136, mobile=112, conversation=72
+  // Single 140px canvas scaled down via CSS transform
+  const orbPx = isConversationMode ? 72 : isMobile ? 112 : 136;
+  const orbScale = orbPx / 140;
+  const glowSize = Math.round(orbPx * 3.2);
   const glowCenterY = isConversationMode ? 46 : isMobile ? 80 : 100;
   const glowOpacity = isProcessing ? 1 : 0.7;
 
@@ -311,18 +308,21 @@ export default function ChatPanel({ isOpen, onClose }) {
       ]);
 
       if (prefersReducedMotion) {
+        orbRef.current?.setState('breathing');
         setOrbState('breathing');
         setIsProcessing(false);
         return;
       }
 
       setOrbState('composing');
+      orbRef.current?.setState('composing');
 
       // 1 sec per line word reveal: transition orb back to breathing when streaming completes
       const wordsCount = fullText.split(' ').length;
       const revealDuration = wordsCount * MS_PER_WORD + 300;
       setTimeout(() => {
         setOrbState('breathing');
+        orbRef.current?.setState('breathing');
         setIsProcessing(false);
         setMessages((prev) =>
           prev.map((m) => (m.id === msgId ? { ...m, isStreaming: false } : m))
@@ -351,6 +351,7 @@ export default function ChatPanel({ isOpen, onClose }) {
       setInputVal('');
       setIsProcessing(true);
       setOrbState('solving');
+      orbRef.current?.setState('solving');
 
       const delay = prefersReducedMotion ? 0 : 2000; // 2 seconds thinking duration
       setTimeout(() => {
@@ -371,13 +372,16 @@ export default function ChatPanel({ isOpen, onClose }) {
       if (val.trim().length > 0) {
         if (orbState !== 'listening') {
           setOrbState('listening');
+          orbRef.current?.setState('listening');
         }
         if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
         typingTimerRef.current = setTimeout(() => {
           setOrbState('breathing');
+          orbRef.current?.setState('breathing');
         }, 800);
       } else {
         setOrbState('breathing');
+        orbRef.current?.setState('breathing');
       }
     }
   };
@@ -579,11 +583,15 @@ export default function ChatPanel({ isOpen, onClose }) {
           isConversationMode ? 'h-[92px]' : 'pt-6 sm:pt-8'
         }`}
       >
-        <SmoothOrb
-          state={orbState}
-          scale={targetScale}
-          enableParallax={!isConversationMode}
-        />
+        <div
+          style={{
+            transform: `scale(${orbScale})`,
+            transformOrigin: 'center center',
+            transition: prefersReducedMotion ? 'none' : 'transform 450ms cubic-bezier(0.32, 0.72, 0, 1)',
+          }}
+        >
+          <Orb ref={orbRef} initialState="breathing" />
+        </div>
       </div>
     </div>
 
