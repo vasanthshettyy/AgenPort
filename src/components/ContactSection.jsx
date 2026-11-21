@@ -232,7 +232,7 @@ export default function ContactSection() {
 
             {error && <div className="text-content-accent text-sm font-bold tracking-widest uppercase">{error}</div>}
 
-            <div className="mt-2 lg:mt-4">
+            <div className="mt-2 lg:mt-4 flex flex-col items-start gap-4">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -248,6 +248,19 @@ export default function ContactSection() {
                 )}
                 <div className="btn-fill-layer bg-content-accent" />
               </button>
+
+              <p className="text-xs sm:text-sm text-content-secondary font-light">
+                By submitting, you agree to our{' '}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-content-primary underline underline-offset-4 hover:text-content-accent transition-colors"
+                >
+                  Privacy Policy
+                </a>
+                .
+              </p>
             </div>
           </form>
         </div>
