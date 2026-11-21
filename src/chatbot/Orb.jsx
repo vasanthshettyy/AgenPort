@@ -10,24 +10,10 @@ import {
   finalizeFrame,
 } from 'thinking-orbs/engine';
 
-// scaleCounts is not exported by thinking-orbs/engine — implement manually
-// opts contains numeric count-like fields; we scale them up for the larger 140px canvas
-function scaleCounts(opts, factor) {
-  if (!opts) return opts;
-  const out = { ...opts };
-  // Known count fields used by the engine presets
-  const countFields = ['count', 'dotCount', 'lineCount', 'ringCount', 'segmentCount', 'points', 'arms'];
-  for (const f of countFields) {
-    if (typeof out[f] === 'number') out[f] = Math.round(out[f] * factor);
-  }
-  return out;
-}
-
 // ─── Constants ────────────────────────────────────────────────────────────────
 const S = 140; // CSS px; never reassigned
 const TINT = { r: 0, g: 229, b: 255 };
-const N_MAX = 520;
-const COUNT_SCALE = 1.45; // tune: 1.3–1.6
+const N_MAX = 580;
 const SPEED_TARGETS = {
   breathing: 0.7,
   listening: 1.0,
@@ -69,7 +55,7 @@ const presetCache = {};
 function getPreset(state) {
   if (!presetCache[state]) {
     const { mode, opts } = resolvePreset(state, 64);
-    presetCache[state] = { mode, opts: scaleCounts(opts, COUNT_SCALE) };
+    presetCache[state] = { mode, opts };
   }
   return presetCache[state];
 }
@@ -240,8 +226,8 @@ const Orb = memo(
         if (reduced) {
           // Static frame
           const { mode, opts } = getPreset(s.state);
-          const frame = MODE_FRAMES[mode](S, 0.6, opts);
-          finalizeFrame(frame);
+          const raw = MODE_FRAMES[mode](S, 0.6, opts);
+          const frame = finalizeFrame(raw.dots, raw.lines || []);
           paintFrame(ctx, frame, true, TINT);
         } else if (s.morph) {
           // ── MORPH FRAME ─────────────────────────────────────────────────
@@ -300,8 +286,7 @@ const Orb = memo(
             }
           }
 
-          const blendFrame = { dots: DOTS_BLEND.slice(0, N), lines: blendedLines };
-          finalizeFrame(blendFrame);
+          const blendFrame = finalizeFrame(DOTS_BLEND.slice(0, N), blendedLines);
           paintFrame(ctx, blendFrame, true, TINT);
 
           if (m.progress >= 1) {
@@ -318,15 +303,15 @@ const Orb = memo(
         } else {
           // ── STEADY FRAME ─────────────────────────────────────────────────
           const { mode, opts } = getPreset(s.state);
-          const frame = MODE_FRAMES[mode](S, s.phases[s.state] || 0, opts);
+          const raw = MODE_FRAMES[mode](S, s.phases[s.state] || 0, opts);
           // Snapshot for interrupt
-          const cnt = Math.min(frame.dots.length, N_MAX);
+          const cnt = Math.min(raw.dots.length, N_MAX);
           for (let i = 0; i < cnt; i++) {
-            const d = frame.dots[i];
+            const d = raw.dots[i];
             s.steadyDots[i] = { x: d.x, y: d.y, z: d.z, r: d.r, white: d.white, a: d.a };
           }
           s.steadyCount = cnt;
-          finalizeFrame(frame);
+          const frame = finalizeFrame(raw.dots, raw.lines || []);
           paintFrame(ctx, frame, true, TINT);
         }
 
