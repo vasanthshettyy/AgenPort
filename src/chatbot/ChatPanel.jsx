@@ -188,7 +188,7 @@ export default function ChatPanel({ isOpen, onClose }) {
   const orbPx = isConversationMode ? 72 : isMobile ? 112 : 136;
   const orbScale = orbPx / 140;
   const glowSize = Math.round(orbPx * 3.2);
-  const glowCenterY = isConversationMode ? 46 : isMobile ? 80 : 100;
+  const glowCenterY = isConversationMode ? 44 : isMobile ? 80 : 90;
   const glowOpacity = isProcessing ? 1 : 0.7;
 
   // Auto-scroll on new messages & continuous scroll tracking during streaming
@@ -460,8 +460,8 @@ export default function ChatPanel({ isOpen, onClose }) {
         </button>
       </div>
 
-      {/* ── Main Panel Content Area (Glow z-0 -> Messages z-10 -> Orb z-20) ── */}
-      <div className="relative flex-1 min-h-0 flex flex-col">
+      {/* ── Main Panel Content Area (Glow z-0 -> Orb Bar z-20 -> Messages z-10) ── */}
+      <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden">
         {/* Layer 0: Glow (separate element, centered on the orb, 3.2x orb size, z-0) */}
         <div
           className="absolute pointer-events-none z-0 rounded-full"
@@ -480,26 +480,45 @@ export default function ChatPanel({ isOpen, onClose }) {
           }}
         />
 
-        {/* Layer 1: Scrollable Body (Messages in front of glow, beneath orb) */}
+        {/* Top Orb Container (Always above text — text is strictly BELOW the orb) */}
+        <div
+          className={`shrink-0 flex items-center justify-center relative z-20 pointer-events-none ${
+            isConversationMode ? 'h-[88px]' : 'h-[160px] sm:h-[180px]'
+          }`}
+          style={{
+            transition: prefersReducedMotion ? 'none' : 'height 450ms cubic-bezier(0.32, 0.72, 0, 1)',
+          }}
+        >
+          <div
+            style={{
+              transform: `scale(${orbScale})`,
+              transformOrigin: 'center center',
+              transition: prefersReducedMotion ? 'none' : 'transform 450ms cubic-bezier(0.32, 0.72, 0, 1)',
+            }}
+          >
+            <Orb ref={orbRef} initialState="breathing" />
+          </div>
+        </div>
+
+        {/* Layer 1: Scrollable Body (Messages strictly BELOW the orb) */}
         <div
           ref={scrollContainerRef}
           data-lenis-prevent
           tabIndex={0}
           aria-live="polite"
-          className="flex-1 overflow-y-auto px-6 focus:outline-none scroll-smooth relative z-10"
+          className="flex-1 min-h-0 overflow-y-auto px-6 focus:outline-none scroll-smooth relative z-10"
           style={{
-            paddingTop: isConversationMode ? '92px' : '0px',
             maskImage: isConversationMode
-              ? 'linear-gradient(to bottom, transparent 0, #000 40px)'
+              ? 'linear-gradient(to bottom, transparent 0, #000 16px)'
               : 'none',
             WebkitMaskImage: isConversationMode
-              ? 'linear-gradient(to bottom, transparent 0, #000 40px)'
+              ? 'linear-gradient(to bottom, transparent 0, #000 16px)'
               : 'none',
           }}
         >
           {!isConversationMode ? (
             /* ── STAGE (EMPTY STATE) ── */
-            <div className="flex flex-col items-center justify-center text-center space-y-2 pt-[148px] sm:pt-[172px] pb-6">
+            <div className="flex flex-col items-center justify-center text-center space-y-2 pt-2 pb-6">
               <h2 className="text-[22px] font-sans font-light tracking-tight text-[#f5f5f7] leading-snug">
                 What would you like to know?
               </h2>
@@ -509,7 +528,7 @@ export default function ChatPanel({ isOpen, onClose }) {
             </div>
           ) : (
           /* ── CONVERSATION MODE ── */
-          <div className="space-y-6 pb-4">
+          <div className="space-y-6 pb-4 pt-1">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -575,23 +594,6 @@ export default function ChatPanel({ isOpen, onClose }) {
             )}
           </div>
         )}
-      </div>
-
-      {/* Layer 2: Orb (z-20, no background, pointer-events-none) */}
-      <div
-        className={`absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none z-20 ${
-          isConversationMode ? 'h-[92px]' : 'pt-6 sm:pt-8'
-        }`}
-      >
-        <div
-          style={{
-            transform: `scale(${orbScale})`,
-            transformOrigin: 'center center',
-            transition: prefersReducedMotion ? 'none' : 'transform 450ms cubic-bezier(0.32, 0.72, 0, 1)',
-          }}
-        >
-          <Orb ref={orbRef} initialState="breathing" />
-        </div>
       </div>
     </div>
 
