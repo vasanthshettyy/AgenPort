@@ -8,6 +8,7 @@ import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
 import FloatingBadge from './components/FloatingBadge';
+import ChatbotLauncher from './chatbot/ChatbotLauncher';
 
 // Lazy load below-the-fold components (Phase 8E.1)
 const ValueSection = React.lazy(() => import('./components/ValueSection'));
@@ -224,6 +225,7 @@ function App() {
       </ErrorBoundary>
 
       <FloatingBadge />
+      <ChatbotLauncher />
     </SmoothScroll>
   );
 }
