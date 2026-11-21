@@ -4,40 +4,57 @@ import gsap from 'gsap';
 const CustomCursor = () => {
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
-    // Skip listener attachment on touch/mobile devices where cursor is hidden
-    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+    // Only disable if device strictly lacks hover (pure touch screen like phones/tablets)
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
       return;
     }
 
     const cursor = cursorRef.current;
     const follower = followerRef.current;
+    if (!cursor || !follower) return;
 
     gsap.set([cursor, follower], { xPercent: -50, yPercent: -50 });
 
+    const showCursor = () => {
+      if (!isVisibleRef.current) {
+        isVisibleRef.current = true;
+        gsap.to([cursor, follower], { opacity: 1, duration: 0.15 });
+      }
+    };
+
+    const hideCursor = () => {
+      isVisibleRef.current = false;
+      gsap.to([cursor, follower], { opacity: 0, duration: 0.15 });
+    };
+
     const onMouseMove = (e) => {
       const { clientX, clientY } = e;
-      
+
+      // Ensure cursor is visible on mouse movement (e.g. immediately after load/refresh)
+      showCursor();
+
       gsap.to(cursor, {
         x: clientX,
         y: clientY,
-        duration: 0.1,
+        duration: 0.08,
       });
 
       gsap.to(follower, {
         x: clientX,
         y: clientY,
-        duration: 0.3,
+        duration: 0.25,
       });
     };
 
     const onMouseEnter = () => {
-      gsap.to([cursor, follower], { opacity: 1 });
+      showCursor();
     };
 
     const onMouseLeave = () => {
-      gsap.to([cursor, follower], { opacity: 0 });
+      hideCursor();
     };
 
     const onMouseDown = () => {
@@ -48,7 +65,7 @@ const CustomCursor = () => {
       gsap.to(follower, { scale: 1, duration: 0.2 });
     };
 
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseenter', onMouseEnter);
     document.addEventListener('mouseleave', onMouseLeave);
     window.addEventListener('mousedown', onMouseDown);
@@ -67,11 +84,11 @@ const CustomCursor = () => {
     <>
       <div
         ref={cursorRef}
-        className="hidden lg:block fixed top-0 left-0 w-2 h-2 bg-content-accent rounded-full pointer-events-none z-[9999] opacity-0 mix-blend-difference"
+        className="fixed top-0 left-0 w-2 h-2 bg-content-accent rounded-full pointer-events-none z-[9999] opacity-0 mix-blend-difference"
       />
       <div
         ref={followerRef}
-        className="hidden lg:block fixed top-0 left-0 w-10 h-10 border-2 border-content-accent rounded-full pointer-events-none z-[9998] opacity-0 mix-blend-difference"
+        className="fixed top-0 left-0 w-10 h-10 border-2 border-content-accent rounded-full pointer-events-none z-[9998] opacity-0 mix-blend-difference"
       />
     </>
   );
