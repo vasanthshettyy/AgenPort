@@ -464,6 +464,7 @@ export default function ChatPanel({ isOpen, onClose }) {
       />
 
       <div
+        id="chatbot-panel"
         ref={panelRef}
         role="dialog"
         aria-modal="true"
@@ -764,6 +765,20 @@ export default function ChatPanel({ isOpen, onClose }) {
       </form>
 
       <style>{`
+        #chatbot-panel,
+        #chatbot-panel * {
+          cursor: auto;
+        }
+        #chatbot-panel button,
+        #chatbot-panel a,
+        #chatbot-panel [role="button"],
+        #chatbot-panel .cursor-pointer {
+          cursor: pointer !important;
+        }
+        #chatbot-panel input,
+        #chatbot-panel textarea {
+          cursor: text !important;
+        }
         @keyframes wordReveal {
           from {
             opacity: 0;
