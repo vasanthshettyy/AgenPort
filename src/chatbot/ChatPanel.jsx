@@ -158,6 +158,36 @@ export default function ChatPanel({ isOpen, onClose }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Lock body scroll on mobile (<640px) when chat panel is open
+  useEffect(() => {
+    if (!isOpen || !isMobile) return;
+
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    const prevPosition = document.body.style.position;
+    const prevTop = document.body.style.top;
+    const prevLeft = document.body.style.left;
+    const prevRight = document.body.style.right;
+    const prevOverflow = document.body.style.overflow;
+    const prevWidth = document.body.style.width;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.position = prevPosition;
+      document.body.style.top = prevTop;
+      document.body.style.left = prevLeft;
+      document.body.style.right = prevRight;
+      document.body.style.width = prevWidth;
+      document.body.style.overflow = prevOverflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, [isOpen, isMobile]);
+
   // Close suggestions on click outside
   useEffect(() => {
     if (!isDropdownOpen) return;
@@ -424,16 +454,26 @@ export default function ChatPanel({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div
-      ref={panelRef}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Ask about Vasanth's services"
-      className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-20 sm:right-6 z-50 w-full sm:w-[392px] h-[92dvh] sm:h-[600px] sm:max-h-[min(640px,calc(100dvh-48px))] flex flex-col bg-[#0d0d0d] border-t sm:border border-[#1f1f1f] rounded-t-[28px] sm:rounded-[28px] shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
-      style={{
-        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 60px rgba(0, 0, 0, 0.85)',
-      }}
-    >
+    <>
+      {/* ── Mobile Backdrop Scrim ── */}
+      <div
+        className="fixed inset-0 bg-black/40 z-40 sm:hidden transition-opacity duration-300"
+        onClick={onClose}
+        onTouchMove={(e) => e.preventDefault()}
+        aria-hidden="true"
+      />
+
+      <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Ask about Vasanth's services"
+        className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-20 sm:right-6 z-50 w-full sm:w-[392px] h-[92dvh] sm:h-[600px] sm:max-h-[min(640px,calc(100dvh-48px))] flex flex-col bg-[#0d0d0d] border-t sm:border border-[#1f1f1f] rounded-t-[28px] sm:rounded-[28px] shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] overscroll-contain"
+        style={{
+          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 60px rgba(0, 0, 0, 0.85)',
+          overscrollBehavior: 'contain',
+        }}
+      >
       {/* ── Mobile Grab Handle ── */}
       <div className="sm:hidden flex items-center justify-center pt-3 pb-1 shrink-0">
         <div className="w-10 h-1 bg-white/20 rounded-full" />
@@ -506,8 +546,10 @@ export default function ChatPanel({ isOpen, onClose }) {
           data-lenis-prevent
           tabIndex={0}
           aria-live="polite"
-          className="flex-1 min-h-0 overflow-y-auto px-6 focus:outline-none scroll-smooth relative z-10"
+          className="flex-1 min-h-0 overflow-y-auto px-6 focus:outline-none scroll-smooth relative z-10 overscroll-contain"
           style={{
+            overscrollBehavior: 'contain',
+            WebkitOverflowScrolling: 'touch',
             maskImage: isConversationMode
               ? 'linear-gradient(to bottom, transparent 0, #000 16px)'
               : 'none',
@@ -606,7 +648,8 @@ export default function ChatPanel({ isOpen, onClose }) {
         {isDropdownOpen && (
           <div
             ref={suggestionsMenuRef}
-            className="absolute bottom-[calc(100%+8px)] inset-x-4 bg-[#121212] border border-[#242424] rounded-2xl shadow-[0_-12px_36px_rgba(0,0,0,0.85)] p-2 z-40 flex flex-col gap-1 backdrop-blur-md"
+            className="absolute bottom-[calc(100%+8px)] inset-x-4 bg-[#121212] border border-[#242424] rounded-2xl shadow-[0_-12px_36px_rgba(0,0,0,0.85)] p-2 z-40 flex flex-col gap-1 backdrop-blur-md max-h-[260px] overflow-y-auto overscroll-contain"
+            style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}
           >
             <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1f1f1f] mb-1">
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#a1a1a6]">
@@ -735,5 +778,6 @@ export default function ChatPanel({ isOpen, onClose }) {
         }
       `}</style>
     </div>
+    </>
   );
 }
