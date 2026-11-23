@@ -87,7 +87,8 @@ function App() {
         ],
         "sameAs": [
           "https://github.com/vasanthshettyy",
-          "https://www.linkedin.com/in/vasanth-shetty-dev"
+          "https://www.linkedin.com/in/vasanth-shetty-dev",
+          "https://www.instagram.com/vasanthshetty.dev/"
         ]
       },
       {
@@ -108,7 +109,8 @@ function App() {
         },
         "sameAs": [
           "https://github.com/vasanthshettyy",
-          "https://www.linkedin.com/in/vasanth-shetty-dev"
+          "https://www.linkedin.com/in/vasanth-shetty-dev",
+          "https://www.instagram.com/vasanthshetty.dev/"
         ]
       },
       {

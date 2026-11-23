@@ -179,6 +179,10 @@ export default function ContactSection() {
                 <span className="w-2 h-2 bg-content-accent rounded-full flex-shrink-0" />
                 <span className="text-sm sm:text-base">GitHub</span>
               </a>
+              <a href="https://www.instagram.com/vasanthshetty.dev/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:gap-4 hover:text-content-primary transition-colors min-h-[44px]">
+                <span className="w-2 h-2 bg-content-accent rounded-full flex-shrink-0" />
+                <span className="text-sm sm:text-base">Instagram</span>
+              </a>
             </div>
           </div>
 

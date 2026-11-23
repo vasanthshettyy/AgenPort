@@ -1486,6 +1486,8 @@ export const kb = [
       "linkedin",
       "github",
       "social media",
+      "instagram",
+      "insta",
       "inquiry",
       "enquiry",
       "message you",
@@ -1494,7 +1496,7 @@ export const kb = [
       "how to contact vasanth",
       "contact form submission"
     ],
-    "a": "You can reach Vasanth through the contact form or by email at vasanthshetty.dev@gmail.com. He's also on LinkedIn and GitHub. After you submit the form he reaches out shortly; no fixed response time is published.",
+    "a": "You can reach Vasanth through the contact form or by email at vasanthshetty.dev@gmail.com. He's also on LinkedIn, GitHub, and Instagram. After you submit the form he reaches out shortly; no fixed response time is published.",
     "cta": "contact",
     "links": [
       {
@@ -1508,15 +1510,20 @@ export const kb = [
       {
         "label": "GitHub",
         "href": "https://github.com/vasanthshettyy"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/vasanthshetty.dev/"
       }
     ],
     "kw": [
       "contact",
       "reach",
       "inquiry",
-      "enquiry"
+      "enquiry",
+      "instagram"
     ],
-    "source": "src/components/PrivacyPolicy.jsx (lines 81-83)"
+    "source": "src/components/ContactSection.jsx (lines 170-186)"
   },
   {
     "id": "email",
